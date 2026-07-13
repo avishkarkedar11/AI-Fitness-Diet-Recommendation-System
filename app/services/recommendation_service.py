@@ -17,6 +17,10 @@ class RecommendationService:
     Generates personalized workout and diet recommendations.
     """
 
+    # =====================================================
+    # Generate Recommendation
+    # =====================================================
+
     @staticmethod
     def generate(user_id):
         """
@@ -36,24 +40,44 @@ class RecommendationService:
             else profile.weight_kg
         )
 
-        # Calculate BMI (used only for workout logic)
+        # ---------------------------------------------
+        # BMI
+        # ---------------------------------------------
+
         bmi = BMIService.calculate(
             current_weight,
             profile.height_cm
         )
 
+        # ---------------------------------------------
         # Nutrition Report
-        nutrition = CalorieService.nutrition_report(profile)
+        # ---------------------------------------------
 
-        # Workout & Diet
+        nutrition = CalorieService.nutrition_report(
+            profile
+        )
+
+        # ---------------------------------------------
+        # Workout Recommendation
+        # ---------------------------------------------
+
         workout = RecommendationService.workout_plan(
-            profile.goal,
+            profile,
             bmi
         )
 
+        # ---------------------------------------------
+        # Diet Recommendation
+        # ---------------------------------------------
+
         diet = RecommendationService.diet_plan(
-            profile.goal
+            profile,
+            nutrition
         )
+
+        # ---------------------------------------------
+        # Save Recommendation
+        # ---------------------------------------------
 
         recommendation = SavedRecommendation(
 
@@ -87,73 +111,243 @@ class RecommendationService:
     # =====================================================
 
     @staticmethod
-    def workout_plan(goal, bmi):
+    def workout_plan(profile, bmi):
+        """
+        Generate personalized workout plan.
+        """
 
-        goal = str(goal).lower()
+        workout = []
+
+        goal = profile.goal.value.lower()
+
+        # ---------------------------------------------
+        # Goal Based Workout
+        # ---------------------------------------------
 
         if "lose" in goal:
 
-            return (
-                "45 min Cardio\n"
-                "30 min Strength Training\n"
-                "10,000 Steps Daily"
-            )
+            workout.extend([
+                "45 min Cardio",
+                "30 min Strength Training",
+                "10,000 Daily Steps"
+            ])
 
         elif "gain" in goal:
 
-            return (
-                "60 min Weight Training\n"
-                "Compound Exercises\n"
+            workout.extend([
+                "60 min Weight Training",
+                "Compound Exercises",
                 "Progressive Overload"
+            ])
+
+        else:
+
+            workout.extend([
+                "30 min Mixed Workout",
+                "Strength + Cardio",
+                "Flexibility Training"
+            ])
+
+        # ---------------------------------------------
+        # BMI Recommendation
+        # ---------------------------------------------
+
+        if bmi >= 30:
+
+            workout.append(
+                "Prefer Low Impact Exercises (Walking/Cycling)"
             )
 
-        elif bmi >= 30:
+        elif bmi < 18.5:
 
-            return (
-                "Low Impact Cardio\n"
-                "Walking\n"
-                "Cycling\n"
-                "Light Strength Training"
+            workout.append(
+                "Focus on Muscle Building Exercises"
             )
 
-        return (
-            "30 min Mixed Workout\n"
-            "Strength + Cardio\n"
-            "Stretching"
-        )
+        # ---------------------------------------------
+        # Workout Hours
+        # ---------------------------------------------
 
-    # =====================================================
+        if profile.workout_hours < 1:
+
+            workout.append(
+                "Increase workout duration gradually."
+            )
+
+        elif profile.workout_hours > 2:
+
+            workout.append(
+                "Ensure adequate recovery between sessions."
+            )
+
+        # ---------------------------------------------
+        # Daily Steps
+        # ---------------------------------------------
+
+        if profile.daily_steps < 5000:
+
+            workout.append(
+                "Increase daily walking activity."
+            )
+
+        elif profile.daily_steps >= 10000:
+
+            workout.append(
+                "Excellent daily activity level."
+            )
+
+        # ---------------------------------------------
+        # Sleep
+        # ---------------------------------------------
+
+        if profile.sleep_hours < 7:
+
+            workout.append(
+                "Improve sleep to support muscle recovery."
+            )
+
+        # ---------------------------------------------
+        # Medical Conditions
+        # ---------------------------------------------
+
+        if (
+            profile.medical_conditions
+            and profile.medical_conditions.lower() != "none"
+        ):
+
+            workout.append(
+                f"Exercise with caution due to: {profile.medical_conditions}."
+            )
+
+        return workout
+    
+        # =====================================================
     # Diet Recommendation
     # =====================================================
 
     @staticmethod
-    def diet_plan(goal):
+    def diet_plan(profile, nutrition):
+        """
+        Generate personalized diet plan.
+        """
 
-        goal = str(goal).lower()
+        diet = []
+
+        goal = profile.goal.value.lower()
+
+        # ---------------------------------------------
+        # Goal Based Diet
+        # ---------------------------------------------
 
         if "lose" in goal:
 
-            return (
-                "High Protein\n"
-                "Low Sugar\n"
-                "Vegetables\n"
+            diet.extend([
+                "High Protein Meals",
+                "Low Sugar Intake",
+                "High Fiber Vegetables",
                 "Healthy Fats"
-            )
+            ])
 
         elif "gain" in goal:
 
-            return (
-                "High Protein\n"
-                "Complex Carbohydrates\n"
-                "Healthy Calories"
+            diet.extend([
+                "High Protein Meals",
+                "Complex Carbohydrates",
+                "Calorie Surplus Diet",
+                "Healthy Snacks"
+            ])
+
+        else:
+
+            diet.extend([
+                "Balanced Diet",
+                "Whole Grains",
+                "Lean Protein",
+                "Fresh Fruits & Vegetables"
+            ])
+
+        # ---------------------------------------------
+        # Dietary Preference
+        # ---------------------------------------------
+
+        preference = profile.dietary_preference.lower()
+
+        if preference == "vegetarian":
+
+            diet.append(
+                "Protein Sources: Paneer, Milk, Soybean, Lentils"
             )
 
-        return (
-            "Balanced Diet\n"
-            "Protein\n"
-            "Whole Grains\n"
-            "Fruits"
+        elif preference == "non-vegetarian":
+
+            diet.append(
+                "Protein Sources: Chicken, Eggs, Fish"
+            )
+
+        elif preference == "vegan":
+
+            diet.append(
+                "Protein Sources: Tofu, Soy Milk, Chickpeas"
+            )
+
+        elif preference == "eggetarian":
+
+            diet.append(
+                "Protein Sources: Eggs, Paneer, Lentils"
+            )
+
+        elif preference == "jain":
+
+            diet.append(
+                "Follow Jain dietary guidelines with high-protein alternatives."
+            )
+
+        # ---------------------------------------------
+        # Water Intake
+        # ---------------------------------------------
+
+        diet.append(
+            f"Drink at least {nutrition['water_liters']} L water daily."
         )
+
+        # ---------------------------------------------
+        # Calories
+        # ---------------------------------------------
+
+        diet.append(
+            f"Daily Calories: {nutrition['target_calories']} kcal"
+        )
+
+        # ---------------------------------------------
+        # Macronutrients
+        # ---------------------------------------------
+
+        diet.append(
+            f"Protein: {nutrition['protein_g']} g/day"
+        )
+
+        diet.append(
+            f"Carbohydrates: {nutrition['carbs_g']} g/day"
+        )
+
+        diet.append(
+            f"Healthy Fats: {nutrition['fat_g']} g/day"
+        )
+
+        # ---------------------------------------------
+        # Medical Conditions
+        # ---------------------------------------------
+
+        if (
+            profile.medical_conditions
+            and profile.medical_conditions.lower() != "none"
+        ):
+
+            diet.append(
+                f"Consult your healthcare provider regarding your diet because of: {profile.medical_conditions}."
+            )
+
+        return diet
 
     # =====================================================
     # Latest Recommendation
@@ -163,11 +357,13 @@ class RecommendationService:
     def latest(user_id):
         """
         Return the latest recommendation for a user.
-    """
+        """
 
         return (
             SavedRecommendation.query
             .filter_by(user_id=user_id)
-            .order_by(SavedRecommendation.generated_at.desc())
+            .order_by(
+                SavedRecommendation.generated_at.desc()
+            )
             .first()
         )

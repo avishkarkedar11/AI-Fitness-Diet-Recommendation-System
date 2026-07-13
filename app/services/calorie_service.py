@@ -74,10 +74,38 @@ class CalorieService:
 
         factor = cls.ACTIVITY_FACTORS.get(
             profile.activity_level,
-            1.2
+            1.20
         )
 
-        return round(bmr * factor)
+        tdee = bmr * factor
+
+        # --------------------------------------
+        # Workout Adjustment
+        # --------------------------------------
+
+        workout_hours = profile.workout_hours or 0
+
+        tdee += workout_hours * 120
+
+        # --------------------------------------
+        # Daily Steps Adjustment
+        # --------------------------------------
+
+        steps = profile.daily_steps or 0
+
+        if steps >= 12000:
+            tdee += 250
+
+        elif steps >= 10000:
+            tdee += 180
+
+        elif steps >= 8000:
+            tdee += 120
+
+        elif steps >= 5000:
+            tdee += 60
+
+        return round(tdee)
 
     # ==========================================
     # Target Calories
@@ -86,18 +114,24 @@ class CalorieService:
     @classmethod
     def target_calories(cls, profile):
         """
-        Calculate calories based on fitness goal.
+        Calculate calories according to goal.
         """
 
         calories = cls.calculate_tdee(profile)
 
         if profile.goal == FitnessGoal.LOSE_WEIGHT:
+
             calories -= 500
 
         elif profile.goal == FitnessGoal.GAIN_WEIGHT:
+
             calories += 400
 
-        return max(calories, 1200)
+        elif profile.goal == FitnessGoal.MAINTAIN_WEIGHT:
+
+            calories += 0
+
+        return max(round(calories), 1200)
 
     # ==========================================
     # Water Intake
@@ -107,11 +141,13 @@ class CalorieService:
     def water_intake(profile):
         """
         Daily water intake in liters.
-        Formula:
-        35 ml × body weight
         """
 
         liters = (profile.weight_kg * 35) / 1000
+
+        workout = profile.workout_hours or 0
+
+        liters += workout * 0.5
 
         return round(liters, 1)
 
@@ -122,18 +158,21 @@ class CalorieService:
     @classmethod
     def macronutrients(cls, profile):
         """
-        Calculate Protein, Carbs and Fats.
+        Calculate daily macros.
         """
 
         calories = cls.target_calories(profile)
 
-        # Protein
+        # Protein (2 g/kg)
+
         protein = profile.weight_kg * 2
 
-        # Fat
+        # Fat (25%)
+
         fats = (calories * 0.25) / 9
 
-        # Remaining Calories
+        # Remaining Calories → Carbs
+
         remaining = calories - (
             protein * 4 +
             fats * 9
@@ -144,7 +183,7 @@ class CalorieService:
         return {
             "protein_g": round(protein),
             "carbs_g": round(carbs),
-            "fat_g": round(fats),
+            "fat_g": round(fats)
         }
 
     # ==========================================
@@ -154,11 +193,15 @@ class CalorieService:
     @classmethod
     def nutrition_report(cls, profile):
         """
-        Returns complete nutrition information.
+        Generate complete nutrition report.
         """
 
-        bmr = round(cls.calculate_bmr(profile))
+        bmr = round(
+            cls.calculate_bmr(profile)
+        )
+
         tdee = cls.calculate_tdee(profile)
+
         calories = cls.target_calories(profile)
 
         macros = cls.macronutrients(profile)

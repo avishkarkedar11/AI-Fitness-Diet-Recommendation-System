@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block title %}
+Fitness Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        Complete Your Fitness Profile
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+                        <!-- ========================= -->
+                        <!-- Personal Information -->
+                        <!-- ========================= -->
+
+                        <h5 class="mb-3">Personal Information</h5>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.age.label(class="form-label") }}
+                                {{ form.age(class="form-control") }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.gender.label(class="form-label") }}
+                                {{ form.gender(class="form-select") }}
+
+                            </div>
+
+                        </div>
+
+                        <!-- ========================= -->
+                        <!-- Body Measurements -->
+                        <!-- ========================= -->
+
+                        <h5 class="mt-4 mb-3">Body Measurements</h5>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.height_cm.label(class="form-label") }}
+                                {{ form.height_cm(class="form-control") }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.weight_kg.label(class="form-label") }}
+                                {{ form.weight_kg(class="form-control") }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.target_weight_kg.label(class="form-label") }}
+                                {{ form.target_weight_kg(class="form-control") }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.body_fat_percentage.label(class="form-label") }}
+                                {{ form.body_fat_percentage(class="form-control") }}
+
+                            </div>
+
+                        </div>
+
+                        <!-- ========================= -->
+                        <!-- Daily Activity -->
+                        <!-- ========================= -->
+
+                        <h5 class="mt-4 mb-3">Daily Activity</h5>
+
+                        <div class="row">
+
+                            <div class="col-md-4 mb-3">
+
+                                {{ form.workout_hours.label(class="form-label") }}
+                                {{ form.workout_hours(class="form-control") }}
+
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+
+                                {{ form.sleep_hours.label(class="form-label") }}
+                                {{ form.sleep_hours(class="form-control") }}
+
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+
+                                {{ form.daily_steps.label(class="form-label") }}
+                                {{ form.daily_steps(class="form-control") }}
+
+                            </div>
+
+                        </div>
+
+                        <!-- ========================= -->
+                        <!-- Fitness -->
+                        <!-- ========================= -->
+
+                        <h5 class="mt-4 mb-3">Fitness Details</h5>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.activity_level.label(class="form-label") }}
+                                {{ form.activity_level(class="form-select") }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.goal.label(class="form-label") }}
+                                {{ form.goal(class="form-select") }}
+
+                            </div>
+
+                        </div>
+
+                        <!-- ========================= -->
+                        <!-- Diet -->
+                        <!-- ========================= -->
+
+                        <h5 class="mt-4 mb-3">Diet & Health</h5>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.dietary_preference.label(class="form-label") }}
+                                {{ form.dietary_preference(class="form-select") }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                {{ form.water_intake_liters.label(class="form-label") }}
+                                {{ form.water_intake_liters(class="form-control") }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form.medical_conditions.label(class="form-label") }}
+                            {{ form.medical_conditions(class="form-control", rows="3") }}
+
+                        </div>
+
+                        <!-- ========================= -->
+                        <!-- Submit -->
+                        <!-- ========================= -->
+
+                        <div class="text-center mt-4">
+
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Recommendation
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="row mb-4">
+
+        <div class="col-12">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <h2 class="fw-bold text-primary">
+                        🤖 AI Fitness Recommendation
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Personalized workout and diet recommendations based on your profile.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Nutrition Summary -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <h6>Daily Calories</h6>
+
+                    <h2 class="text-danger">
+                        {{ recommendation.daily_calories }}
+                    </h2>
+
+                    <small class="text-muted">
+                        kcal/day
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <h6>Protein</h6>
+
+                    <h2 class="text-primary">
+                        {{ recommendation.protein_g }}
+                    </h2>
+
+                    <small class="text-muted">
+                        g/day
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <h6>Carbohydrates</h6>
+
+                    <h2 class="text-success">
+                        {{ recommendation.carbs_g }}
+                    </h2>
+
+                    <small class="text-muted">
+                        g/day
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <h6>Fats</h6>
+
+                    <h2 class="text-warning">
+                        {{ recommendation.fats_g }}
+                    </h2>
+
+                    <small class="text-muted">
+                        g/day
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+    <div class="card shadow-sm border-0 h-100">
+
+        <div class="card-body text-center">
+
+            <h6>Current Weight</h6>
+
+            <h2 class="text-info">
+                {{ current_weight }}
+            </h2>
+
+            <small class="text-muted">
+                kg
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Workout & Diet -->
+    <div class="row g-4">
+
+        <!-- Workout -->
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-primary text-white">
+
+                    🏋️ Workout Recommendation
+
+                </div>
+
+                <div class="card-body">
+
+                    <pre style="white-space: pre-wrap; font-family: inherit;">
+{{ recommendation.workout_plan.plan }}
+                    </pre>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Diet -->
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-success text-white">
+
+                    🥗 Diet Recommendation
+
+                </div>
+
+                <div class="card-body">
+
+                    <pre style="white-space: pre-wrap; font-family: inherit;">
+{{ recommendation.diet_plan.plan }}
+                    </pre>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Generated Time -->
+    <div class="row mt-4">
+
+        <div class="col-12">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body text-center">
+
+                    <strong>Generated On:</strong>
+
+                    {{ recommendation.generated_at.strftime("%d %b %Y %I:%M %p") }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="row mt-4">
+
+        <div class="col-12 text-center">
+
+            <a href="{{ url_for('recommendation.regenerate_recommendation') }}"
+               class="btn btn-warning me-2">
+
+                🔄 Generate New Recommendation
+
+            </a>
+
+            <a href="{{ url_for('dashboard.dashboard') }}"
+               class="btn btn-secondary">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

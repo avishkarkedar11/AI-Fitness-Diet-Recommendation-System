@@ -1,0 +1,209 @@
+/*
+==================================================
+Dashboard Styles
+AI Fitness & Diet Recommendation System
+==================================================
+*/
+
+/* ==========================================
+   Dashboard Background
+========================================== */
+
+body {
+    background-color: #f4f7fb;
+}
+
+/* ==========================================
+   Welcome Section
+========================================== */
+
+.dashboard-header h2 {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.dashboard-header p {
+    color: #64748b;
+}
+
+/* ==========================================
+   Dashboard Cards
+========================================== */
+
+.dashboard-card {
+    border: none;
+    border-radius: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* ==========================================
+   Summary Icons
+========================================== */
+
+.summary-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 30px;
+}
+
+.icon-danger {
+    background: rgba(220,53,69,.15);
+    color: #dc3545;
+}
+
+.icon-warning {
+    background: rgba(255,193,7,.15);
+    color: #ff9800;
+}
+
+.icon-success {
+    background: rgba(25,135,84,.15);
+    color: #198754;
+}
+
+.icon-primary {
+    background: rgba(13,110,253,.15);
+    color: #0d6efd;
+}
+
+/* ==========================================
+   Dashboard Numbers
+========================================== */
+
+.dashboard-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.dashboard-label {
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* ==========================================
+   Card Header
+========================================== */
+
+.card-header {
+    background: white;
+    border-bottom: 1px solid #edf2f7;
+    font-weight: 600;
+}
+
+/* ==========================================
+   Nutrition
+========================================== */
+
+.nutrition-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.nutrition-item:not(:last-child) {
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* ==========================================
+   AI Recommendation
+========================================== */
+
+.ai-card {
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+    color: white;
+}
+
+.ai-card .card-header {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.ai-card .btn {
+    background: white;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.ai-card .btn:hover {
+    background: #f8fafc;
+}
+
+/* ==========================================
+   Quick Actions
+========================================== */
+
+.quick-action-btn {
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all .25s ease;
+}
+
+.quick-action-btn:hover {
+    transform: translateX(4px);
+}
+
+/* ==========================================
+   Chart Card
+========================================== */
+
+.chart-card canvas {
+    width: 100% !important;
+    height: 350px !important;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 992px) {
+
+    .dashboard-number {
+        font-size: 28px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .dashboard-header {
+        text-align: center;
+    }
+
+    .summary-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 26px;
+    }
+
+    .dashboard-number {
+        font-size: 24px;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .dashboard-card {
+        margin-bottom: 20px;
+    }
+
+}

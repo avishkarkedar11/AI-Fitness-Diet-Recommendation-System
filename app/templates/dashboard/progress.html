@@ -1,0 +1,795 @@
+{% extends "base.html" %}
+
+{% block title %}
+Progress Tracking
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+
+        Progress Tracking
+
+    </h2>
+
+    <div class="card shadow border-0 rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {{ form.hidden_tag() }}
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.weight_kg.label }}
+
+                        {{ form.weight_kg(class="form-control") }}
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.body_fat_percentage.label }}
+
+                        {{ form.body_fat_percentage(class="form-control") }}
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.waist_cm.label }}
+
+                        {{ form.waist_cm(class="form-control") }}
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.chest_cm.label }}
+
+                        {{ form.chest_cm(class="form-control") }}
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.notes.label }}
+
+                    {{ form.notes(
+                        class="form-control",
+                        rows="3"
+                    ) }}
+
+                </div>
+
+                {{ form.submit(
+                    class="btn btn-primary"
+                ) }}
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow border-0 rounded-4">
+
+        <div class="card-header">
+
+            Progress History
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Weight</th>
+                        <th>Body Fat</th>
+                        <th>Notes</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in history %}
+
+                    <tr>
+
+                        <td>{{ item.recorded_at.strftime("%d-%m-%Y %H:%M") }}</td>
+
+                        <td>{{ item.weight_kg }} kg</td>
+
+                        <td>
+
+                            {{ item.body_fat_percentage or "-" }}
+
+                        </td>
+
+                        <td>{{ item.notes or "-" }}</td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="4" class="text-center">
+
+                            No progress recorded yet.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- Progress Insights -->
+<!-- ===================================================== -->
+
+{% if insights %}
+
+<div class="container mt-5">
+
+    <!-- ===================================== -->
+    <!-- Hero Overview -->
+    <!-- ===================================== -->
+
+    <div class="card border-0 shadow-lg mb-4">
+
+        <div class="card-body text-center p-5">
+
+            <h2 class="fw-bold text-success">
+
+                📈 Progress Overview
+
+            </h2>
+
+            <p class="lead text-muted">
+
+                Your fitness journey based on historical progress.
+
+            </p>
+
+            <div class="row mt-4">
+
+                <div class="col-md-3">
+
+                    <h6 class="text-muted">
+
+                        Weight Change
+
+                    </h6>
+
+                    {% if insights.weight.trend == "Lost" %}
+
+                        <h2 class="text-success">
+
+                            ▼ {{ insights.weight.weight_change|abs }} kg
+
+                        </h2>
+
+                    {% elif insights.weight.trend == "Gained" %}
+
+                        <h2 class="text-danger">
+
+                            ▲ {{ insights.weight.weight_change }} kg
+
+                        </h2>
+
+                    {% else %}
+
+                        <h2 class="text-secondary">
+
+                            ➜ Stable
+
+                        </h2>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <h6 class="text-muted">
+
+                        Current BMI
+
+                    </h6>
+
+                    <h2 class="text-primary">
+
+                        {{ insights.bmi.current_bmi }}
+
+                    </h2>
+
+                    <span class="badge bg-primary">
+
+                        {{ insights.bmi.category }}
+
+                    </span>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <h6 class="text-muted">
+
+                        Goal Progress
+
+                    </h6>
+
+                    <h2 class="text-warning">
+
+                        {{ insights.goal.progress_percent }}%
+
+                    </h2>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <h6 class="text-muted">
+
+                        Entries
+
+                    </h6>
+
+                    <h2 class="text-dark">
+
+                        {{ insights.statistics.entries }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- Metric Cards -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3">
+
+            <div class="card border-0 shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h1>
+
+                        ⚖
+
+                    </h1>
+
+                    <h6 class="text-muted">
+
+                        Starting Weight
+
+                    </h6>
+
+                    <h3>
+
+                        {{ insights.weight.starting_weight }} kg
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card border-0 shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h1>
+
+                        🎯
+
+                    </h1>
+
+                    <h6 class="text-muted">
+
+                        Current Weight
+
+                    </h6>
+
+                    <h3>
+
+                        {{ insights.weight.current_weight }} kg
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card border-0 shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h1>
+
+                        📉
+
+                    </h1>
+
+                    <h6 class="text-muted">
+
+                        Weight Difference
+
+                    </h6>
+
+                    <h3>
+
+                        {{ insights.weight.weight_change }} kg
+
+                    </h3>
+
+                    <small class="text-muted">
+
+                        {{ insights.weight.weight_change_percent }} %
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="card border-0 shadow-sm text-center h-100">
+
+                <div class="card-body">
+
+                    <h1>
+
+                        💪
+
+                    </h1>
+
+                    <h6 class="text-muted">
+
+                        BMI
+
+                    </h6>
+
+                    <h3>
+
+                        {{ insights.bmi.current_bmi }}
+
+                    </h3>
+
+                    <span class="badge bg-success">
+
+                        {{ insights.bmi.category }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- Body Composition -->
+    <!-- ===================================== -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-info text-white">
+
+            <h4 class="mb-0">
+
+                💪 Body Composition
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row text-center">
+
+                <div class="col-md-4">
+
+                    <h6>
+
+                        Body Fat
+
+                    </h6>
+
+                    <h4>
+
+                        {{ insights.body.body_fat.starting or "-" }}
+
+                        →
+
+                        {{ insights.body.body_fat.current or "-" }}
+
+                    </h4>
+
+                    <small class="text-muted">
+
+                        Change:
+                        {{ insights.body.body_fat.change or 0 }}
+
+                    </small>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h6>
+
+                        Waist
+
+                    </h6>
+
+                    <h4>
+
+                        {{ insights.body.waist.starting or "-" }}
+
+                        →
+
+                        {{ insights.body.waist.current or "-" }}
+
+                    </h4>
+
+                    <small class="text-muted">
+
+                        Change:
+                        {{ insights.body.waist.change or 0 }} cm
+
+                    </small>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h6>
+
+                        Chest
+
+                    </h6>
+
+                    <h4>
+
+                        {{ insights.body.chest.starting or "-" }}
+
+                        →
+
+                        {{ insights.body.chest.current or "-" }}
+
+                    </h4>
+
+                    <small class="text-muted">
+
+                        Change:
+                        {{ insights.body.chest.change or 0 }} cm
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+        <!-- ===================================== -->
+    <!-- Goal Progress -->
+    <!-- ===================================== -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-warning">
+
+            <h4 class="mb-0">
+
+                🎯 Goal Progress
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-4">
+
+                <div class="col-md-4 text-center">
+
+                    <h6 class="text-muted">
+
+                        Target Weight
+
+                    </h6>
+
+                    <h3>
+
+                        {{ insights.goal.target_weight }} kg
+
+                    </h3>
+
+                </div>
+
+                <div class="col-md-4 text-center">
+
+                    <h6 class="text-muted">
+
+                        Remaining
+
+                    </h6>
+
+                    <h3>
+
+                        {{ insights.goal.remaining_weight }} kg
+
+                    </h3>
+
+                </div>
+
+                <div class="col-md-4 text-center">
+
+                    <h6 class="text-muted">
+
+                        Status
+
+                    </h6>
+
+                    {% if insights.goal.status == "Completed" %}
+
+                        <span class="badge bg-success fs-6">
+
+                            ✔ Completed
+
+                        </span>
+
+                    {% elif insights.goal.status == "On Track" %}
+
+                        <span class="badge bg-primary fs-6">
+
+                            🚀 On Track
+
+                        </span>
+
+                    {% elif insights.goal.status == "Good Progress" %}
+
+                        <span class="badge bg-warning text-dark fs-6">
+
+                            👍 Good Progress
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-danger fs-6">
+
+                            ⚠ Needs Improvement
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="mb-2">
+
+                <strong>
+
+                    Goal Completion
+
+                </strong>
+
+            </div>
+
+            <div class="progress" style="height:22px;">
+
+                <div
+                    class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                    role="progressbar"
+                    style="width: {{ insights.goal.progress_percent }}%;">
+
+                    {{ insights.goal.progress_percent }}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- Statistics -->
+    <!-- ===================================== -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-dark text-white">
+
+            <h4 class="mb-0">
+
+                📊 Progress Statistics
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row text-center">
+
+                <div class="col-lg-3">
+
+                    <h2>
+
+                        {{ insights.statistics.entries }}
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Total Entries
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <h2>
+
+                        {{ insights.statistics.tracking_days }}
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Tracking Days
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <h5>
+
+                        {{ insights.statistics.first_record }}
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        First Entry
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <h5>
+
+                        {{ insights.statistics.last_record }}
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Latest Entry
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- AI Coach -->
+    <!-- ===================================== -->
+
+    <div class="card border-0 shadow-lg mb-4">
+
+        <div class="card-header bg-success text-white">
+
+            <h4 class="mb-0">
+
+                🤖 AI Fitness Coach
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-success border-0">
+
+                <h5 class="fw-bold">
+
+                    Your Personalized Analysis
+
+                </h5>
+
+                <hr>
+
+                <ul class="mb-0">
+
+                    {% for line in insights.summary %}
+
+                        <li class="mb-2">
+
+                            {{ line }}
+
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

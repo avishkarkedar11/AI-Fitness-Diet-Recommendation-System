@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Fitness & Diet Recommendation System
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center">
+
+        <h1 class="display-4 fw-bold text-primary">
+
+            AI Fitness & Diet Recommendation System
+
+        </h1>
+
+        <p class="lead text-muted mt-3">
+
+            Personalized Workout, Diet & Progress Tracking
+            powered by Artificial Intelligence.
+
+        </p>
+
+        <hr class="my-4">
+
+        {% if current_user.is_authenticated %}
+
+            <h4 class="mb-4">
+
+                Welcome back,
+                <strong>{{ current_user.first_name }}</strong>
+
+            </h4>
+
+            <div class="d-grid gap-3 col-md-5 mx-auto">
+
+                <a href="{{ url_for('dashboard.dashboard') }}"
+                   class="btn btn-primary btn-lg">
+
+                    📊 Dashboard
+
+                </a>
+
+                <a href="{{ url_for('profile.profile') }}"
+                   class="btn btn-success btn-lg">
+
+                    👤 My Fitness Profile
+
+                </a>
+
+                <a href="{{ url_for('progress.progress') }}"
+                   class="btn btn-warning btn-lg">
+
+                    📈 Progress Tracking
+
+                </a>
+
+                <a href="{{ url_for('recommendation.view_recommendation') }}"
+                    class="btn btn-outline-primary">
+
+                    AI Recommendation
+
+                </a>
+
+                <a href="{{ url_for('auth.logout') }}"
+                   class="btn btn-outline-danger btn-lg">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        {% else %}
+
+            <div class="d-grid gap-3 col-md-5 mx-auto">
+
+                <a href="{{ url_for('auth.register') }}"
+                   class="btn btn-primary btn-lg">
+
+                    Create Account
+
+                </a>
+
+                <a href="{{ url_for('auth.login') }}"
+                   class="btn btn-outline-primary btn-lg">
+
+                    Login
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row text-center">
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h3>🏋️</h3>
+
+                    <h5>Workout Plans</h5>
+
+                    <p>
+
+                        Personalized AI-generated workout routines.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h3>🥗</h3>
+
+                    <h5>Diet Plans</h5>
+
+                    <p>
+
+                        Smart calorie and nutrition recommendations.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h3>📈</h3>
+
+                    <h5>Track Progress</h5>
+
+                    <p>
+
+                        Visualize your fitness journey with charts.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

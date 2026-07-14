@@ -56,6 +56,8 @@ class RecommendationService:
         nutrition = CalorieService.nutrition_report(
             profile
         )
+        
+        
 
         # ---------------------------------------------
         # Workout Recommendation

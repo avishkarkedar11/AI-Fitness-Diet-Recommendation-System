@@ -4,58 +4,89 @@
 Dashboard | AI Fitness & Diet Recommendation System
 {% endblock %}
 
-{% block content %}
-
 {% block styles %}
+
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/dashboard.css') }}">
+
 {% endblock %}
+
+{% block content %}
 
 <div class="container-fluid">
 
-    <!-- Welcome -->
+    <!-- ======================================= -->
+    <!-- Dashboard Header -->
+    <!-- ======================================= -->
 
-    <div class="dashboard-header mb-4">
+    <div class="row mb-4">
 
-        <h2 class="fw-bold">
+        <div class="col-lg-8">
 
-            👋 Welcome, {{ current_user.first_name }}
+            <h2 class="fw-bold mb-1">
 
-        </h2>
+                👋 Welcome, {{ current_user.first_name }}
 
-        <p class="text-muted">
+            </h2>
 
-            Here's your personalized fitness dashboard.
+            <p class="text-muted mb-0">
 
-        </p>
+                Here's your personalized AI fitness dashboard.
+
+            </p>
+
+        </div>
+
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+
+            <span class="badge bg-primary fs-6 px-3 py-2">
+
+                Current Goal :
+                {{ data.profile.goal.value }}
+
+            </span>
+
+        </div>
 
     </div>
 
+    <!-- ======================================= -->
     <!-- Summary Cards -->
+    <!-- ======================================= -->
 
     <div class="row g-4 mb-4">
 
+        <!-- BMI -->
+
         <div class="col-lg-3 col-md-6">
 
-            <div class="card dashboard-card h-100">
+            <div class="card summary-card shadow-sm h-100">
 
-                <div class="card-body text-center">
+                <div class="card-body text-center p-4">
 
-                    <div class="summary-icon icon-danger">
-                        <i class="bi bi-heart-pulse-fill"></i>
+                    <div class="display-5 mb-3">
+
+                        ❤️
+
                     </div>
 
-                    <h5 class="mt-3">BMI</h5>
+                    <h6 class="text-muted">
 
-                    <h2 class="dashboard-number">
-                    {{ data.bmi }}
+                        Body Mass Index
+
+                    </h6>
+
+                    <h2 class="fw-bold text-danger">
+
+                        {{ data.bmi }}
+
                     </h2>
 
-                    <small class="dashboard-label">
+                    <span class="badge bg-success">
 
                         {{ data.bmi_category }}
 
-                    </small>
+                    </span>
 
                 </div>
 
@@ -63,23 +94,27 @@ Dashboard | AI Fitness & Diet Recommendation System
 
         </div>
 
+        <!-- Calories -->
+
         <div class="col-lg-3 col-md-6">
 
-            <div class="card shadow-sm border-0 h-100">
+            <div class="card summary-card shadow-sm h-100">
 
-                <div class="card-body text-center">
+                <div class="card-body text-center p-4">
 
-                    <div class="summary-icon icon-warning">
-                        <i class="bi bi-fire"></i>
+                    <div class="display-5 mb-3">
+
+                        🔥
+
                     </div>
 
-                    <h5 class="mt-3">
+                    <h6 class="text-muted">
 
-                        Calories
+                        Daily Calories
 
-                    </h5>
+                    </h6>
 
-                    <h2>
+                    <h2 class="fw-bold text-warning">
 
                         {{ data.nutrition.target_calories }}
 
@@ -97,23 +132,27 @@ Dashboard | AI Fitness & Diet Recommendation System
 
         </div>
 
+        <!-- Goal -->
+
         <div class="col-lg-3 col-md-6">
 
-            <div class="card shadow-sm border-0 h-100">
+            <div class="card summary-card shadow-sm h-100">
 
-                <div class="card-body text-center">
+                <div class="card-body text-center p-4">
 
-                    <div class="summary-icon icon-success">
-                        <i class="bi bi-bullseye"></i>
+                    <div class="display-5 mb-3">
+
+                        🎯
+
                     </div>
 
-                    <h5 class="mt-3">
+                    <h6 class="text-muted">
 
-                        Goal
+                        Fitness Goal
 
-                    </h5>
+                    </h6>
 
-                    <h5>
+                    <h5 class="fw-bold text-primary">
 
                         {{ data.profile.goal.value }}
 
@@ -125,31 +164,35 @@ Dashboard | AI Fitness & Diet Recommendation System
 
         </div>
 
+        <!-- Water -->
+
         <div class="col-lg-3 col-md-6">
 
-            <div class="card shadow-sm border-0 h-100">
+            <div class="card summary-card shadow-sm h-100">
 
-                <div class="card-body text-center">
+                <div class="card-body text-center p-4">
 
-                    <div class="summary-icon icon-primary">
-                        <i class="bi bi-cup-straw"></i>
+                    <div class="display-5 mb-3">
+
+                        💧
+
                     </div>
 
-                    <h5 class="mt-3">
+                    <h6 class="text-muted">
 
-                        Water
+                        Water Intake
 
-                    </h5>
+                    </h6>
 
-                    <h2>
+                    <h2 class="fw-bold text-info">
 
                         {{ data.nutrition.water_liters }}
 
                     </h2>
 
-                    <small>
+                    <small class="text-muted">
 
-                        Liters
+                        Liters / Day
 
                     </small>
 
@@ -161,83 +204,118 @@ Dashboard | AI Fitness & Diet Recommendation System
 
     </div>
 
-    <!-- Nutrition -->
+        <!-- ======================================= -->
+    <!-- Nutrition Summary & Weight Progress -->
+    <!-- ======================================= -->
 
-    <div class="row">
+    <div class="row g-4 mb-4">
+
+        <!-- Nutrition Summary -->
 
         <div class="col-lg-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
 
-                <div class="card-header">
+                <div class="card-header bg-white">
 
-                    Nutrition Summary
+                    <h5 class="mb-0">
+
+                        🥗 Nutrition Summary
+
+                    </h5>
 
                 </div>
 
                 <div class="card-body">
 
-                    <p>
+                    <div class="d-flex justify-content-between mb-3">
 
-                        🥩 Protein
+                        <span>🥩 Protein</span>
 
-                        <strong class="float-end">
+                        <strong>{{ data.nutrition.protein_g }} g</strong>
 
-                            {{ data.nutrition.protein_g }} g
+                    </div>
 
-                        </strong>
+                    <div class="progress mb-4" style="height:8px;">
 
-                    </p>
+                        <div class="progress-bar bg-danger"
+                             style="width:70%">
 
-                    <p>
+                        </div>
 
-                        🍚 Carbs
+                    </div>
 
-                        <strong class="float-end">
+                    <div class="d-flex justify-content-between mb-3">
 
-                            {{ data.nutrition.carbs_g }} g
+                        <span>🍚 Carbohydrates</span>
 
-                        </strong>
+                        <strong>{{ data.nutrition.carbs_g }} g</strong>
 
-                    </p>
+                    </div>
 
-                    <p>
+                    <div class="progress mb-4" style="height:8px;">
 
-                        🥑 Fats
+                        <div class="progress-bar bg-success"
+                             style="width:80%">
 
-                        <strong class="float-end">
+                        </div>
 
-                            {{ data.nutrition.fat_g }} g
+                    </div>
 
-                        </strong>
+                    <div class="d-flex justify-content-between mb-3">
 
-                    </p>
+                        <span>🥑 Healthy Fats</span>
+
+                        <strong>{{ data.nutrition.fat_g }} g</strong>
+
+                    </div>
+
+                    <div class="progress mb-4" style="height:8px;">
+
+                        <div class="progress-bar bg-warning"
+                             style="width:60%">
+
+                        </div>
+
+                    </div>
 
                     <hr>
 
-                    <p>
+                    <div class="row text-center">
 
-                        BMR
+                        <div class="col-6">
 
-                        <strong class="float-end">
+                            <small class="text-muted">
 
-                            {{ data.nutrition.bmr }}
+                                BMR
 
-                        </strong>
+                            </small>
 
-                    </p>
+                            <h5>
 
-                    <p>
+                                {{ data.nutrition.bmr }}
 
-                        TDEE
+                            </h5>
 
-                        <strong class="float-end">
+                        </div>
 
-                            {{ data.nutrition.tdee }}
+                        <div class="col-6">
 
-                        </strong>
+                            <small class="text-muted">
 
-                    </p>
+                                TDEE
+
+                            </small>
+
+                            <h5>
+
+                                {{ data.nutrition.tdee }}
+
+                            </h5>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -245,23 +323,94 @@ Dashboard | AI Fitness & Diet Recommendation System
 
         </div>
 
-        <!-- Chart -->
+        <!-- Weight Progress Chart -->
 
         <div class="col-lg-8">
 
-            <div class="card shadow-sm border-0">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
 
-                <div class="card-header">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
 
-                    Weight Progress
+                    <h5 class="mb-0">
+
+                        📈 Weight Progress
+
+                    </h5>
+
+                    <span class="badge bg-primary">
+
+                        {{ data.insights.records }} Records
+
+                    </span>
 
                 </div>
 
                 <div class="card-body">
 
-                    <canvas id="weightChart"></canvas>
+                    <canvas id="weightChart"
+                            style="height:330px;"></canvas>
 
                 </div>
+
+                {% if data.insights %}
+
+                <div class="card-footer bg-light">
+
+                    <div class="row text-center">
+
+                        <div class="col-md-4">
+
+                            <small class="text-muted">
+
+                                Starting
+
+                            </small>
+
+                            <h6>
+
+                                {{ data.insights.starting_weight }} kg
+
+                            </h6>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <small class="text-muted">
+
+                                Current
+
+                            </small>
+
+                            <h6>
+
+                                {{ data.current_weight }} kg
+
+                            </h6>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <small class="text-muted">
+
+                                Target
+
+                            </small>
+
+                            <h6>
+
+                                {{ data.profile.target_weight_kg }} kg
+
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
 
             </div>
 
@@ -269,104 +418,321 @@ Dashboard | AI Fitness & Diet Recommendation System
 
     </div>
 
-    
-    <!-- Bottom Row -->
+        <!-- ======================================= -->
+    <!-- AI Recommendation & Quick Actions -->
+    <!-- ======================================= -->
 
-    <div class="col-lg-6">
+    <div class="row g-4 mb-4">
 
-    <div class="card dashboard-card h-100">
+        <!-- ======================================= -->
+        <!-- AI Recommendation -->
+        <!-- ======================================= -->
 
-        <div class="card-header">
+        <div class="col-lg-7">
 
-            🤖 AI Recommendation
+            <div class="card border-0 shadow-sm rounded-4 h-100">
 
-        </div>
+                <div class="card-header bg-white">
 
-        <div class="card-body">
+                    <h5 class="mb-0">
 
-            {% if data.recommendation %}
+                        🤖 AI Recommendation
 
-                <p>
-                    <strong>BMI:</strong>
-                    {{ data.recommendation.bmi }}
-                    ({{ data.recommendation.bmi_category }})
-                </p>
+                    </h5>
 
-                <p>
-                    <strong>Calories:</strong>
-                    {{ data.recommendation.target_calories }} kcal/day
-                </p>
+                </div>
 
-                <hr>
+                <div class="card-body">
 
-                <h6>🏋 Workout</h6>
+                    {% if data.recommendation %}
 
-                <pre style="white-space: pre-wrap;">{{ data.recommendation.workout_plan }}</pre>
+                    <div class="row text-center mb-4">
 
-                <hr>
+                        <div class="col-md-4">
 
-                <a href="{{ url_for('recommendation.view_recommendation') }}"
-                   class="btn btn-primary">
+                            <small class="text-muted">
 
-                    View Full Recommendation
+                                BMI
 
-                </a>
+                            </small>
 
-            {% else %}
+                            <h4 class="fw-bold">
 
-                <p class="text-muted">
+                                {{ data.bmi }}
 
-                    No recommendation generated yet.
+                            </h4>
 
-                </p>
+                        </div>
 
-                <a href="{{ url_for('recommendation.generate_recommendation') }}"
-                   class="btn btn-success">
+                        <div class="col-md-4">
 
-                    🤖 Generate AI Recommendation
+                            <small class="text-muted">
 
-                </a>
+                                Daily Calories
 
-            {% endif %}
+                            </small>
 
-        </div>
+                            <h4 class="fw-bold">
+
+                                {{ data.nutrition.target_calories }}
+
+                            </h4>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <small class="text-muted">
+
+                                Goal
+
+                            </small>
+
+                            <h6 class="fw-bold text-success">
+
+                                {{ data.profile.goal.value }}
+
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+    <!-- Workout -->
+
+    <div class="col-md-6">
+
+        <h6 class="fw-bold mb-3">
+
+            🏋 Workout Plan
+
+        </h6>
+
+        <ul class="list-group list-group-flush">
+
+            {% for item in data.recommendation.workout_plan.plan[:4] %}
+
+            <li class="list-group-item">
+
+                ✅ {{ item }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <!-- Diet -->
+
+    <div class="col-md-6">
+
+        <h6 class="fw-bold mb-3">
+
+            🥗 Diet Plan
+
+        </h6>
+
+        <ul class="list-group list-group-flush">
+
+            {% for item in data.recommendation.diet_plan.plan[:4] %}
+
+            <li class="list-group-item">
+
+                🥗 {{ item }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
 
     </div>
 
 </div>
 
-        <div class="col-lg-6">
 
-            <div class="card shadow-sm border-0">
+                    <div class="text-end mt-4">
 
-                <div class="card-header">
+                        <a href="{{ url_for('recommendation.view_recommendation') }}"
+                           class="btn btn-primary rounded-pill px-4">
 
-                    Quick Actions
+                            View Full Recommendation
+
+                        </a>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="text-center py-5">
+
+                        <i class="bi bi-robot display-3 text-secondary"></i>
+
+                        <h5 class="mt-3">
+
+                            No Recommendation Available
+
+                        </h5>
+
+                        <p class="text-muted">
+
+                            Generate your first personalized AI recommendation.
+
+                        </p>
+
+                        <a href="{{ url_for('recommendation.generate_recommendation') }}"
+                           class="btn btn-success rounded-pill">
+
+                            Generate Recommendation
+
+                        </a>
+
+                    </div>
+
+                    {% endif %}
 
                 </div>
 
-                <div class="card-body">
+            </div>
+
+        </div>
+
+        <!-- ======================================= -->
+        <!-- Quick Actions -->
+        <!-- ======================================= -->
+
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        ⚡ Quick Actions
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body d-grid gap-3">
 
                     <a href="{{ url_for('profile.profile') }}"
-                       class="btn btn-outline-primary w-100 mb-2">
+                       class="btn btn-outline-primary rounded-pill">
 
-                        Update Profile
-
-                    </a>
-
-                    <a href="#"
-                       class="btn btn-outline-success w-100 mb-2">
-
-                        View Progress
+                        👤 Update Profile
 
                     </a>
 
-                    <a href="#"
-                       class="btn btn-outline-dark w-100">
+                    <a href="{{ url_for('progress.progress') }}"
+                       class="btn btn-outline-success rounded-pill">
 
-                        Download Report
+                        📈 Progress Tracking
 
                     </a>
+
+                    <a href="{{ url_for('recommendation.view_recommendation') }}"
+                       class="btn btn-outline-warning rounded-pill">
+
+                        🤖 AI Recommendation
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- ======================================= -->
+            <!-- Health Summary -->
+            <!-- ======================================= -->
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        📋 Today's Health Summary
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row text-center">
+
+                        <div class="col-6 mb-4">
+
+                            <small class="text-muted">
+
+                                Current Weight
+
+                            </small>
+
+                            <h5>
+
+                                {{ data.current_weight }} kg
+
+                            </h5>
+
+                        </div>
+
+                        <div class="col-6 mb-4">
+
+                            <small class="text-muted">
+
+                                Target Weight
+
+                            </small>
+
+                            <h5>
+
+                                {{ data.profile.target_weight_kg }} kg
+
+                            </h5>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <small class="text-muted">
+
+                                Height
+
+                            </small>
+
+                            <h5>
+
+                                {{ data.profile.height_cm }} cm
+
+                            </h5>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <small class="text-muted">
+
+                                Water Goal
+
+                            </small>
+
+                            <h5>
+
+                                {{ data.nutrition.water_liters }} L
+
+                            </h5>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -376,135 +742,25 @@ Dashboard | AI Fitness & Diet Recommendation System
 
     </div>
 
-</div>
-
-<div class="row mt-4">
-
-    <div class="col-12">
-
-        <div class="card dashboard-card">
-
-            <div class="card-header">
-
-                📋 Today's Health Summary
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row">
-
-                    <div class="col-md-3">
-
-                        <h6>Current Weight</h6>
-
-                        <h4>{{ data.current_weight }} kg</h4>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <h6>BMI</h6>
-
-                        <h4>{{ data.bmi }}</h4>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <h6>Daily Calories</h6>
-
-                        <h4>{{ data.nutrition.target_calories }}</h4>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <h6>Water Intake</h6>
-
-                        <h4>{{ data.nutrition.water_liters }} L</h4>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
-
-</div>
-
-<div class="card dashboard-card mt-4">
-
-    <div class="card-header">
-
-        Current Fitness Summary
-
-    </div>
-
-    <div class="card-body">
-
-        <p>
-
-            Current Weight
-
-            <strong class="float-end">
-
-                {{ data.current_weight }} kg
-
-            </strong>
-
-        </p>
-
-        <p>
-
-            Target Weight
-
-            <strong class="float-end">
-
-                {{ data.profile.target_weight_kg }} kg
-
-            </strong>
-
-        </p>
-
-        <p>
-
-            Height
-
-            <strong class="float-end">
-
-                {{ data.profile.height_cm }} cm
-
-            </strong>
-
-        </p>
-
-    </div>
-
-</div>
 
 {% endblock %}
+
+<!-- ======================================= -->
+<!-- Dashboard Scripts -->
+<!-- ======================================= -->
 
 {% block scripts %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
-
-{% endblock %}
-
 <script>
 
-const chartLabels =
-{{ data.chart.labels|tojson }};
-
-const chartWeights =
-{{ data.chart.weights|tojson }};
+const chartLabels = {{ data.chart.labels | tojson }};
+const chartWeights = {{ data.chart.weights | tojson }};
 
 </script>
 
-<script src="{{ url_for('static',
-filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+
+{% endblock %}

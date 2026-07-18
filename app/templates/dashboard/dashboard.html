@@ -5,762 +5,454 @@ Dashboard | AI Fitness & Diet Recommendation System
 {% endblock %}
 
 {% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<style>
+    /* Custom premium dashboard extensions */
+    .dash-header-card {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: none;
+        border-radius: 24px !important;
+        color: white !important;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+    }
+    
+    .dash-header-card::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        right: -10%;
+        width: 320px;
+        height: 320px;
+        background: rgba(96, 165, 250, 0.1);
+        border-radius: 50%;
+        filter: blur(40px);
+    }
+    
+    .dash-header-card h2 {
+        color: white !important;
+    }
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/dashboard.css') }}">
+    .summary-metric-card {
+        border: none !important;
+        border-radius: 20px !important;
+        background: #ffffff;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
 
+    .summary-metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+    }
+
+    .metric-badge {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin: 0 auto 15px auto;
+    }
+
+    .quick-action-link {
+        border-radius: 16px !important;
+        padding: 16px !important;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none !important;
+        border: 1px solid #f1f5f9;
+        background: #ffffff;
+    }
+
+    .quick-action-link:hover {
+        transform: translateX(4px);
+        border-color: #cbd5e1;
+        background: #f8fafc;
+    }
+    
+    .quick-action-link-primary { color: #4f46e5; }
+    .quick-action-link-success { color: #10b981; }
+    .quick-action-link-warning { color: #f59e0b; }
+
+    .health-summary-item {
+        border-bottom: 1px solid #f1f5f9;
+        padding: 14px 0;
+    }
+    .health-summary-item:last-child {
+        border-bottom: none;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid py-2 animate-fade-in-up">
 
     <!-- ======================================= -->
-    <!-- Dashboard Header -->
+    <!-- Dashboard Header Banner -->
     <!-- ======================================= -->
 
-    <div class="row mb-4">
-
-        <div class="col-lg-8">
-
-            <h2 class="fw-bold mb-1">
-
-                👋 Welcome, {{ current_user.first_name }}
-
-            </h2>
-
-            <p class="text-muted mb-0">
-
-                Here's your personalized AI fitness dashboard.
-
-            </p>
-
+    <div class="card dash-header-card mb-4">
+        <div class="card-body p-4">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <span class="badge bg-primary px-3 py-2 rounded-pill mb-2">Member Portal</span>
+                    <h2 class="fw-bold mb-1">
+                        👋 Welcome back, {{ current_user.first_name }}
+                    </h2>
+                    <p class="text-white-50 mb-0 small">
+                        Here is your personalized fitness roadmap, nutrition dashboard, and progress charts.
+                    </p>
+                </div>
+                
+                <div class="col-lg-4 text-center text-lg-end mt-3 mt-lg-0">
+                    <div class="p-3 bg-white bg-opacity-10 d-inline-block rounded-4">
+                        <span class="text-white-50 small d-block mb-1">Current Track Target</span>
+                        <strong class="text-white">{{ data.profile.goal.value }}</strong>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-
-            <span class="badge bg-primary fs-6 px-3 py-2">
-
-                Current Goal :
-                {{ data.profile.goal.value }}
-
-            </span>
-
-        </div>
-
     </div>
 
     <!-- ======================================= -->
-    <!-- Summary Cards -->
+    <!-- Summary Metrics -->
     <!-- ======================================= -->
 
     <div class="row g-4 mb-4">
 
         <!-- BMI -->
-
         <div class="col-lg-3 col-md-6">
-
-            <div class="card summary-card shadow-sm h-100">
-
-                <div class="card-body text-center p-4">
-
-                    <div class="display-5 mb-3">
-
-                        ❤️
-
-                    </div>
-
-                    <h6 class="text-muted">
-
-                        Body Mass Index
-
-                    </h6>
-
-                    <h2 class="fw-bold text-danger">
-
-                        {{ data.bmi }}
-
-                    </h2>
-
-                    <span class="badge bg-success">
-
-                        {{ data.bmi_category }}
-
-                    </span>
-
+            <div class="summary-metric-card p-4 text-center h-100">
+                <div class="metric-badge bg-light-danger">
+                    ❤️
                 </div>
-
+                <h6 class="text-muted mb-1 small">Body Mass Index</h6>
+                <h2 class="fw-bold text-danger mb-2">{{ data.bmi }}</h2>
+                <span class="badge {% if data.bmi_category == 'Normal' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                    {{ data.bmi_category }}
+                </span>
             </div>
-
         </div>
 
         <!-- Calories -->
-
         <div class="col-lg-3 col-md-6">
-
-            <div class="card summary-card shadow-sm h-100">
-
-                <div class="card-body text-center p-4">
-
-                    <div class="display-5 mb-3">
-
-                        🔥
-
-                    </div>
-
-                    <h6 class="text-muted">
-
-                        Daily Calories
-
-                    </h6>
-
-                    <h2 class="fw-bold text-warning">
-
-                        {{ data.nutrition.target_calories }}
-
-                    </h2>
-
-                    <small class="text-muted">
-
-                        kcal/day
-
-                    </small>
-
+            <div class="summary-metric-card p-4 text-center h-100">
+                <div class="metric-badge bg-light-warning">
+                    🔥
                 </div>
-
+                <h6 class="text-muted mb-1 small">Target Calories</h6>
+                <h2 class="fw-bold text-warning mb-1">{{ data.nutrition.target_calories }}</h2>
+                <small class="text-muted">kcal/day</small>
             </div>
-
         </div>
 
         <!-- Goal -->
-
         <div class="col-lg-3 col-md-6">
-
-            <div class="card summary-card shadow-sm h-100">
-
-                <div class="card-body text-center p-4">
-
-                    <div class="display-5 mb-3">
-
-                        🎯
-
-                    </div>
-
-                    <h6 class="text-muted">
-
-                        Fitness Goal
-
-                    </h6>
-
-                    <h5 class="fw-bold text-primary">
-
-                        {{ data.profile.goal.value }}
-
-                    </h5>
-
+            <div class="summary-metric-card p-4 text-center h-100">
+                <div class="metric-badge bg-light-primary">
+                    🎯
                 </div>
-
+                <h6 class="text-muted mb-1 small">Active Goal Target</h6>
+                <h5 class="fw-bold text-primary my-2">{{ data.profile.goal.value }}</h5>
+                <small class="text-muted">Structured Plan</small>
             </div>
-
         </div>
 
         <!-- Water -->
-
         <div class="col-lg-3 col-md-6">
-
-            <div class="card summary-card shadow-sm h-100">
-
-                <div class="card-body text-center p-4">
-
-                    <div class="display-5 mb-3">
-
-                        💧
-
-                    </div>
-
-                    <h6 class="text-muted">
-
-                        Water Intake
-
-                    </h6>
-
-                    <h2 class="fw-bold text-info">
-
-                        {{ data.nutrition.water_liters }}
-
-                    </h2>
-
-                    <small class="text-muted">
-
-                        Liters / Day
-
-                    </small>
-
+            <div class="summary-metric-card p-4 text-center h-100">
+                <div class="metric-badge bg-light-success">
+                    💧
                 </div>
-
+                <h6 class="text-muted mb-1 small">Hydration Target</h6>
+                <h2 class="fw-bold text-info mb-1">{{ data.nutrition.water_liters }}</h2>
+                <small class="text-muted">Liters / Day</small>
             </div>
-
         </div>
 
     </div>
 
-        <!-- ======================================= -->
+    <!-- ======================================= -->
     <!-- Nutrition Summary & Weight Progress -->
     <!-- ======================================= -->
 
     <div class="row g-4 mb-4">
 
         <!-- Nutrition Summary -->
-
         <div class="col-lg-4">
-
             <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                <div class="card-header bg-white">
-
-                    <h5 class="mb-0">
-
-                        🥗 Nutrition Summary
-
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-egg-fried text-success me-2"></i>Nutrition Targets
                     </h5>
-
                 </div>
-
                 <div class="card-body">
-
-                    <div class="d-flex justify-content-between mb-3">
-
-                        <span>🥩 Protein</span>
-
-                        <strong>{{ data.nutrition.protein_g }} g</strong>
-
-                    </div>
-
-                    <div class="progress mb-4" style="height:8px;">
-
-                        <div class="progress-bar bg-danger"
-                             style="width:70%">
-
+                    <!-- Protein -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium">🥩 Protein Target</span>
+                            <strong class="text-primary">{{ data.nutrition.protein_g }} g</strong>
                         </div>
-
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-
-                        <span>🍚 Carbohydrates</span>
-
-                        <strong>{{ data.nutrition.carbs_g }} g</strong>
-
-                    </div>
-
-                    <div class="progress mb-4" style="height:8px;">
-
-                        <div class="progress-bar bg-success"
-                             style="width:80%">
-
+                        <div class="progress progress-bar-thin bg-light">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 70%"></div>
                         </div>
-
                     </div>
 
-                    <div class="d-flex justify-content-between mb-3">
-
-                        <span>🥑 Healthy Fats</span>
-
-                        <strong>{{ data.nutrition.fat_g }} g</strong>
-
-                    </div>
-
-                    <div class="progress mb-4" style="height:8px;">
-
-                        <div class="progress-bar bg-warning"
-                             style="width:60%">
-
+                    <!-- Carbohydrates -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium">🍚 Carbs Target</span>
+                            <strong class="text-success">{{ data.nutrition.carbs_g }} g</strong>
                         </div>
-
+                        <div class="progress progress-bar-thin bg-light">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 80%"></div>
+                        </div>
                     </div>
 
-                    <hr>
+                    <!-- Healthy Fats -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium">🥑 Healthy Fats Target</span>
+                            <strong class="text-warning">{{ data.nutrition.fat_g }} g</strong>
+                        </div>
+                        <div class="progress progress-bar-thin bg-light">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
+                        </div>
+                    </div>
 
-                    <div class="row text-center">
+                    <hr class="my-4 text-black-50">
 
+                    <div class="row text-center bg-light p-3 rounded-4 g-2">
                         <div class="col-6">
-
-                            <small class="text-muted">
-
-                                BMR
-
-                            </small>
-
-                            <h5>
-
-                                {{ data.nutrition.bmr }}
-
-                            </h5>
-
+                            <span class="text-muted small d-block mb-1">BMR Target</span>
+                            <h5 class="fw-bold mb-0 text-dark">{{ data.nutrition.bmr }} kcal</h5>
                         </div>
-
                         <div class="col-6">
-
-                            <small class="text-muted">
-
-                                TDEE
-
-                            </small>
-
-                            <h5>
-
-                                {{ data.nutrition.tdee }}
-
-                            </h5>
-
+                            <span class="text-muted small d-block mb-1">TDEE Target</span>
+                            <h5 class="fw-bold mb-0 text-dark">{{ data.nutrition.tdee }} kcal</h5>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
         <!-- Weight Progress Chart -->
-
         <div class="col-lg-8">
-
             <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                <div class="card-header bg-white d-flex justify-content-between align-items-center">
-
-                    <h5 class="mb-0">
-
-                        📈 Weight Progress
-
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi-graph-up text-primary me-2"></i>Weight Log Tracker
                     </h5>
-
-                    <span class="badge bg-primary">
-
-                        {{ data.insights.records }} Records
-
+                    <span class="badge bg-primary px-3 py-2 rounded-pill">
+                        {{ data.insights.records }} Logs Registered
                     </span>
-
                 </div>
-
                 <div class="card-body">
-
-                    <canvas id="weightChart"
-                            style="height:330px;"></canvas>
-
+                    <canvas id="weightChart" style="height:320px;"></canvas>
                 </div>
 
                 {% if data.insights %}
-
-                <div class="card-footer bg-light">
-
-                    <div class="row text-center">
-
-                        <div class="col-md-4">
-
-                            <small class="text-muted">
-
-                                Starting
-
-                            </small>
-
-                            <h6>
-
-                                {{ data.insights.starting_weight }} kg
-
-                            </h6>
-
+                <div class="card-footer bg-light p-4 rounded-bottom-4">
+                    <div class="row text-center g-3">
+                        <div class="col-4 border-end">
+                            <span class="text-muted small d-block mb-1">Starting Weight</span>
+                            <h5 class="fw-bold mb-0 text-dark">{{ data.insights.starting_weight }} kg</h5>
                         </div>
-
-                        <div class="col-md-4">
-
-                            <small class="text-muted">
-
-                                Current
-
-                            </small>
-
-                            <h6>
-
-                                {{ data.current_weight }} kg
-
-                            </h6>
-
+                        <div class="col-4 border-end">
+                            <span class="text-muted small d-block mb-1">Current Weight</span>
+                            <h5 class="fw-bold mb-0 text-primary">{{ data.current_weight }} kg</h5>
                         </div>
-
-                        <div class="col-md-4">
-
-                            <small class="text-muted">
-
-                                Target
-
-                            </small>
-
-                            <h6>
-
-                                {{ data.profile.target_weight_kg }} kg
-
-                            </h6>
-
+                        <div class="col-4">
+                            <span class="text-muted small d-block mb-1">Goal Weight</span>
+                            <h5 class="fw-bold mb-0 text-success">{{ data.profile.target_weight_kg }} kg</h5>
                         </div>
-
                     </div>
-
                 </div>
-
                 {% endif %}
-
             </div>
-
         </div>
 
     </div>
 
-        <!-- ======================================= -->
+    <!-- ======================================= -->
     <!-- AI Recommendation & Quick Actions -->
     <!-- ======================================= -->
 
     <div class="row g-4 mb-4">
 
-        <!-- ======================================= -->
-        <!-- AI Recommendation -->
-        <!-- ======================================= -->
-
+        <!-- AI Recommendation Snippet -->
         <div class="col-lg-7">
-
             <div class="card border-0 shadow-sm rounded-4 h-100">
-
-                <div class="card-header bg-white">
-
-                    <h5 class="mb-0">
-
-                        🤖 AI Recommendation
-
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-robot text-primary me-2"></i>Personalized AI Plan Snippet
                     </h5>
-
                 </div>
-
                 <div class="card-body">
-
                     {% if data.recommendation %}
-
-                    <div class="row text-center mb-4">
-
+                    <div class="row text-center bg-light p-3 rounded-4 mb-4 g-2">
                         <div class="col-md-4">
-
-                            <small class="text-muted">
-
-                                BMI
-
-                            </small>
-
-                            <h4 class="fw-bold">
-
-                                {{ data.bmi }}
-
-                            </h4>
-
+                            <span class="text-muted small d-block mb-1">Status BMI</span>
+                            <h5 class="fw-bold text-dark mb-0">{{ data.bmi }}</h5>
                         </div>
-
                         <div class="col-md-4">
-
-                            <small class="text-muted">
-
-                                Daily Calories
-
-                            </small>
-
-                            <h4 class="fw-bold">
-
-                                {{ data.nutrition.target_calories }}
-
-                            </h4>
-
+                            <span class="text-muted small d-block mb-1">Daily Budget</span>
+                            <h5 class="fw-bold text-danger mb-0">{{ data.nutrition.target_calories }} kcal</h5>
                         </div>
-
                         <div class="col-md-4">
-
-                            <small class="text-muted">
-
-                                Goal
-
-                            </small>
-
-                            <h6 class="fw-bold text-success">
-
-                                {{ data.profile.goal.value }}
-
-                            </h6>
-
+                            <span class="text-muted small d-block mb-1">Workout Goal</span>
+                            <h6 class="fw-bold text-success mb-0">{{ data.profile.goal.value }}</h6>
                         </div>
-
                     </div>
 
-                    <hr>
-
                     <div class="row">
+                        <!-- Workout -->
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <h6 class="fw-bold text-secondary mb-3">🏋️ Active Workout Plan</h6>
+                            <ul class="list-group list-group-flush">
+                                {% for item in data.recommendation.workout_plan.plan[:3] %}
+                                <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                    ✅ {{ item }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
 
-    <!-- Workout -->
+                        <!-- Diet -->
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-secondary mb-3">🥗 Meal Plan Sneak Peek</h6>
+                            <ul class="list-group list-group-flush">
+                                {% if data.recommendation.diet_plan.breakfast %}
+                                    {% if data.recommendation.diet_plan.breakfast[0] is mapping %}
+                                        <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                            🍳 <strong>Breakfast:</strong> {{ data.recommendation.diet_plan.breakfast[0].name }}
+                                        </li>
+                                        <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                            🍲 <strong>Lunch:</strong> {{ data.recommendation.diet_plan.lunch[0].name }}
+                                        </li>
+                                        <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                            🍽️ <strong>Dinner:</strong> {{ data.recommendation.diet_plan.dinner[0].name }}
+                                        </li>
+                                    {% else %}
+                                        <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                            🍳 <strong>Breakfast:</strong> {{ data.recommendation.diet_plan.breakfast[0].split(' - ')[0] }}
+                                        </li>
+                                        <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                            🍲 <strong>Lunch:</strong> {{ data.recommendation.diet_plan.lunch[0].split(' - ')[0] }}
+                                        </li>
+                                        <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                            🍽️ <strong>Dinner:</strong> {{ data.recommendation.diet_plan.dinner[0].split(' - ')[0] }}
+                                        </li>
+                                    {% endif %}
+                                {% else %}
+                                    {% for item in data.recommendation.diet_plan.plan[:3] %}
+                                    <li class="list-group-item ps-0 border-0 py-2 text-muted small">
+                                        🥗 {{ item }}
+                                    </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
 
-    <div class="col-md-6">
+                    <div class="text-end mt-4">
+                        <a href="{{ url_for('recommendation.view_recommendation') }}" class="btn btn-premium px-4">
+                            Explore Full Plan <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-robot display-3 text-muted mb-3 d-block"></i>
+                        <h5 class="fw-bold mb-1">No AI Plan Ready</h5>
+                        <p class="text-muted small mb-4">
+                            Generate your personalized workout and meal plans computed by artificial intelligence.
+                        </p>
+                        <a href="{{ url_for('recommendation.generate_recommendation') }}" class="btn btn-premium px-5">
+                            Generate Plan
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
-        <h6 class="fw-bold mb-3">
+        <!-- Quick Actions & Today's Summary -->
+        <div class="col-lg-5">
+            <!-- Quick Actions -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-lightning-fill text-warning me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body d-grid gap-2">
+                    <a href="{{ url_for('profile.profile') }}" class="quick-action-link quick-action-link-primary">
+                        <span><i class="bi bi-person-fill me-2"></i> Update Fitness Profile</span>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                    
+                    <a href="{{ url_for('progress.progress') }}" class="quick-action-link quick-action-link-success">
+                        <span><i class="bi-graph-up-arrow me-2"></i> Add Progress Logs</span>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                    
+                    <a href="{{ url_for('recommendation.view_recommendation') }}" class="quick-action-link quick-action-link-warning">
+                        <span><i class="bi bi-cpu-fill me-2"></i> View AI Plan recommendations</span>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
 
-            🏋 Workout Plan
-
-        </h6>
-
-        <ul class="list-group list-group-flush">
-
-            {% for item in data.recommendation.workout_plan.plan[:4] %}
-
-            <li class="list-group-item">
-
-                ✅ {{ item }}
-
-            </li>
-
-            {% endfor %}
-
-        </ul>
-
-    </div>
-
-    <!-- Diet -->
-
-    <div class="col-md-6">
-
-        <h6 class="fw-bold mb-3">
-
-            🥗 Diet Plan
-
-        </h6>
-
-        <ul class="list-group list-group-flush">
-
-            {% for item in data.recommendation.diet_plan.plan[:4] %}
-
-            <li class="list-group-item">
-
-                🥗 {{ item }}
-
-            </li>
-
-            {% endfor %}
-
-        </ul>
+            <!-- Health Summary -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-clipboard2-check text-primary me-2"></i>Today's Health Summary
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="px-4">
+                        <div class="health-summary-item d-flex justify-content-between align-items-center">
+                            <span class="text-secondary"><i class="bi bi-speedometer2 me-2"></i>Current Weight</span>
+                            <strong class="text-dark">{{ data.current_weight }} kg</strong>
+                        </div>
+                        <div class="health-summary-item d-flex justify-content-between align-items-center">
+                            <span class="text-secondary"><i class="bi bi-flag-fill me-2"></i>Target Weight</span>
+                            <strong class="text-dark">{{ data.profile.target_weight_kg }} kg</strong>
+                        </div>
+                        <div class="health-summary-item d-flex justify-content-between align-items-center">
+                            <span class="text-secondary"><i class="bi bi-arrows-expand me-2"></i>Height Metric</span>
+                            <strong class="text-dark">{{ data.profile.height_cm }} cm</strong>
+                        </div>
+                        <div class="health-summary-item d-flex justify-content-between align-items-center border-0">
+                            <span class="text-secondary"><i class="bi bi-droplet-fill me-2"></i>Water Target</span>
+                            <strong class="text-info">{{ data.nutrition.water_liters }} Liters</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
 </div>
 
-
-                    <div class="text-end mt-4">
-
-                        <a href="{{ url_for('recommendation.view_recommendation') }}"
-                           class="btn btn-primary rounded-pill px-4">
-
-                            View Full Recommendation
-
-                        </a>
-
-                    </div>
-
-                    {% else %}
-
-                    <div class="text-center py-5">
-
-                        <i class="bi bi-robot display-3 text-secondary"></i>
-
-                        <h5 class="mt-3">
-
-                            No Recommendation Available
-
-                        </h5>
-
-                        <p class="text-muted">
-
-                            Generate your first personalized AI recommendation.
-
-                        </p>
-
-                        <a href="{{ url_for('recommendation.generate_recommendation') }}"
-                           class="btn btn-success rounded-pill">
-
-                            Generate Recommendation
-
-                        </a>
-
-                    </div>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- ======================================= -->
-        <!-- Quick Actions -->
-        <!-- ======================================= -->
-
-        <div class="col-lg-5">
-
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
-
-                <div class="card-header bg-white">
-
-                    <h5 class="mb-0">
-
-                        ⚡ Quick Actions
-
-                    </h5>
-
-                </div>
-
-                <div class="card-body d-grid gap-3">
-
-                    <a href="{{ url_for('profile.profile') }}"
-                       class="btn btn-outline-primary rounded-pill">
-
-                        👤 Update Profile
-
-                    </a>
-
-                    <a href="{{ url_for('progress.progress') }}"
-                       class="btn btn-outline-success rounded-pill">
-
-                        📈 Progress Tracking
-
-                    </a>
-
-                    <a href="{{ url_for('recommendation.view_recommendation') }}"
-                       class="btn btn-outline-warning rounded-pill">
-
-                        🤖 AI Recommendation
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- ======================================= -->
-            <!-- Health Summary -->
-            <!-- ======================================= -->
-
-            <div class="card border-0 shadow-sm rounded-4">
-
-                <div class="card-header bg-white">
-
-                    <h5 class="mb-0">
-
-                        📋 Today's Health Summary
-
-                    </h5>
-
-                </div>
-
-                <div class="card-body">
-
-                    <div class="row text-center">
-
-                        <div class="col-6 mb-4">
-
-                            <small class="text-muted">
-
-                                Current Weight
-
-                            </small>
-
-                            <h5>
-
-                                {{ data.current_weight }} kg
-
-                            </h5>
-
-                        </div>
-
-                        <div class="col-6 mb-4">
-
-                            <small class="text-muted">
-
-                                Target Weight
-
-                            </small>
-
-                            <h5>
-
-                                {{ data.profile.target_weight_kg }} kg
-
-                            </h5>
-
-                        </div>
-
-                        <div class="col-6">
-
-                            <small class="text-muted">
-
-                                Height
-
-                            </small>
-
-                            <h5>
-
-                                {{ data.profile.height_cm }} cm
-
-                            </h5>
-
-                        </div>
-
-                        <div class="col-6">
-
-                            <small class="text-muted">
-
-                                Water Goal
-
-                            </small>
-
-                            <h5>
-
-                                {{ data.nutrition.water_liters }} L
-
-                            </h5>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    </div>
-
 {% endblock %}
 
-<!-- ======================================= -->
-<!-- Dashboard Scripts -->
-<!-- ======================================= -->
-
 {% block scripts %}
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-
 const chartLabels = {{ data.chart.labels | tojson }};
 const chartWeights = {{ data.chart.weights | tojson }};
-
 </script>
-
 <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
-
 {% endblock %}

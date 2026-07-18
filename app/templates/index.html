@@ -6,167 +6,145 @@ AI Fitness & Diet Recommendation System
 
 {% block content %}
 
-<div class="container py-5">
+<div class="container py-4 animate-fade-in-up">
 
-    <div class="text-center">
+    <!-- ===================================== -->
+    <!-- Hero Banner Section -->
+    <!-- ===================================== -->
 
-        <h1 class="display-4 fw-bold text-primary">
-
-            AI Fitness & Diet Recommendation System
-
-        </h1>
-
-        <p class="lead text-muted mt-3">
-
-            Personalized Workout, Diet & Progress Tracking
-            powered by Artificial Intelligence.
-
-        </p>
-
-        <hr class="my-4">
-
-        {% if current_user.is_authenticated %}
-
-            <h4 class="mb-4">
-
-                Welcome back,
-                <strong>{{ current_user.first_name }}</strong>
-
-            </h4>
-
-            <div class="d-grid gap-3 col-md-5 mx-auto">
-
-                <a href="{{ url_for('dashboard.dashboard') }}"
-                   class="btn btn-primary btn-lg">
-
-                    📊 Dashboard
-
-                </a>
-
-                <a href="{{ url_for('profile.profile') }}"
-                   class="btn btn-success btn-lg">
-
-                    👤 My Fitness Profile
-
-                </a>
-
-                <a href="{{ url_for('progress.progress') }}"
-                   class="btn btn-warning btn-lg">
-
-                    📈 Progress Tracking
-
-                </a>
-
-                <a href="{{ url_for('recommendation.view_recommendation') }}"
-                    class="btn btn-outline-primary">
-
-                    AI Recommendation
-
-                </a>
-
-                <a href="{{ url_for('auth.logout') }}"
-                   class="btn btn-outline-danger btn-lg">
-
-                    Logout
-
-                </a>
-
+    <div class="card gradient-banner text-center text-md-start mb-5 p-5 border-0 shadow-lg" style="border-radius: 28px;">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-semibold shadow-sm">
+                    🌟 Smart Fitness Coach
+                </span>
+                <h1 class="display-4 fw-extrabold mb-3 text-white" style="line-height: 1.2;">
+                    AI Fitness & Diet <br>Recommendation System
+                </h1>
+                <p class="lead text-white-50 mb-0 max-width-600">
+                    Your personal fitness journey reimagined. Get tailor-made workout routines, precision diet plans, and deep progress insights powered by artificial intelligence.
+                </p>
             </div>
-
-        {% else %}
-
-            <div class="d-grid gap-3 col-md-5 mx-auto">
-
-                <a href="{{ url_for('auth.register') }}"
-                   class="btn btn-primary btn-lg">
-
-                    Create Account
-
-                </a>
-
-                <a href="{{ url_for('auth.login') }}"
-                   class="btn btn-outline-primary btn-lg">
-
-                    Login
-
-                </a>
-
+            
+            <div class="col-lg-4 text-center mt-4 mt-lg-0">
+                <div class="p-3 bg-white bg-opacity-10 rounded-circle d-inline-block animate-pulse">
+                    <div class="p-4 bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                        <i class="bi bi-robot text-white" style="font-size: 60px;"></i>
+                    </div>
+                </div>
             </div>
-
-        {% endif %}
-
+        </div>
     </div>
 
-    <hr class="my-5">
+    <!-- ===================================== -->
+    <!-- Logged In / Guest Action Board -->
+    <!-- ===================================== -->
 
-    <div class="row text-center">
-
-        <div class="col-md-4">
-
-            <div class="card shadow-sm h-100">
-
-                <div class="card-body">
-
-                    <h3>🏋️</h3>
-
-                    <h5>Workout Plans</h5>
-
-                    <p>
-
-                        Personalized AI-generated workout routines.
-
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card modern-card shadow border-0 p-4 rounded-4 text-center">
+                {% if current_user.is_authenticated %}
+                    <h4 class="fw-bold mb-2">
+                        Welcome back, <span class="text-primary">{{ current_user.first_name }}</span>!
+                    </h4>
+                    <p class="text-muted mb-4">
+                        Your personalized logs and AI models are ready. Choose your destination below:
                     </p>
-
-                </div>
-
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-3">
+                            <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-premium w-100 py-3 rounded-4">
+                                <i class="bi bi-grid-1x2-fill d-block mb-1 fs-4"></i> Dashboard
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <a href="{{ url_for('profile.profile') }}" class="btn btn-premium w-100 py-3 rounded-4" style="background: var(--success-gradient);">
+                                <i class="bi bi-person-fill d-block mb-1 fs-4"></i> Profile
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <a href="{{ url_for('progress.progress') }}" class="btn btn-premium w-100 py-3 rounded-4" style="background: var(--warning-gradient);">
+                                <i class="bi bi-graph-up-arrow d-block mb-1 fs-4"></i> Progress
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <a href="{{ url_for('recommendation.view_recommendation') }}" class="btn btn-premium w-100 py-3 rounded-4" style="background: var(--info-gradient);">
+                                <i class="bi bi-cpu-fill d-block mb-1 fs-4"></i> AI Plan
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <h4 class="fw-bold mb-2">
+                        Ready to transform your health?
+                    </h4>
+                    <p class="text-muted mb-4">
+                        Create an account or login to configure your fitness metrics and get custom AI guidance.
+                    </p>
+                    
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-premium px-5 py-3 shadow-lg">
+                            Get Started Free
+                        </a>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-premium-outline px-5 py-3">
+                            Sign In
+                        </a>
+                    </div>
+                {% endif %}
             </div>
+        </div>
+    </div>
 
+    <!-- ===================================== -->
+    <!-- Feature Column Cards -->
+    <!-- ===================================== -->
+
+    <h3 class="fw-bold text-center mb-4">Core Ecosystem Features</h3>
+    
+    <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-4">
+            <div class="card modern-card h-100 border-0 p-3">
+                <div class="card-body text-center">
+                    <div class="p-3 bg-light-primary rounded-4 d-inline-block mb-3" style="width: 60px; height: 60px; display: flex !important; align-items: center; justify-content: center;">
+                        <i class="bi bi-lightning-charge-fill fs-3 text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Smart Workout Routines</h5>
+                    <p class="text-muted mb-0 small">
+                        AI-generated training plans target specific muscle groups and sets, optimized dynamically around your fitness experience level.
+                    </p>
+                </div>
+            </div>
         </div>
 
+        <!-- Feature 2 -->
         <div class="col-md-4">
-
-            <div class="card shadow-sm h-100">
-
-                <div class="card-body">
-
-                    <h3>🥗</h3>
-
-                    <h5>Diet Plans</h5>
-
-                    <p>
-
-                        Smart calorie and nutrition recommendations.
-
+            <div class="card modern-card h-100 border-0 p-3">
+                <div class="card-body text-center">
+                    <div class="p-3 bg-light-success rounded-4 d-inline-block mb-3" style="width: 60px; height: 60px; display: flex !important; align-items: center; justify-content: center;">
+                        <i class="bi bi-egg-fried fs-3 text-success"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Customized Meal Plans</h5>
+                    <p class="text-muted mb-0 small">
+                        Precise calorie computation, macronutrient tracking, and direct dietitian recommendations computed around your dietary preferences.
                     </p>
-
                 </div>
-
             </div>
-
         </div>
 
+        <!-- Feature 3 -->
         <div class="col-md-4">
-
-            <div class="card shadow-sm h-100">
-
-                <div class="card-body">
-
-                    <h3>📈</h3>
-
-                    <h5>Track Progress</h5>
-
-                    <p>
-
-                        Visualize your fitness journey with charts.
-
+            <div class="card modern-card h-100 border-0 p-3">
+                <div class="card-body text-center">
+                    <div class="p-3 bg-light-warning rounded-4 d-inline-block mb-3" style="width: 60px; height: 60px; display: flex !important; align-items: center; justify-content: center;">
+                        <i class="bi bi-graph-up-arrow fs-3 text-warning"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Detailed Weight Progress</h5>
+                    <p class="text-muted mb-0 small">
+                        Log weight progress values daily and visualize historical metrics via interactive graphical charts to stay motivated.
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
 </div>

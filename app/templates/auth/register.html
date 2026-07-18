@@ -6,184 +6,143 @@ Register | AI Fitness & Diet Recommendation System
 
 {% block content %}
 
-<div class="row justify-content-center align-items-center">
+<div class="row justify-content-center align-items-center py-4 animate-fade-in-up">
 
-    <div class="col-lg-6 col-md-8">
+    <div class="col-lg-7 col-md-9">
 
-        <div class="card shadow-lg border-0 rounded-4">
+        <div class="card glass-card shadow-lg border-0 rounded-4">
 
             <div class="card-body p-5">
 
+                <!-- Logo Section -->
                 <div class="text-center mb-4">
+                    <div class="p-3 bg-light-primary rounded-circle d-inline-block animate-pulse mb-3" style="width: 80px; height: 80px; display: flex !important; align-items: center; justify-content: center; margin: 0 auto;">
+                        <i class="bi bi-heart-pulse-fill text-primary" style="font-size: 40px;"></i>
+                    </div>
 
-                    <i class="bi bi-heart-pulse-fill text-primary"
-                       style="font-size:60px;"></i>
-
-                    <h2 class="fw-bold mt-3">
+                    <h2 class="fw-bold mt-2">
                         Create Your Account
                     </h2>
 
-                    <p class="text-muted">
-                        Start your personalized AI Fitness Journey
+                    <p class="text-muted small">
+                        Start your personalized AI Fitness & Diet journey today
                     </p>
-
                 </div>
 
                 <form method="POST" novalidate>
 
                     {{ form.hidden_tag() }}
 
-                    <!-- First Name -->
-
-                    <div class="mb-3">
-
-                        {{ form.first_name.label(class="form-label") }}
-
-                        {{ form.first_name(class="form-control") }}
-
-                        {% for error in form.first_name.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-                    <!-- Last Name -->
-
-                    <div class="mb-3">
-
-                        {{ form.last_name.label(class="form-label") }}
-
-                        {{ form.last_name(class="form-control") }}
-
-                        {% for error in form.last_name.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-                    <!-- Username -->
-
-                    <div class="mb-3">
-
-                        {{ form.username.label(class="form-label") }}
-
-                        {{ form.username(class="form-control") }}
-
-                        {% for error in form.username.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-                    <!-- Email -->
-
-                    <div class="mb-3">
-
-                        {{ form.email.label(class="form-label") }}
-
-                        {{ form.email(class="form-control") }}
-
-                        {% for error in form.email.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-                    <!-- Password -->
-
-                    <div class="mb-3">
-
-                        {{ form.password.label(class="form-label") }}
-
-                        <div class="input-group">
-
-                            {{ form.password(
-                                class="form-control",
-                                id="password"
-                            ) }}
-
-                            <button class="btn btn-outline-secondary"
-                                    type="button"
-                                    onclick="togglePassword('password', this)">
-
-                                <i class="bi bi-eye"></i>
-
-                            </button>
-
+                    <div class="row">
+                        <!-- First Name -->
+                        <div class="col-md-6 mb-3">
+                            {{ form.first_name.label(class="form-label") }}
+                            {{ form.first_name(class="form-control") }}
+                            {% for error in form.first_name.errors %}
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                </div>
+                            {% endfor %}
                         </div>
 
-                        {% for error in form.password.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-
+                        <!-- Last Name -->
+                        <div class="col-md-6 mb-3">
+                            {{ form.last_name.label(class="form-label") }}
+                            {{ form.last_name(class="form-control") }}
+                            {% for error in form.last_name.errors %}
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
 
-                    <!-- Confirm Password -->
-
-                    <div class="mb-4">
-
-                        {{ form.confirm_password.label(class="form-label") }}
-
-                        <div class="input-group">
-
-                            {{ form.confirm_password(
-                                class="form-control",
-                                id="confirmPassword"
-                            ) }}
-
-                            <button class="btn btn-outline-secondary"
-                                    type="button"
-                                    onclick="togglePassword('confirmPassword', this)">
-
-                                <i class="bi bi-eye"></i>
-
-                            </button>
-
+                    <div class="row">
+                        <!-- Username -->
+                        <div class="col-md-6 mb-3">
+                            {{ form.username.label(class="form-label") }}
+                            {{ form.username(class="form-control") }}
+                            {% for error in form.username.errors %}
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                </div>
+                            {% endfor %}
                         </div>
 
-                        {% for error in form.confirm_password.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-
+                        <!-- Email -->
+                        <div class="col-md-6 mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control") }}
+                            {% for error in form.email.errors %}
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
 
-                    <!-- Submit -->
+                    <div class="row">
+                        <!-- Password -->
+                        <div class="col-md-6 mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            <div class="input-group">
+                                {{ form.password(
+                                    class="form-control",
+                                    id="password"
+                                ) }}
+                                <button class="btn btn-outline-secondary border-start-0"
+                                        type="button"
+                                        style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;"
+                                        onclick="togglePassword('password', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            {% for error in form.password.errors %}
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
 
-                    <div class="d-grid">
+                        <!-- Confirm Password -->
+                        <div class="col-md-6 mb-4">
+                            {{ form.confirm_password.label(class="form-label") }}
+                            <div class="input-group">
+                                {{ form.confirm_password(
+                                    class="form-control",
+                                    id="confirmPassword"
+                                ) }}
+                                <button class="btn btn-outline-secondary border-start-0"
+                                        type="button"
+                                        style="border-top-right-radius: 12px; border-bottom-right-radius: 12px;"
+                                        onclick="togglePassword('confirmPassword', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            {% for error in form.confirm_password.errors %}
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                        {{ form.submit(
-                            class="btn btn-primary btn-lg"
-                        ) }}
-
+                    <!-- Submit Button -->
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn btn-premium btn-lg py-3 rounded-pill fw-bold">
+                            <i class="bi bi-person-plus-fill me-2"></i>Create Account
+                        </button>
                     </div>
 
                 </form>
 
-                <hr>
+                <hr class="my-4 text-black-50">
 
-                <div class="text-center">
-
-                    Already have an account?
-
-                    <a href="{{ url_for('auth.login') }}"
-                       class="text-decoration-none fw-bold">
-
-                        Login
-
+                <div class="text-center small text-secondary">
+                    Already have an account? 
+                    <a href="{{ url_for('auth.login') }}" class="text-decoration-none fw-bold text-primary">
+                        Sign In
                     </a>
-
                 </div>
 
             </div>
@@ -199,28 +158,20 @@ Register | AI Fitness & Diet Recommendation System
 {% block scripts %}
 
 <script>
-
 function togglePassword(fieldId, button){
-
     const field = document.getElementById(fieldId);
     const icon = button.querySelector("i");
 
     if(field.type === "password"){
-
         field.type = "text";
         icon.classList.remove("bi-eye");
         icon.classList.add("bi-eye-slash");
-
-    }else{
-
+    } else {
         field.type = "password";
         icon.classList.remove("bi-eye-slash");
         icon.classList.add("bi-eye");
-
     }
-
 }
-
 </script>
 
 {% endblock %}

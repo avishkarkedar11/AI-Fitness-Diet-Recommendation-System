@@ -38,30 +38,33 @@ def generate_recommendation():
     """
     Generate a new recommendation.
     """
+    try:
+        recommendation = RecommendationService.generate(
+            current_user.id
+        )
 
-    recommendation = RecommendationService.generate(
-        current_user.id
-    )
+        if recommendation is None:
 
-    if recommendation is None:
+            flash(
+                "Please complete your fitness profile first.",
+                "warning"
+            )
+
+            return redirect(
+                url_for("profile.profile")
+            )
 
         flash(
-            "Please complete your fitness profile first.",
-            "warning"
+            "Recommendation generated successfully!",
+            "success"
         )
 
         return redirect(
-            url_for("profile.profile")
+            url_for("recommendation.view_recommendation")
         )
-
-    flash(
-        "Recommendation generated successfully!",
-        "success"
-    )
-
-    return redirect(
-        url_for("recommendation.view_recommendation")
-    )
+    except Exception as e:
+        flash(str(e), "danger")
+        return redirect(url_for("dashboard.dashboard"))
 
 
 # =====================================================
@@ -138,16 +141,17 @@ def regenerate_recommendation():
     """
     Generate a fresh recommendation.
     """
-
-    RecommendationService.generate(
-        current_user.id
-    )
-
-    flash(
-        "Recommendation updated successfully!",
-        "success"
-    )
-
-    return redirect(
-        url_for("recommendation.view_recommendation")
-    )
+    try:
+        RecommendationService.generate(
+            current_user.id
+        )
+        flash(
+            "Recommendation updated successfully!",
+            "success"
+        )
+        return redirect(
+            url_for("recommendation.view_recommendation")
+        )
+    except Exception as e:
+        flash(str(e), "danger")
+        return redirect(url_for("dashboard.dashboard"))

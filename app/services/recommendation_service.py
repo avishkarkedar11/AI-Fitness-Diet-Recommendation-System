@@ -11,6 +11,33 @@ from app.services.bmi_service import BMIService
 from app.services.calorie_service import CalorieService
 from app.services.progress_service import ProgressService
 
+from app.ml.predictors.workout_predictor import WorkoutPredictor
+from app.ml.predictors.diet_predictor import DietPredictor
+
+# Lazy initialization of ML predictors
+_workout_predictor = None
+_diet_predictor = None
+
+
+def get_workout_predictor():
+    global _workout_predictor
+    if _workout_predictor is None:
+        try:
+            _workout_predictor = WorkoutPredictor()
+        except Exception:
+            _workout_predictor = None
+    return _workout_predictor
+
+
+def get_diet_predictor():
+    global _diet_predictor
+    if _diet_predictor is None:
+        try:
+            _diet_predictor = DietPredictor()
+        except Exception:
+            _diet_predictor = None
+    return _diet_predictor
+
 
 class RecommendationService:
     """
@@ -22,7 +49,128 @@ class RecommendationService:
     # =====================================================
 
     @staticmethod
-    def generate(user_id):
+    def generate_ai_recommendation(profile, nutrition, bmi):
+        import os
+        import urllib.request
+        import json
+
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            return None
+
+        url = f"https://generativelanguage.googleapis.com/v1/models/gemini-3.5-flash:generateContent?key={api_key}"
+
+        prompt = f"""
+        You are an expert AI fitness coach and clinical nutritionist.
+        Generate a personalized fitness recommendation for a user with the following profile:
+        - Age: {profile.age}
+        - Gender: {profile.gender.value if hasattr(profile.gender, 'value') else profile.gender}
+        - Height: {profile.height_cm} cm
+        - Weight: {profile.weight_kg} kg (BMI: {bmi})
+        - Fitness Goal: {profile.goal.value if hasattr(profile.goal, 'value') else profile.goal}
+        - Activity Level: {profile.activity_level.value if hasattr(profile.activity_level, 'value') else profile.activity_level}
+        - Workout Hours: {profile.workout_hours} hrs/day
+        - Sleep Hours: {profile.sleep_hours} hrs/day
+        - Daily Steps: {profile.daily_steps}
+        - Dietary Preference: {profile.dietary_preference}
+        - Medical Conditions: {profile.medical_conditions}
+
+        Provide:
+        1. A Personalized Workout Plan (list of strings representing specific exercises, target muscle groups, sets/reps).
+        2. A Personalized Meal Plan categorized into breakfast, lunch, and dinner. For each category, suggest healthy, realistic food items with serving size, calories, protein, carbs, and fats.
+        3. Flat list of general nutrition tips (saved under 'plan').
+
+        You must respond ONLY with a raw JSON object containing these keys:
+        {{
+          "workout_plan": [
+            "Cardio: 30 min brisk walk (General)",
+            "Strength: Push-ups - 3 sets x 10 reps (Chest)",
+            "Strength: Bodyweight Squats - 3 sets x 15 reps (Legs)"
+          ],
+          "diet_plan": {{
+            "breakfast": [
+              {{
+                "name": "Oatmeal with banana & almond butter",
+                "serving": "1 bowl",
+                "calories": 350,
+                "protein": 10.0,
+                "carbs": 55.0,
+                "fat": 8.0
+              }}
+            ],
+            "lunch": [
+              {{
+                "name": "Grilled chicken breast with brown rice & broccoli",
+                "serving": "150g chicken, 1 cup rice",
+                "calories": 500,
+                "protein": 40.0,
+                "carbs": 50.0,
+                "fat": 6.0
+              }}
+            ],
+            "dinner": [
+              {{
+                "name": "Baked salmon with quinoa & mixed greens",
+                "serving": "150g salmon, 1 cup quinoa",
+                "calories": 450,
+                "protein": 35.0,
+                "carbs": 40.0,
+                "fat": 12.0
+              }}
+            ],
+            "plan": [
+              "Drink at least 3.0 L water daily.",
+              "Limit added sugar intake."
+            ]
+          }}
+        }}
+        """
+
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt}
+                    ]
+                }
+            ]
+        }
+
+        headers = {"Content-Type": "application/json"}
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers=headers,
+            method="POST"
+        )
+
+        import urllib.error
+        try:
+            with urllib.request.urlopen(req, timeout=12) as response:
+                res_data = json.loads(response.read().decode("utf-8"))
+                text_response = res_data["candidates"][0]["content"]["parts"][0]["text"]
+                cleaned_text = text_response.strip()
+                if cleaned_text.startswith("```"):
+                    lines = cleaned_text.splitlines()
+                    if lines[0].startswith("```"):
+                        lines = lines[1:]
+                    if lines[-1].startswith("```"):
+                        lines = lines[:-1]
+                    cleaned_text = "\n".join(lines).strip()
+                return json.loads(cleaned_text)
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode("utf-8")
+            try:
+                error_json = json.loads(error_body)
+                error_msg = error_json.get("error", {}).get("message", error_body)
+            except Exception:
+                error_msg = error_body
+            raise ValueError(f"Gemini API returned an error ({e.code}): {error_msg}")
+        except Exception as e:
+            raise ValueError(f"Failed to communicate with Gemini API: {e}")
+
+    @classmethod
+    def generate(cls, user_id):
         """
         Generate recommendation for a user.
         """
@@ -56,26 +204,28 @@ class RecommendationService:
         nutrition = CalorieService.nutrition_report(
             profile
         )
-        
-        
 
         # ---------------------------------------------
-        # Workout Recommendation
+        # Generate Recommendations via Gemini AI Only
         # ---------------------------------------------
+        import os
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError(
+                "GEMINI_API_KEY is missing from your .env file. "
+                "Please add GEMINI_API_KEY=your_api_key to enable AI recommendations."
+            )
 
-        workout = RecommendationService.workout_plan(
-            profile,
-            bmi
-        )
+        ai_rec = cls.generate_ai_recommendation(profile, nutrition, bmi)
 
-        # ---------------------------------------------
-        # Diet Recommendation
-        # ---------------------------------------------
+        if not ai_rec:
+            raise ValueError(
+                "Gemini AI API failed to generate recommendations. "
+                "Please check your network connection and verify that your GEMINI_API_KEY is valid."
+            )
 
-        diet = RecommendationService.diet_plan(
-            profile,
-            nutrition
-        )
+        workout = ai_rec.get("workout_plan", [])
+        diet = ai_rec.get("diet_plan", {"plan": []})
 
         # ---------------------------------------------
         # Save Recommendation
@@ -89,9 +239,7 @@ class RecommendationService:
                 "plan": workout
             },
 
-            diet_plan={
-                "plan": diet
-            },
+            diet_plan=diet,  # diet is already structured as a dictionary
 
             daily_calories=nutrition["target_calories"],
 
@@ -119,11 +267,10 @@ class RecommendationService:
         """
 
         workout = []
-
         goal = profile.goal.value.lower()
 
         # ---------------------------------------------
-        # Goal Based Workout
+        # Goal Based Workout (Rule-based Guidelines)
         # ---------------------------------------------
 
         if "lose" in goal:
@@ -221,9 +368,22 @@ class RecommendationService:
                 f"Exercise with caution due to: {profile.medical_conditions}."
             )
 
+        # ---------------------------------------------
+        # ML Recommended Specific Exercises
+        # ---------------------------------------------
+        wp = get_workout_predictor()
+        if wp is not None:
+            try:
+                ml_workouts = wp.recommend_workouts(profile, limit=4)
+                if ml_workouts:
+                    workout.append("--- ML Recommended Specific Workouts ---")
+                    workout.extend(ml_workouts)
+            except Exception as e:
+                print(f"ML workout recommendation failed: {e}")
+
         return workout
-    
-        # =====================================================
+
+    # =====================================================
     # Diet Recommendation
     # =====================================================
 
@@ -233,8 +393,30 @@ class RecommendationService:
         Generate personalized diet plan.
         """
 
-        diet = []
+        # Try to use ML Predictor
+        dp = get_diet_predictor()
+        if dp is not None:
+            try:
+                ml_diet = dp.recommend_meals(profile, nutrition, limit=3)
+                
+                # Add general tips to the flat plan list
+                pref_text = f"Dietary Preference: {profile.dietary_preference}"
+                water_text = f"Drink at least {nutrition['water_liters']} L water daily."
+                ml_diet["plan"] = [pref_text, water_text] + ml_diet["plan"]
+                
+                if (
+                    profile.medical_conditions
+                    and profile.medical_conditions.lower() != "none"
+                ):
+                    ml_diet["plan"].append(
+                        f"Consult your healthcare provider regarding your diet because of: {profile.medical_conditions}."
+                    )
+                return ml_diet
+            except Exception as e:
+                print(f"ML diet recommendation failed: {e}")
 
+        # Fallback to Rule-based Diet Plan
+        diet = []
         goal = profile.goal.value.lower()
 
         # ---------------------------------------------
@@ -349,7 +531,7 @@ class RecommendationService:
                 f"Consult your healthcare provider regarding your diet because of: {profile.medical_conditions}."
             )
 
-        return diet
+        return {"plan": diet}
 
     # =====================================================
     # Latest Recommendation
@@ -368,4 +550,4 @@ class RecommendationService:
                 SavedRecommendation.generated_at.desc()
             )
             .first()
-        )
+        )

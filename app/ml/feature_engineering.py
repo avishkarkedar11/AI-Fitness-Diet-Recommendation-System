@@ -134,9 +134,14 @@ class FeatureEngineering:
         """
         Split dataset.
         """
+        drop_cols = [target_column]
+        if "User_ID" in dataframe.columns:
+            drop_cols.append("User_ID")
+        if "Unnamed: 0" in dataframe.columns:
+            drop_cols.append("Unnamed: 0")
 
         X = dataframe.drop(
-            columns=[target_column]
+            columns=drop_cols
         )
 
         y = dataframe[target_column]

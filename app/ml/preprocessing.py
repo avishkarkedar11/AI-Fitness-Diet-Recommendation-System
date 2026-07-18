@@ -112,10 +112,7 @@ class DataPreprocessor:
 
         for column in df.columns:
 
-            if (
-                df[column]
-                .dtype == "object"
-            ):
+            if not pd.api.types.is_numeric_dtype(df[column]):
 
                 mode = (
                     df[column]

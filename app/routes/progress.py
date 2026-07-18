@@ -90,6 +90,22 @@ def progress():
     )
 
     # ==========================================
+    # Load Weight Forecast (LSTM Time Series)
+    # ==========================================
+    from app.ml.predictors.progress_predictor import ProgressPredictor
+    forecast = []
+    if chart_data and len(chart_data.get("weights", [])) >= 3:
+        try:
+            predictor = ProgressPredictor()
+            forecast = predictor.forecast_weight(
+                history_weights=chart_data["weights"],
+                dates=chart_data["labels"],
+                days_ahead=7
+            )
+        except Exception as e:
+            print(f"Error generating progress forecast: {e}")
+
+    # ==========================================
     # Render Template
     # ==========================================
 
@@ -98,5 +114,6 @@ def progress():
         form=form,
         history=history,
         chart_data=chart_data,
-        insights=insights
+        insights=insights,
+        forecast=forecast
     )

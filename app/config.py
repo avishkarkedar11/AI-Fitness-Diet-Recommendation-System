@@ -48,7 +48,10 @@ class Config:
     # Connection pool settings
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,
-        "pool_recycle": 300
+        "pool_recycle": 300,
+        "connect_args": {
+            "ssl": {}
+        } if os.getenv("DB_HOST", "").endswith(".aivencloud.com") else {}
     }
 
     # ==========================

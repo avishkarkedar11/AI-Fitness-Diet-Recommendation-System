@@ -10,49 +10,15 @@ AI Recommendation
        AI Fitness Recommendation Styling
        ==================================================== */
     
-    /* Header Gradient & Decorative Elements */
+    /* Header Card */
     .rec-header-card {
-        background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-        border: none;
-        border-radius: 24px !important;
-        color: white !important;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2);
-    }
-    
-    .rec-header-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -10%;
-        width: 350px;
-        height: 350px;
-        background: rgba(255, 255, 255, 0.12);
-        border-radius: 50%;
-        filter: blur(50px);
-        pointer-events: none;
-    }
-    
-    .rec-header-card::after {
-        content: '';
-        position: absolute;
-        bottom: -20%;
-        left: -5%;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 50%;
-        filter: blur(30px);
-        pointer-events: none;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px !important;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
-    .rec-header-card h2 {
-        color: white !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Modern Tabs Custom Style */
+    /* Tabs Styling */
     .rec-nav-pills {
         background: #f1f5f9;
         border: 1px solid #e2e8f0;
@@ -63,37 +29,36 @@ AI Recommendation
     .rec-nav-pills .nav-link {
         color: #64748b;
         border-radius: 30px !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.25s ease;
         padding: 12px 24px;
         font-weight: 600;
     }
     
     .rec-nav-pills .nav-link:hover:not(.active) {
-        background-color: rgba(79, 70, 229, 0.05);
-        color: #4f46e5;
+        background-color: rgba(13, 110, 253, 0.05);
+        color: #0d6efd;
     }
     
     .rec-nav-pills .nav-link.active {
-        background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important;
+        background: #0d6efd !important;
         color: white !important;
-        box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
-        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
     }
 
     /* Macro Dashboard Cards */
     .macro-card {
-        border: none !important;
-        border-radius: 20px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 16px !important;
         background: #ffffff;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.01);
+        transition: all 0.25s ease;
         position: relative;
         overflow: hidden;
     }
     
     .macro-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.04);
     }
     
     .macro-card::after {
@@ -105,33 +70,32 @@ AI Recommendation
         height: 4px;
     }
     
-    .macro-calories::after { background: linear-gradient(90deg, #ef4444, #f87171); }
-    .macro-protein::after { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-    .macro-carbs::after { background: linear-gradient(90deg, #10b981, #34d399); }
-    .macro-fats::after { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .macro-calories::after { background: #dc3545; }
+    .macro-protein::after { background: #0d6efd; }
+    .macro-carbs::after { background: #198754; }
+    .macro-fats::after { background: #ffc107; }
 
     .macro-badge {
-        width: 55px;
-        height: 55px;
-        border-radius: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
-        margin: 0 auto 15px auto;
-        box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2);
+        font-size: 24px;
+        margin: 0 auto 12px auto;
     }
     
-    .bg-light-danger { background-color: #fef2f2; color: #ef4444; }
-    .bg-light-primary { background-color: #eff6ff; color: #3b82f6; }
-    .bg-light-success { background-color: #ecfdf5; color: #10b981; }
-    .bg-light-warning { background-color: #fffbeb; color: #f59e0b; }
+    .bg-light-danger { background-color: #fff5f5; color: #dc3545; }
+    .bg-light-primary { background-color: #eef2ff; color: #0d6efd; }
+    .bg-light-success { background-color: #e8f8ed; color: #198754; }
+    .bg-light-warning { background-color: #fff6db; color: #f59e0b; }
 
     /* Interactive Workout checklist */
     .workout-item-card {
         border: 1px solid #f1f5f9;
-        border-radius: 16px;
-        transition: all 0.25s ease;
+        border-radius: 12px;
+        transition: all 0.2s ease;
         background: #ffffff;
         cursor: pointer;
         user-select: none;
@@ -140,12 +104,11 @@ AI Recommendation
     .workout-item-card:hover {
         border-color: #cbd5e1;
         background: #f8fafc;
-        transform: translateX(4px);
     }
     
     .workout-checkbox {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         border-radius: 6px;
         border: 2px solid #cbd5e1;
         cursor: pointer;
@@ -153,49 +116,39 @@ AI Recommendation
     }
     
     .workout-checkbox:checked {
-        background-color: #10b981;
-        border-color: #10b981;
+        background-color: #198754;
+        border-color: #198754;
     }
     
     .workout-checkbox:checked + .workout-text {
         text-decoration: line-through;
         color: #94a3b8;
     }
-    
-    .workout-checkbox:focus {
-        box-shadow: 0 0 0 0.25rem rgba(16, 185, 129, 0.25);
-    }
 
     /* Diet Plan Styling */
     .meal-section-card {
-        border: none;
-        border-radius: 24px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
         background: #ffffff;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
         overflow: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.25s ease;
     }
 
     .meal-section-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
     }
 
     .meal-section-header {
-        padding: 22px;
+        padding: 16px 20px;
         font-weight: 700;
-        color: white;
-        font-size: 1.15rem;
+        color: #212529;
+        border-bottom: 1px solid #e2e8f0;
+        background-color: #f8fafc;
     }
-    
-    .meal-breakfast { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-    .meal-lunch { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-    .meal-dinner { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
 
     .meal-item {
         border-bottom: 1px solid #f1f5f9;
-        padding: 20px;
-        transition: background-color 0.2s ease;
+        padding: 16px 20px;
     }
     
     .meal-item:hover {
@@ -209,51 +162,34 @@ AI Recommendation
     .macro-pill {
         font-size: 11px;
         font-weight: 600;
-        padding: 5px 12px;
-        border-radius: 12px;
+        padding: 4px 10px;
+        border-radius: 8px;
         display: inline-block;
-    }
-    
-    /* Animation effects */
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.06); }
-        100% { transform: scale(1); }
-    }
-    
-    .animate-pulse {
-        animation: pulse 2s infinite ease-in-out;
-    }
-
-    /* Custom progress bar sizing */
-    .progress-bar-thin {
-        height: 6px;
-        border-radius: 3px;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 
-<div class="container py-3">
+<div class="container py-3 animate-fade-in-up">
 
     <!-- ===================================== -->
     <!-- Page Header Card -->
     <!-- ===================================== -->
 
-    <div class="card rec-header-card mb-4">
+    <div class="card rec-header-card mb-4 bg-white">
         <div class="card-body p-4 text-center text-md-start">
             <div class="row align-items-center">
                 <div class="col-md-9">
-                    <h2 class="fw-bold mb-2">
-                        🤖 AI Fitness & Diet Plan
+                    <h2 class="fw-bold text-dark mb-2">
+                        AI Fitness & Diet Recommendation System
                     </h2>
-                    <p class="mb-0 text-white-50 fs-6">
-                        Custom recommendations tailored from your profile, daily progress metrics, and biological calculations.
+                    <p class="mb-0 text-secondary fs-6">
+                        Custom recommendations tailored from your fitness profile, BMI, and calorie targets.
                     </p>
                 </div>
                 <div class="col-md-3 text-center text-md-end mt-3 mt-md-0">
-                    <span class="badge bg-white text-dark py-2 px-3 fs-6 rounded-pill shadow-sm">
+                    <span class="badge bg-light text-primary border border-primary-subtle py-2 px-3 fs-6 rounded-pill">
                         Active Profile
                     </span>
                 </div>
@@ -295,7 +231,7 @@ AI Recommendation
         <div class="tab-pane fade show active" id="overview-content" role="tabpanel" aria-labelledby="overview-tab">
             
             <!-- Health Profile & BMI Summary -->
-            <div class="card shadow-sm border-0 mb-4 rounded-4">
+            <div class="card border border-light-subtle shadow-sm mb-4 rounded-4 bg-white">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-person-circle text-primary me-2"></i>Health Profile & BMI Status</h5>
                     
@@ -326,7 +262,7 @@ AI Recommendation
                             <hr class="my-3 text-black-50">
                             
                             <p class="text-muted mb-0 small">
-                                <i class="bi bi-info-circle-fill text-info me-1"></i> Based on your current logged weight of <strong>{{ current_weight }} kg</strong>. Keep updating your logs in the dashboard to track your weight progress dynamically!
+                                <i class="bi bi-info-circle-fill text-info me-1"></i> Based on your current weight of <strong>{{ current_weight }} kg</strong>. Keep updating your progress log to track weight change.
                             </p>
                         </div>
                     </div>
@@ -334,13 +270,13 @@ AI Recommendation
             </div>
 
             <!-- Macronutrient Summary Grid -->
-            <h5 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-primary me-2"></i>Daily Nutritional Targets</h5>
+            <h5 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-primary me-2"></i>Daily Targets</h5>
             <div class="row g-4 mb-4">
                 
                 <!-- Daily Calories -->
                 <div class="col-lg-3 col-md-6">
-                    <div class="macro-card macro-calories p-4 text-center h-100">
-                        <div class="macro-badge bg-light-danger animate-pulse">
+                    <div class="macro-card macro-calories p-4 text-center h-100 bg-white">
+                        <div class="macro-badge bg-light-danger">
                             <i class="bi bi-fire"></i>
                         </div>
                         <h6 class="text-muted mb-1">Calories</h6>
@@ -351,7 +287,7 @@ AI Recommendation
                 
                 <!-- Protein -->
                 <div class="col-lg-3 col-md-6">
-                    <div class="macro-card macro-protein p-4 text-center h-100">
+                    <div class="macro-card macro-protein p-4 text-center h-100 bg-white">
                         <div class="macro-badge bg-light-primary">
                             <i class="bi bi-egg-fried"></i>
                         </div>
@@ -363,7 +299,7 @@ AI Recommendation
                 
                 <!-- Carbs -->
                 <div class="col-lg-3 col-md-6">
-                    <div class="macro-card macro-carbs p-4 text-center h-100">
+                    <div class="macro-card macro-carbs p-4 text-center h-100 bg-white">
                         <div class="macro-badge bg-light-success">
                             <i class="bi bi-water"></i>
                         </div>
@@ -375,7 +311,7 @@ AI Recommendation
                 
                 <!-- Fats -->
                 <div class="col-lg-3 col-md-6">
-                    <div class="macro-card macro-fats p-4 text-center h-100">
+                    <div class="macro-card macro-fats p-4 text-center h-100 bg-white">
                         <div class="macro-badge bg-light-warning">
                             <i class="bi bi-droplet-half"></i>
                         </div>
@@ -388,13 +324,13 @@ AI Recommendation
             </div>
 
             <!-- Helpful Callout Summary -->
-            <div class="alert alert-primary border-0 shadow-sm p-4 rounded-4 mb-0">
+            <div class="alert alert-primary border-0 shadow-sm p-4 rounded-4 mb-0 bg-light-subtle text-dark">
                 <div class="d-flex gap-3">
                     <span class="fs-2 text-primary"><i class="bi bi-rocket-takeoff-fill"></i></span>
                     <div>
-                        <h6 class="fw-bold text-primary mb-1">Get Started with your Recommendations!</h6>
+                        <h6 class="fw-bold text-primary mb-1">Explore Your Recommendation</h6>
                         <p class="mb-0 text-secondary small">
-                            Use the navigation buttons above to explore your personalized <strong>Workout Plan</strong> and detailed <strong>Meal & Diet Plan</strong>. Tap checkboxes as you progress throughout your routine to build good fitness habits.
+                            Use the navigation buttons above to explore your <strong>Workout Plan</strong> and <strong>Meal & Diet Plan</strong>. Tap checkboxes as you progress throughout your routine.
                         </p>
                     </div>
                 </div>
@@ -407,13 +343,13 @@ AI Recommendation
         <!-- ===================================== -->
         <div class="tab-pane fade" id="workout-content" role="tabpanel" aria-labelledby="workout-tab">
             
-            <div class="card shadow-sm border-0 rounded-4 p-4">
+            <div class="card border border-light-subtle shadow-sm rounded-4 p-4 bg-white">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5 class="fw-bold text-primary mb-0"><i class="bi bi-lightning-charge-fill me-2"></i>Personalized Workout Routine</h5>
-                    <span class="badge bg-primary px-3 py-2 rounded-pill">AI Structured</span>
+                    <h5 class="fw-bold text-primary mb-0"><i class="bi bi-lightning-charge-fill me-2"></i>Workout Routine</h5>
+                    <span class="badge bg-light text-primary border px-3 py-2 rounded-pill">Structured</span>
                 </div>
                 <p class="text-muted mb-4 small">
-                    This training log is formulated specifically for you. Click on individual exercise cards to check them off as you complete your set.
+                    This training routine is formulated specifically for you. Click on individual exercise cards to check them off as you complete your set.
                 </p>
                 
                 <div class="row g-3">
@@ -448,10 +384,10 @@ AI Recommendation
                 
                 <!-- Breakfast Card -->
                 <div class="col-lg-4">
-                    <div class="meal-section-card h-100">
-                        <div class="meal-section-header meal-breakfast d-flex align-items-center justify-content-between">
+                    <div class="meal-section-card h-100 bg-white">
+                        <div class="meal-section-header d-flex align-items-center justify-content-between">
                             <span>🍳 Breakfast</span>
-                            <i class="bi bi-clock"></i>
+                            <i class="bi bi-clock text-muted"></i>
                         </div>
                         <div class="card-body p-0">
                             {% if recommendation.diet_plan.breakfast and recommendation.diet_plan.breakfast[0] is mapping %}
@@ -463,9 +399,9 @@ AI Recommendation
                                         <span class="text-danger fw-bold small"><i class="bi bi-fire me-1"></i>{{ item.calories }} kcal</span>
                                     </div>
                                     <div class="d-flex flex-wrap gap-1 mt-2">
-                                        <span class="macro-pill bg-light-primary">P: {{ item.protein }}g</span>
-                                        <span class="macro-pill bg-light-success">C: {{ item.carbs }}g</span>
-                                        <span class="macro-pill bg-light-warning text-dark">F: {{ item.fat }}g</span>
+                                        <span class="macro-pill bg-light-primary text-primary">P: {{ item.protein }}g</span>
+                                        <span class="macro-pill bg-light-success text-success">C: {{ item.carbs }}g</span>
+                                        <span class="macro-pill bg-light-warning text-warning text-dark">F: {{ item.fat }}g</span>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -473,7 +409,7 @@ AI Recommendation
                                 {% for item in recommendation.diet_plan.breakfast %}
                                 <div class="meal-item d-flex align-items-start gap-2">
                                     <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                                    <span class="text-muted">{{ item }}</span>
+                                    <span class="text-muted small">{{ item }}</span>
                                 </div>
                                 {% endfor %}
                             {% else %}
@@ -485,10 +421,10 @@ AI Recommendation
 
                 <!-- Lunch Card -->
                 <div class="col-lg-4">
-                    <div class="meal-section-card h-100">
-                        <div class="meal-section-header meal-lunch d-flex align-items-center justify-content-between">
+                    <div class="meal-section-card h-100 bg-white">
+                        <div class="meal-section-header d-flex align-items-center justify-content-between">
                             <span>🍲 Lunch</span>
-                            <i class="bi bi-brightness-high"></i>
+                            <i class="bi bi-brightness-high text-muted"></i>
                         </div>
                         <div class="card-body p-0">
                             {% if recommendation.diet_plan.lunch and recommendation.diet_plan.lunch[0] is mapping %}
@@ -500,9 +436,9 @@ AI Recommendation
                                         <span class="text-danger fw-bold small"><i class="bi bi-fire me-1"></i>{{ item.calories }} kcal</span>
                                     </div>
                                     <div class="d-flex flex-wrap gap-1 mt-2">
-                                        <span class="macro-pill bg-light-primary">P: {{ item.protein }}g</span>
-                                        <span class="macro-pill bg-light-success">C: {{ item.carbs }}g</span>
-                                        <span class="macro-pill bg-light-warning text-dark">F: {{ item.fat }}g</span>
+                                        <span class="macro-pill bg-light-primary text-primary">P: {{ item.protein }}g</span>
+                                        <span class="macro-pill bg-light-success text-success">C: {{ item.carbs }}g</span>
+                                        <span class="macro-pill bg-light-warning text-warning text-dark">F: {{ item.fat }}g</span>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -510,7 +446,7 @@ AI Recommendation
                                 {% for item in recommendation.diet_plan.lunch %}
                                 <div class="meal-item d-flex align-items-start gap-2">
                                     <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                                    <span class="text-muted">{{ item }}</span>
+                                    <span class="text-muted small">{{ item }}</span>
                                 </div>
                                 {% endfor %}
                             {% else %}
@@ -522,10 +458,10 @@ AI Recommendation
 
                 <!-- Dinner Card -->
                 <div class="col-lg-4">
-                    <div class="meal-section-card h-100">
-                        <div class="meal-section-header meal-dinner d-flex align-items-center justify-content-between">
+                    <div class="meal-section-card h-100 bg-white">
+                        <div class="meal-section-header d-flex align-items-center justify-content-between">
                             <span>🍽️ Dinner</span>
-                            <i class="bi bi-moon-stars"></i>
+                            <i class="bi bi-moon-stars text-muted"></i>
                         </div>
                         <div class="card-body p-0">
                             {% if recommendation.diet_plan.dinner and recommendation.diet_plan.dinner[0] is mapping %}
@@ -537,9 +473,9 @@ AI Recommendation
                                         <span class="text-danger fw-bold small"><i class="bi bi-fire me-1"></i>{{ item.calories }} kcal</span>
                                     </div>
                                     <div class="d-flex flex-wrap gap-1 mt-2">
-                                        <span class="macro-pill bg-light-primary">P: {{ item.protein }}g</span>
-                                        <span class="macro-pill bg-light-success">C: {{ item.carbs }}g</span>
-                                        <span class="macro-pill bg-light-warning text-dark">F: {{ item.fat }}g</span>
+                                        <span class="macro-pill bg-light-primary text-primary">P: {{ item.protein }}g</span>
+                                        <span class="macro-pill bg-light-success text-success">C: {{ item.carbs }}g</span>
+                                        <span class="macro-pill bg-light-warning text-warning text-dark">F: {{ item.fat }}g</span>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -547,7 +483,7 @@ AI Recommendation
                                 {% for item in recommendation.diet_plan.dinner %}
                                 <div class="meal-item d-flex align-items-start gap-2">
                                     <i class="bi bi-check-circle-fill text-success mt-1"></i>
-                                    <span class="text-muted">{{ item }}</span>
+                                    <span class="text-muted small">{{ item }}</span>
                                 </div>
                                 {% endfor %}
                             {% else %}
@@ -560,12 +496,12 @@ AI Recommendation
             </div>
 
             <!-- Strategic Guidelines -->
-            <div class="card shadow-sm border-0 rounded-4 mt-4 overflow-hidden">
-                <div class="card-header bg-dark text-white d-flex align-items-center py-3">
+            <div class="card border border-light-subtle shadow-sm rounded-4 mt-4 overflow-hidden bg-white">
+                <div class="card-header bg-light py-3 border-bottom d-flex align-items-center">
                     <i class="bi bi-chat-left-heart-fill text-warning me-2 fs-5"></i>
-                    <h6 class="mb-0 fw-bold">Nutritionist's Strategic Guidelines</h6>
+                    <h6 class="mb-0 fw-bold text-dark">Nutritionist's Strategic Guidelines</h6>
                 </div>
-                <div class="card-body bg-light-subtle p-4">
+                <div class="card-body p-4 bg-light-subtle">
                     <div class="row g-3">
                         {% for item in recommendation.diet_plan.plan %}
                             {% if not item.startswith("Breakfast:") and not item.startswith("Lunch:") and not item.startswith("Dinner:") and not item.startswith("Dietary Preference:") %}
@@ -594,12 +530,11 @@ AI Recommendation
     <div class="row mt-5">
         <div class="col-12 text-center">
             <a href="{{ url_for('recommendation.regenerate_recommendation') }}"
-               class="btn btn-primary btn-lg px-4 py-3 rounded-pill shadow-sm me-3 mb-2"
-               style="background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); border: none;">
-                <i class="bi bi-arrow-repeat me-2"></i> Regenerate AI Recommendation
+               class="btn btn-primary btn-lg px-4 py-3 rounded-pill shadow-sm me-3 mb-2 fw-semibold">
+                <i class="bi bi-arrow-repeat me-2"></i> Regenerate Recommendation
             </a>
             <a href="{{ url_for('dashboard.dashboard') }}"
-               class="btn btn-outline-secondary btn-lg px-4 py-3 rounded-pill mb-2">
+               class="btn btn-outline-secondary btn-lg px-4 py-3 rounded-pill mb-2 fw-semibold">
                 <i class="bi-arrow-left me-2"></i> Back to Dashboard
             </a>
         </div>
@@ -609,9 +544,8 @@ AI Recommendation
     <div class="row mt-4">
         <div class="col-12 text-center text-muted">
             <small>
-                <i class="bi bi-calendar-event me-1"></i> Recommendation Prepared: 
-                <strong>{{ recommendation.generated_at.strftime("%d %B %Y, %I:%M %p") }}</strong> 
-                | AI Model: <strong>Gemini 3.5 Flash</strong>
+                Prepared for: <strong>AI Fitness & Diet Recommendation System</strong> 
+                | Generated on: <strong>{{ recommendation.generated_at.strftime("%d %B %Y, %I:%M %p") }}</strong>
             </small>
         </div>
     </div>

@@ -64,4 +64,4 @@ class Config:
     SESSION_COOKIE_SAMESITE = "Lax"
 
     # Enable this only when using HTTPS in production
-    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = os.getenv("FLASK_ENV") == "production"

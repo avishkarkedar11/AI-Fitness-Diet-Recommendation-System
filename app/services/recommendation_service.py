@@ -76,12 +76,32 @@ class RecommendationService:
         - Medical Conditions: {profile.medical_conditions}
 
         Provide:
-        1. A Personalized Workout Plan (list of strings representing specific exercises, target muscle groups, sets/reps).
-        2. A Personalized Meal Plan categorized into breakfast, lunch, and dinner. For each category, suggest healthy, realistic food items with serving size, calories, protein, carbs, and fats.
-        3. Flat list of general nutrition tips (saved under 'plan').
+        1. A realistic and medically safe program duration (in weeks/months).
+        2. A structured workout schedule and frequency details.
+        3. A Personalized Workout Plan (list of strings representing specific exercises, target muscle groups, sets/reps).
+        4. A Personalized Meal Plan categorized into breakfast, lunch, and dinner. For each category, suggest healthy, realistic food items with serving size, calories, protein, carbs, and fats.
+        5. A flat list of general fitness/nutrition tips.
+        6. A motivational note or advice.
+
+        Ensure the duration and recommendations are realistic and medically safe. Do not recommend extreme weight loss or unsafe diets. If the user has any medical conditions, modify the duration and recommendations accordingly.
 
         You must respond ONLY with a raw JSON object containing these keys:
         {{
+          "program_duration": {{
+            "duration": "8 weeks",
+            "review_after": "2 weeks",
+            "reason": "An 8-week program provides enough time for gradual, sustainable progress.",
+            "expected_result": "Lose approximately 4–6 kg while improving overall fitness."
+          }},
+          "plan_schedule": {{
+            "total_duration": "8 weeks",
+            "workout_frequency": "4 days per week",
+            "diet_frequency": "7 days per week",
+            "rest_days": "3 days per week",
+            "review_after": "Every 2 weeks",
+            "expected_result": "Lose 4-6 kg safely while maintaining muscle mass.",
+            "note": "Results may vary depending on consistency and individual metabolic factors."
+          }},
           "workout_plan": [
             "Cardio: 30 min brisk walk (General)",
             "Strength: Push-ups - 3 sets x 10 reps (Chest)",
@@ -122,7 +142,12 @@ class RecommendationService:
               "Drink at least 3.0 L water daily.",
               "Limit added sugar intake."
             ]
-          }}
+          }},
+          "tips": [
+            "Drink at least 3.0 L water daily.",
+            "Prioritize protein source in every meal."
+          ],
+          "motivation": "Keep pushing forward! Consistency is the bridge between goals and accomplishment."
         }}
         """
 
@@ -146,7 +171,7 @@ class RecommendationService:
 
         import urllib.error
         try:
-            with urllib.request.urlopen(req, timeout=12) as response:
+            with urllib.request.urlopen(req, timeout=30) as response:
                 res_data = json.loads(response.read().decode("utf-8"))
                 text_response = res_data["candidates"][0]["content"]["parts"][0]["text"]
                 cleaned_text = text_response.strip()
@@ -226,6 +251,14 @@ class RecommendationService:
 
         workout = ai_rec.get("workout_plan", [])
         diet = ai_rec.get("diet_plan", {"plan": []})
+        program_duration = ai_rec.get("program_duration", {})
+        plan_schedule = ai_rec.get("plan_schedule", {})
+        tips = ai_rec.get("tips", [])
+        motivation = ai_rec.get("motivation", "")
+
+        # Backward compatibility for tips
+        if "plan" not in diet or not diet["plan"]:
+            diet["plan"] = tips if tips else []
 
         # ---------------------------------------------
         # Save Recommendation
@@ -236,7 +269,11 @@ class RecommendationService:
             user_id=user_id,
 
             workout_plan={
-                "plan": workout
+                "plan": workout,
+                "program_duration": program_duration,
+                "plan_schedule": plan_schedule,
+                "tips": tips,
+                "motivation": motivation
             },
 
             diet_plan=diet,  # diet is already structured as a dictionary

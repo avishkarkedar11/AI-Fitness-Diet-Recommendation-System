@@ -323,6 +323,98 @@ AI Recommendation
 
             </div>
 
+            <!-- Plan Duration & Schedule Section -->
+            {% if recommendation.workout_plan and (recommendation.workout_plan.get('program_duration') or recommendation.workout_plan.get('plan_schedule')) %}
+            <h5 class="fw-bold mb-3 mt-4"><i class="bi bi-calendar-check text-primary me-2"></i>Plan Duration & Schedule</h5>
+            <div class="row g-4 mb-4">
+                <!-- Program Duration Card -->
+                {% if recommendation.workout_plan.get('program_duration') %}
+                <div class="col-lg-6 col-12">
+                    <div class="card border border-light-subtle shadow-sm h-100 rounded-4 bg-white">
+                        <div class="card-body p-4">
+                            <h6 class="fw-bold text-secondary mb-3"><i class="bi bi-clock-history text-primary me-2"></i>Program Duration</h6>
+                            
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="display-6 fw-bold text-primary me-3">{{ recommendation.workout_plan.get('program_duration', {}).get('duration', '8 weeks') }}</span>
+                                <span class="badge bg-light text-primary border px-3 py-2 rounded-pill fw-semibold">Review after {{ recommendation.workout_plan.get('program_duration', {}).get('review_after', '2 weeks') }}</span>
+                            </div>
+                            
+                            <p class="text-dark fw-semibold mb-2">Why this duration is appropriate:</p>
+                            <p class="text-secondary small mb-3">{{ recommendation.workout_plan.get('program_duration', {}).get('reason', '') }}</p>
+                            
+                            <hr class="text-black-50 my-3">
+                            
+                            <div class="p-3 bg-light rounded-3">
+                                <p class="text-dark fw-semibold mb-1 small"><i class="bi bi-flag-fill text-success me-2"></i>Expected Outcome:</p>
+                                <p class="text-muted small mb-0">{{ recommendation.workout_plan.get('program_duration', {}).get('expected_result', '') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Schedule & Frequencies Card -->
+                {% if recommendation.workout_plan.get('plan_schedule') %}
+                <div class="col-lg-6 col-12">
+                    <div class="card border border-light-subtle shadow-sm h-100 rounded-4 bg-white">
+                        <div class="card-body p-4">
+                            <h6 class="fw-bold text-secondary mb-3"><i class="bi bi-calendar3 text-primary me-2"></i>Schedule & Frequency</h6>
+                            
+                            {% set schedule = recommendation.workout_plan.get('plan_schedule', {}) %}
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <div class="p-3 border rounded-3 text-center bg-light-subtle h-100">
+                                        <small class="text-muted d-block mb-1">Workout Frequency</small>
+                                        <span class="fw-bold text-dark">{{ schedule.get('workout_frequency', '4 days/week') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border rounded-3 text-center bg-light-subtle h-100">
+                                        <small class="text-muted d-block mb-1">Diet Frequency</small>
+                                        <span class="fw-bold text-dark">{{ schedule.get('diet_frequency', '7 days/week') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border rounded-3 text-center bg-light-subtle h-100">
+                                        <small class="text-muted d-block mb-1">Rest Days</small>
+                                        <span class="fw-bold text-dark">{{ schedule.get('rest_days', '3 days/week') }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border rounded-3 text-center bg-light-subtle h-100">
+                                        <small class="text-muted d-block mb-1">Total Goal Phase</small>
+                                        <span class="fw-bold text-dark text-wrap d-block" style="font-size: 0.85rem;">{{ schedule.get('total_duration', '8 weeks') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="text-black-50 my-3">
+                            
+                            <p class="text-muted small mb-0">
+                                <i class="bi bi-info-circle me-1"></i> <strong>Note:</strong> {{ schedule.get('note', 'Results may vary depending on consistency.') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Motivation Section -->
+            {% if recommendation.workout_plan and recommendation.workout_plan.get('motivation') %}
+            <div class="card border-0 shadow-sm p-4 rounded-4 mb-4 text-white" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-1 text-warning"><i class="bi bi-lightning-fill"></i></span>
+                    <div>
+                        <small class="text-white-50 text-uppercase fw-bold letter-spacing-1 d-block mb-1">Motivational Focus</small>
+                        <p class="mb-0 fs-5 fw-semibold fst-italic">
+                            "{{ recommendation.workout_plan.get('motivation') }}"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
             <!-- Helpful Callout Summary -->
             <div class="alert alert-primary border-0 shadow-sm p-4 rounded-4 mb-0 bg-light-subtle text-dark">
                 <div class="d-flex gap-3">

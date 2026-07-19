@@ -206,28 +206,6 @@ Visit
 http://127.0.0.1:5000
 ```
 
----
-
-## 📸 Screenshots
-
-You can add screenshots here.
-
-Example:
-
-```
-Home Page
-
-Dashboard
-
-Profile
-
-Progress Tracking
-
-Recommendation Page
-
-Authentication
-```
-
 
 ## 🎯 Learning Outcomes
 
@@ -244,35 +222,7 @@ This project demonstrates:
 - Deployment on Render
 - Clean Project Structure
 
----
 
-## 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-
-2. Create a new branch
-
-```bash
-git checkout -b feature-name
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Added new feature"
-```
-
-4. Push to GitHub
-
-```bash
-git push origin feature-name
-```
-
-5. Open a Pull Request
-
----
 
 ## 📄 License
 

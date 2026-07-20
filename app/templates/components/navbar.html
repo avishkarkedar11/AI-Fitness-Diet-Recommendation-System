@@ -1,65 +1,147 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-3 shadow-sm">
+<nav class="navbar navbar-expand-lg premium-navbar fixed-top">
     <div class="container">
-        <!-- Brand -->
-        <a class="navbar-brand fw-bold fs-5 d-flex align-items-center text-dark" href="{{ url_for('dashboard.home') }}">
-            <i class="bi bi-heart-pulse-fill me-2 text-primary"></i>
-            AI Fitness & Diet Recommendation System
+
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center"
+           href="{{ url_for('dashboard.home') }}">
+
+            <div class="logo-icon">
+                <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+
+            <div class="ms-3">
+                <h5 class="mb-0 fw-bold">FitAI</h5>
+                <small>AI Fitness Coach</small>
+            </div>
+
         </a>
 
         <!-- Mobile Toggle -->
-        <button class="navbar-toggler border-0" 
-                type="button" 
-                data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav" 
-                aria-controls="navbarNav" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+        <button
+            class="navbar-toggler border-0 shadow-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+
+            <i class="bi bi-list fs-2"></i>
+
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Left Menu -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link fw-medium px-3 text-secondary" href="{{ url_for('dashboard.home') }}">
-                        Home
-                    </a>
-                </li>
+
+            <!-- ========================= -->
+            <!-- Center Navigation -->
+            <!-- ========================= -->
+
+            <ul class="navbar-nav mx-auto">
+
                 {% if current_user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link fw-medium px-3 text-secondary" href="{{ url_for('dashboard.dashboard') }}">
-                        Dashboard
-                    </a>
-                </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('dashboard.dashboard') }}">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('profile.profile') }}">
+                            Profile
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('progress.progress') }}">
+                            Progress
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('recommendation.view_recommendation') }}">
+                            Recommendations
+                        </a>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link active-nav"
+                           href="{{ url_for('dashboard.home') }}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="#features">
+                            Features
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="#how-it-works">
+                            How It Works
+                        </a>
+                    </li>
+
                 {% endif %}
+
             </ul>
 
-            <!-- Right Menu -->
-            <ul class="navbar-nav align-items-center">
+            <!-- ========================= -->
+            <!-- Right Side -->
+            <!-- ========================= -->
+
+            <div class="d-flex align-items-center gap-3">
+
                 {% if current_user.is_authenticated %}
-                    <li class="nav-item me-3 mb-2 mb-lg-0">
-                        <span class="navbar-text fw-medium text-dark">
-                            Welcome, <strong>{{ current_user.first_name }}</strong>
+
+                    <div class="user-chip">
+
+                        <div class="avatar-circle">
+                            {{ current_user.first_name[0] }}
+                        </div>
+
+                        <span>
+                            {{ current_user.first_name }}
                         </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-danger px-4 py-2 rounded-pill fw-semibold" href="{{ url_for('auth.logout') }}">
-                            Logout
-                        </a>
-                    </li>
+
+                    </div>
+
+                    <a href="{{ url_for('auth.logout') }}"
+                       class="btn btn-nav-outline">
+
+                        Logout
+
+                    </a>
+
                 {% else %}
-                    <li class="nav-item me-2 mb-2 mb-lg-0">
-                        <a class="nav-link fw-medium px-3 text-secondary" href="{{ url_for('auth.login') }}">
-                            Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary px-4 py-2 rounded-pill fw-semibold" href="{{ url_for('auth.register') }}">
-                            Get Started
-                        </a>
-                    </li>
+
+                    <a href="{{ url_for('auth.login') }}"
+                       class="btn btn-nav-outline">
+
+                        Login
+
+                    </a>
+
+                    <a href="{{ url_for('auth.register') }}"
+                       class="btn btn-nav-primary">
+
+                        Get Started
+
+                    </a>
+
                 {% endif %}
-            </ul>
+
+            </div>
+
         </div>
+
     </div>
+
 </nav>

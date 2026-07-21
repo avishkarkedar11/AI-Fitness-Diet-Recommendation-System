@@ -966,66 +966,191 @@ Dashboard | AI Fitness & Diet Recommendation System
 
 </div>
 
-        <!-- Quick Actions & Today's Summary -->
-        <div class="col-lg-5">
-            <!-- Quick Actions -->
-            <div class="card border border-light-subtle shadow-sm rounded-4 mb-4 bg-white">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h5 class="mb-0 fw-bold text-dark">
-                        <i class="bi bi-lightning-fill text-warning me-2"></i>Quick Actions
-                    </h5>
+
+<!-- ======================================= -->
+<!-- Today's Health Summary -->
+<!-- ======================================= -->
+
+<div class="col-lg-5">
+
+    <div class="health-card">
+
+        <div class="health-header">
+
+            <span class="health-badge">
+
+                <i class="bi bi-heart-pulse-fill"></i>
+
+                Live Health Snapshot
+
+            </span>
+
+            <h3 class="health-title">
+
+                Today's Health Summary
+
+            </h3>
+
+            <p class="health-subtitle">
+
+                Your current fitness and nutrition overview.
+
+            </p>
+
+        </div>
+
+        <div class="health-grid">
+
+            <div class="health-item">
+
+                <div class="health-icon weight">
+
+                    <i class="bi bi-speedometer2"></i>
+
                 </div>
-                <div class="card-body d-grid gap-2">
-                    <a href="{{ url_for('profile.profile') }}" class="quick-action-link quick-action-link-primary">
-                        <span><i class="bi bi-person-fill me-2"></i> Update Fitness Profile</span>
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                    
-                    <a href="{{ url_for('progress.progress') }}" class="quick-action-link quick-action-link-success">
-                        <span><i class="bi-graph-up-arrow me-2"></i> Add Progress Logs</span>
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                    
-                    <a href="{{ url_for('recommendation.view_recommendation') }}" class="quick-action-link quick-action-link-warning">
-                        <span><i class="bi bi-card-list me-2"></i> View Recommendations</span>
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
+
+                <div class="health-content">
+
+                    <small>Current Weight</small>
+
+                    <h4>{{ data.current_weight }} kg</h4>
+
                 </div>
+
             </div>
 
-            <!-- Health Summary -->
-            <div class="card border border-light-subtle shadow-sm rounded-4 bg-white">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h5 class="mb-0 fw-bold text-dark">
-                        <i class="bi bi-clipboard2-check text-primary me-2"></i>Today's Health Summary
-                    </h5>
+            <div class="health-item">
+
+                <div class="health-icon target">
+
+                    <i class="bi bi-bullseye"></i>
+
                 </div>
-                <div class="card-body p-0">
-                    <div class="px-4">
-                        <div class="health-summary-item d-flex justify-content-between align-items-center">
-                            <span class="text-secondary"><i class="bi bi-speedometer2 me-2"></i>Current Weight</span>
-                            <strong class="text-dark">{{ data.current_weight }} kg</strong>
-                        </div>
-                        <div class="health-summary-item d-flex justify-content-between align-items-center">
-                            <span class="text-secondary"><i class="bi bi-flag-fill me-2"></i>Target Weight</span>
-                            <strong class="text-dark">{{ data.profile.target_weight_kg }} kg</strong>
-                        </div>
-                        <div class="health-summary-item d-flex justify-content-between align-items-center">
-                            <span class="text-secondary"><i class="bi bi-arrows-expand me-2"></i>Height</span>
-                            <strong class="text-dark">{{ data.profile.height_cm }} cm</strong>
-                        </div>
-                        <div class="health-summary-item d-flex justify-content-between align-items-center border-0">
-                            <span class="text-secondary"><i class="bi bi-droplet-fill me-2"></i>Water Target</span>
-                            <strong class="text-info">{{ data.nutrition.water_liters }} Liters</strong>
-                        </div>
-                    </div>
+
+                <div class="health-content">
+
+                    <small>Target Weight</small>
+
+                    <h4>{{ data.profile.target_weight_kg }} kg</h4>
+
                 </div>
+
             </div>
+
+            <div class="health-item">
+
+                <div class="health-icon height">
+
+                    <i class="bi bi-arrows-expand"></i>
+
+                </div>
+
+                <div class="health-content">
+
+                    <small>Height</small>
+
+                    <h4>{{ data.profile.height_cm }} cm</h4>
+
+                </div>
+
+            </div>
+
+            <div class="health-item">
+
+                <div class="health-icon bmi">
+
+                    <i class="bi bi-heart-pulse"></i>
+
+                </div>
+
+                <div class="health-content">
+
+                    <small>Body Mass Index</small>
+
+                    <h4>{{ data.bmi }}</h4>
+
+                </div>
+
+            </div>
+
+            <div class="health-item">
+
+                <div class="health-icon calories">
+
+                    <i class="bi bi-fire"></i>
+
+                </div>
+
+                <div class="health-content">
+
+                    <small>Daily Calories</small>
+
+                    <h4>{{ data.nutrition.target_calories }} kcal</h4>
+
+                </div>
+
+            </div>
+
+            <div class="health-item">
+
+                <div class="health-icon water">
+
+                    <i class="bi bi-droplet-fill"></i>
+
+                </div>
+
+                <div class="health-content">
+
+                    <small>Water Intake</small>
+
+                    <h4>{{ data.nutrition.water_liters }} L</h4>
+
+                </div>
+
+            </div>
+
+            <div class="health-item">
+
+                <div class="health-icon goal">
+
+                    <i class="bi bi-trophy-fill"></i>
+
+                </div>
+
+                <div class="health-content">
+
+                    <small>Fitness Goal</small>
+
+                    <h4>{{ data.profile.goal.value }}</h4>
+
+                </div>
+
+            </div>
+
+            <div class="health-item">
+
+                <div class="health-icon protein">
+
+                    <i class="bi bi-egg-fried"></i>
+
+                </div>
+
+                <div class="health-content">
+
+                    <small>Protein Target</small>
+
+                    <h4>{{ data.nutrition.protein_g }} g</h4>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
+         
 
 {% endblock %}
 
@@ -1037,8 +1162,5 @@ const chartWeights = {{ data.chart.weights | tojson }};
 </script>
 <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
 
-<p>{{ data.insights }}</p>
-
-<p>{{ data.insights.starting_weight }}</p>
 
 {% endblock %}

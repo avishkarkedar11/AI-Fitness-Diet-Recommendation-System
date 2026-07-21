@@ -1,0 +1,347 @@
+/*==================================================
+PROFILE PAGE
+==================================================*/
+
+.profile-hero{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.profile-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    background:#EEF6FF;
+
+    color:#2563EB;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.profile-hero h1{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    color:#0F172A;
+
+    margin-bottom:12px;
+
+}
+
+.profile-hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:#64748B;
+
+    font-size:16px;
+
+    line-height:1.7;
+
+}
+
+/*==================================================
+PROFILE CARD
+==================================================*/
+
+.profile-card{
+
+    background:#ffffff;
+
+    border:1px solid #EEF2F7;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    height:100%;
+
+    box-shadow:
+        0 8px 25px rgba(15,23,42,.05),
+        0 2px 8px rgba(15,23,42,.03);
+
+    transition:.35s ease;
+
+}
+
+.profile-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(15,23,42,.08);
+
+}
+
+/*==================================================
+SECTION TITLE
+==================================================*/
+
+.section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:24px;
+
+}
+
+.section-title i{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:#EEF6FF;
+
+    color:#2563EB;
+
+    font-size:20px;
+
+}
+
+.section-title h4{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#0F172A;
+
+}
+
+/*==================================================
+LABELS
+==================================================*/
+
+.form-label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#475569;
+
+    margin-bottom:8px;
+
+}
+
+/*==================================================
+INPUTS
+==================================================*/
+
+.modern-input{
+
+    height:52px;
+
+    border-radius:14px;
+
+    border:1px solid #DCE3EC;
+
+    padding:0 16px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    box-shadow:none;
+
+}
+
+textarea.modern-input{
+
+    height:auto;
+
+    padding:14px 16px;
+
+    resize:none;
+
+}
+
+.modern-input:focus{
+
+    border-color:#2563EB;
+
+    box-shadow:
+        0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+.form-select.modern-input{
+
+    padding-right:42px;
+
+}
+
+/*==================================================
+SUBMIT BUTTON
+==================================================*/
+
+.profile-submit-btn{
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:16px 40px;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+
+    color:#ffffff;
+
+    transition:.35s;
+
+    min-width:280px;
+
+}
+
+.profile-submit-btn:hover{
+
+    color:#ffffff;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 15px 30px rgba(37,99,235,.30);
+
+}
+
+/*==================================================
+SPACING
+==================================================*/
+
+.profile-card .row>.col-md-6,
+.profile-card .row>.col-md-4{
+
+    margin-bottom:4px;
+
+}
+
+/*==================================================
+RESPONSIVE
+==================================================*/
+
+@media(max-width:992px){
+
+    .profile-card{
+
+        padding:24px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .profile-hero h1{
+
+        font-size:34px;
+
+    }
+
+    .profile-hero p{
+
+        font-size:15px;
+
+    }
+
+    .section-title h4{
+
+        font-size:20px;
+
+    }
+
+    .profile-submit-btn{
+
+        width:100%;
+
+        min-width:unset;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .profile-card{
+
+        padding:20px;
+
+        border-radius:20px;
+
+    }
+
+    .section-title{
+
+        margin-bottom:18px;
+
+    }
+
+    .section-title i{
+
+        width:42px;
+
+        height:42px;
+
+        font-size:18px;
+
+    }
+
+    .modern-input{
+
+        height:48px;
+
+        font-size:14px;
+
+    }
+
+    textarea.modern-input{
+
+        padding:12px 14px;
+
+    }
+
+    .profile-hero h1{
+
+        font-size:28px;
+
+    }
+
+}

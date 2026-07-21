@@ -1,0 +1,1598 @@
+/* ==========================================================
+   Progress Analytics Dashboard
+   Part 1
+   Global + Hero + KPI Cards + Dashboard Cards
+========================================================== */
+
+/* ===========================
+   Root Variables
+=========================== */
+
+:root {
+
+    --primary: #4F46E5;
+    --primary-dark: #4338CA;
+
+    --success: #16A34A;
+    --warning: #F59E0B;
+    --danger: #DC2626;
+    --info: #0EA5E9;
+
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+
+    --border: #E5E7EB;
+
+    --text: #111827;
+    --muted: #6B7280;
+
+    --radius: 18px;
+
+    --shadow-sm: 0 4px 10px rgba(15,23,42,.05);
+
+    --shadow-md: 0 12px 35px rgba(15,23,42,.08);
+
+    --transition: .3s ease;
+
+}
+
+
+/* ===========================
+   Base
+=========================== */
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:Inter,system-ui,sans-serif;
+
+}
+
+.container-fluid{
+
+    max-width:1450px;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+
+/* ===========================
+   Hero Section
+=========================== */
+
+.progress-hero{
+
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    background:#EEF2FF;
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    font-size:.9rem;
+
+}
+
+.hero-title{
+
+    font-size:2.4rem;
+
+    font-weight:700;
+
+    margin-top:18px;
+
+    color:var(--text);
+
+}
+
+.hero-subtitle{
+
+    max-width:700px;
+
+    margin-top:15px;
+
+    color:var(--muted);
+
+    line-height:1.7;
+
+    font-size:1rem;
+
+}
+
+.hero-button{
+
+    border-radius:14px;
+
+    padding:14px 30px;
+
+    font-weight:600;
+
+    font-size:.95rem;
+
+    background:var(--primary);
+
+    border:none;
+
+    transition:var(--transition);
+
+}
+
+.hero-button:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(79,70,229,.25);
+
+}
+
+
+/* ===========================
+   Metric Cards
+=========================== */
+
+.metric-card{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:22px;
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-start;
+
+    height:100%;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+}
+
+.metric-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.metric-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:1.4rem;
+
+    flex-shrink:0;
+
+}
+
+.metric-content{
+
+    flex:1;
+
+}
+
+.metric-label{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:.85rem;
+
+    margin-bottom:8px;
+
+}
+
+.metric-content h3{
+
+    margin:0;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+.metric-content h3 small{
+
+    font-size:.9rem;
+
+    color:var(--muted);
+
+    font-weight:500;
+
+}
+
+.metric-trend{
+
+    margin-top:14px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+}
+
+.metric-trend.success{
+
+    color:var(--success);
+
+    background:#ECFDF3;
+
+}
+
+.metric-trend.danger{
+
+    color:var(--danger);
+
+    background:#FEF2F2;
+
+}
+
+.status-pill{
+
+    display:inline-block;
+
+    margin-top:12px;
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    background:#EEF2FF;
+
+    color:var(--primary);
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+}
+
+
+/* ===========================
+   Progress Bar
+=========================== */
+
+.modern-progress{
+
+    height:8px;
+
+    border-radius:100px;
+
+    overflow:hidden;
+
+    margin-top:15px;
+
+    background:#EEF2F7;
+
+}
+
+.modern-progress .progress-bar{
+
+    background:linear-gradient(90deg,#4F46E5,#7C3AED);
+
+    border-radius:100px;
+
+}
+
+
+/* ===========================
+   Dashboard Cards
+=========================== */
+
+.dashboard-card{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:26px;
+
+    height:100%;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+}
+
+.dashboard-card:hover{
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.card-header-custom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:24px;
+
+}
+
+.card-header-custom h4{
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+    color:var(--text);
+
+}
+
+.card-header-custom p{
+
+    color:var(--muted);
+
+    margin:0;
+
+    font-size:.9rem;
+
+}
+
+
+/* ===========================
+   Chart Area
+=========================== */
+
+.chart-wrapper{
+
+    position:relative;
+
+    height:340px;
+
+    width:100%;
+
+}
+
+.chart-wrapper canvas{
+
+    width:100%!important;
+
+    height:100%!important;
+
+}
+
+
+/* ===========================
+   Utilities
+=========================== */
+
+.text-success{
+
+    color:var(--success)!important;
+
+}
+
+.text-danger{
+
+    color:var(--danger)!important;
+
+}
+
+.text-muted{
+
+    color:var(--muted)!important;
+
+}
+
+.fw-semibold{
+
+    font-weight:600;
+
+}
+
+.rounded-4{
+
+    border-radius:20px!important;
+
+}
+
+.shadow-soft{
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+/* ==========================================================
+   Progress Analytics Dashboard
+   Part 2
+   AI Coach + Body Composition + Goal Progress
+   AI Forecast + Statistics + Empty State
+========================================================== */
+
+
+/* ===========================
+   AI Coach Card
+=========================== */
+
+.ai-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+}
+
+.ai-avatar{
+
+    width:90px;
+
+    height:90px;
+
+    margin:10px auto 22px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#4F46E5,#7C3AED);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:2rem;
+
+    box-shadow:0 20px 35px rgba(79,70,229,.25);
+
+}
+
+.ai-card h5{
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.coach-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    margin-top:12px;
+
+}
+
+.coach-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:#F8FAFC;
+
+    border:1px solid var(--border);
+
+    transition:var(--transition);
+
+}
+
+.coach-item:hover{
+
+    transform:translateX(4px);
+
+    background:#EEF2FF;
+
+}
+
+.coach-item i{
+
+    font-size:1.1rem;
+
+    margin-top:2px;
+
+    color:var(--success);
+
+}
+
+.coach-item span{
+
+    color:var(--text);
+
+    line-height:1.6;
+
+    font-size:.93rem;
+
+}
+
+
+/* ===========================
+   Body Composition
+=========================== */
+
+.body-card{
+
+    background:#F8FAFC;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:center;
+
+    transition:var(--transition);
+
+    height:100%;
+
+}
+
+.body-card:hover{
+
+    background:#fff;
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.body-card span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:.85rem;
+
+    margin-bottom:12px;
+
+}
+
+.body-card h3{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin-bottom:8px;
+
+}
+
+.body-card small{
+
+    color:var(--muted);
+
+    font-size:.82rem;
+
+}
+
+
+/* ===========================
+   Goal Progress
+=========================== */
+
+.goal-progress-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:35px;
+
+    margin-top:10px;
+
+}
+
+.goal-circle{
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:50%;
+
+    background:conic-gradient(
+        var(--primary) 0deg,
+        #7C3AED 250deg,
+        #EEF2F7 250deg
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    position:relative;
+
+}
+
+.goal-circle::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:132px;
+
+    height:132px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+}
+
+.goal-circle span{
+
+    position:relative;
+
+    z-index:2;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+.goal-details{
+
+    flex:1;
+
+}
+
+.goal-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.goal-item span{
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+}
+
+.goal-item strong{
+
+    font-size:1.15rem;
+
+    color:var(--text);
+
+}
+
+
+/* ===========================
+   Forecast Cards
+=========================== */
+
+.forecast-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.forecast-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 20px;
+
+    border-radius:18px;
+
+    background:#F8FAFC;
+
+    border:1px solid var(--border);
+
+    transition:var(--transition);
+
+}
+
+.forecast-card:hover{
+
+    transform:translateX(5px);
+
+    background:#fff;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.forecast-card h6{
+
+    margin-bottom:4px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+.forecast-value{
+
+    font-size:1.8rem;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+.forecast-value span{
+
+    font-size:.9rem;
+
+    color:var(--muted);
+
+}
+
+.forecast-info{
+
+    margin-top:22px;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    background:#EEF2FF;
+
+    color:var(--primary);
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    line-height:1.6;
+
+}
+
+.forecast-info i{
+
+    font-size:1.2rem;
+
+}
+
+
+/* ===========================
+   Tracking Statistics
+=========================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    margin-top:10px;
+
+}
+
+.stat-box{
+
+    background:#F8FAFC;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    text-align:center;
+
+    transition:var(--transition);
+
+}
+
+.stat-box:hover{
+
+    background:#fff;
+
+    transform:translateY(-5px);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.stat-box h2{
+
+    font-size:2.2rem;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+    margin-bottom:10px;
+
+}
+
+.stat-box span{
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+}
+
+
+/* ===========================
+   Empty State
+=========================== */
+
+.empty-state{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:50px 20px;
+
+}
+
+.empty-state i{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:#EEF2FF;
+
+    color:var(--primary);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:2rem;
+
+    margin-bottom:20px;
+
+}
+
+.empty-state h4,
+
+.empty-state h5{
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+    color:var(--text);
+
+}
+
+.empty-state p{
+
+    max-width:420px;
+
+    color:var(--muted);
+
+    line-height:1.7;
+
+    margin:0;
+
+}
+
+/* ==========================================================
+   Progress Analytics Dashboard
+   Part 3
+   Modal + History Table + Accordion + Responsive
+========================================================== */
+
+
+/* ===========================
+   Modal
+=========================== */
+
+.modern-modal{
+
+    border:none;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:0 30px 60px rgba(15,23,42,.15);
+
+}
+
+.modern-modal .modal-header{
+
+    padding:30px 32px 10px;
+
+}
+
+.modern-modal .modal-body{
+
+    padding:10px 32px 32px;
+
+}
+
+.btn-close{
+
+    box-shadow:none!important;
+
+}
+
+
+/* ===========================
+   Form Controls
+=========================== */
+
+.form-label{
+
+    font-weight:600;
+
+    color:var(--text);
+
+    margin-bottom:8px;
+
+}
+
+.modern-input{
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:12px 16px;
+
+    font-size:.95rem;
+
+    background:#fff;
+
+    transition:var(--transition);
+
+    box-shadow:none;
+
+}
+
+.modern-input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 .2rem rgba(79,70,229,.12);
+
+}
+
+textarea.modern-input{
+
+    resize:vertical;
+
+    min-height:120px;
+
+}
+
+
+/* ===========================
+   Accordion
+=========================== */
+
+.history-button{
+
+    background:#fff!important;
+
+    border:none!important;
+
+    box-shadow:none!important;
+
+    padding:24px;
+
+    border-radius:18px!important;
+
+    font-weight:600;
+
+}
+
+.history-button:not(.collapsed){
+
+    color:var(--primary);
+
+}
+
+.history-button::after{
+
+    margin-left:20px;
+
+}
+
+.history-button strong{
+
+    font-size:1rem;
+
+}
+
+.history-button small{
+
+    font-size:.82rem;
+
+}
+
+
+/* ===========================
+   History Table
+=========================== */
+
+.history-table{
+
+    margin-bottom:0;
+
+}
+
+.history-table thead{
+
+    background:#F8FAFC;
+
+}
+
+.history-table thead th{
+
+    border:none;
+
+    color:var(--muted);
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+    padding:16px 18px;
+
+    white-space:nowrap;
+
+}
+
+.history-table tbody td{
+
+    border-top:1px solid var(--border);
+
+    padding:18px;
+
+    vertical-align:middle;
+
+    color:var(--text);
+
+}
+
+.history-table tbody tr{
+
+    transition:var(--transition);
+
+}
+
+.history-table tbody tr:hover{
+
+    background:#FAFBFF;
+
+}
+
+.history-table tbody td:first-child{
+
+    font-weight:600;
+
+}
+
+.table-responsive{
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+}
+
+
+/* ===========================
+   Badges
+=========================== */
+
+.badge{
+
+    padding:8px 14px;
+
+    font-size:.78rem;
+
+    font-weight:600;
+
+}
+
+
+/* ===========================
+   Custom Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+    height:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#EEF2F7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#94A3B8;
+
+}
+
+
+/* ===========================
+   Card Hover Animation
+=========================== */
+
+.metric-card,
+.dashboard-card,
+.body-card,
+.stat-box,
+.forecast-card{
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:1200px){
+
+    .hero-title{
+
+        font-size:2rem;
+
+    }
+
+    .goal-progress-wrapper{
+
+        gap:25px;
+
+    }
+
+}
+
+
+@media (max-width:992px){
+
+    .progress-hero{
+
+        padding:30px;
+
+    }
+
+    .hero-title{
+
+        font-size:1.8rem;
+
+    }
+
+    .hero-button{
+
+        width:100%;
+
+        margin-top:20px;
+
+    }
+
+    .goal-progress-wrapper{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .goal-circle{
+
+        margin:auto;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .chart-wrapper{
+
+        height:300px;
+
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .progress-hero{
+
+        padding:24px;
+
+    }
+
+    .hero-title{
+
+        font-size:1.6rem;
+
+    }
+
+    .metric-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        align-items:center;
+
+    }
+
+    .metric-icon{
+
+        margin-bottom:12px;
+
+    }
+
+    .card-header-custom{
+
+        flex-direction:column;
+
+        gap:12px;
+
+    }
+
+    .chart-wrapper{
+
+        height:260px;
+
+    }
+
+    .forecast-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:10px;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .modern-modal .modal-header,
+
+    .modern-modal .modal-body{
+
+        padding:22px;
+
+    }
+
+    .history-button{
+
+        padding:18px;
+
+    }
+
+}
+
+
+@media (max-width:576px){
+
+    .container-fluid{
+
+        padding-left:14px!important;
+
+        padding-right:14px!important;
+
+    }
+
+    .progress-hero{
+
+        border-radius:18px;
+
+    }
+
+    .hero-title{
+
+        font-size:1.45rem;
+
+    }
+
+    .hero-subtitle{
+
+        font-size:.92rem;
+
+    }
+
+    .dashboard-card{
+
+        padding:20px;
+
+        border-radius:18px;
+
+    }
+
+    .metric-card{
+
+        padding:18px;
+
+    }
+
+    .metric-content h3{
+
+        font-size:1.6rem;
+
+    }
+
+    .goal-circle{
+
+        width:140px;
+
+        height:140px;
+
+    }
+
+    .goal-circle::before{
+
+        width:108px;
+
+        height:108px;
+
+    }
+
+    .goal-circle span{
+
+        font-size:1.5rem;
+
+    }
+
+    .body-card h3{
+
+        font-size:1.6rem;
+
+    }
+
+    .stat-box h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .forecast-value{
+
+        font-size:1.5rem;
+
+    }
+
+    .history-table{
+
+        min-width:700px;
+
+    }
+
+}
+
+
+@media (max-width:400px){
+
+    .hero-title{
+
+        font-size:1.3rem;
+
+    }
+
+    .hero-badge{
+
+        font-size:.78rem;
+
+        padding:6px 12px;
+
+    }
+
+    .hero-button{
+
+        font-size:.9rem;
+
+        padding:12px;
+
+    }
+
+    .metric-content h3{
+
+        font-size:1.4rem;
+
+    }
+
+    .dashboard-card{
+
+        padding:16px;
+
+    }
+
+    .goal-circle{
+
+        width:120px;
+
+        height:120px;
+
+    }
+
+    .goal-circle::before{
+
+        width:92px;
+
+        height:92px;
+
+    }
+
+    .goal-circle span{
+
+        font-size:1.25rem;
+
+    }
+
+}
+
+
+/* ===========================
+   Small Animation
+=========================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.metric-card,
+.dashboard-card{
+
+    animation:fadeUp .45s ease;
+
+}

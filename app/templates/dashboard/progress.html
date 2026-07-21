@@ -1,853 +1,1288 @@
 {% extends "base.html" %}
 
 {% block title %}
-Progress Tracking
+Progress Analytics
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/progress.css') }}">
 {% endblock %}
 
 {% block content %}
 
-<div class="container">
+<div class="container-fluid px-3 px-lg-4 py-4">
 
-    <h2 class="mb-4">
+    <!-- ========================================= -->
+    <!-- Hero -->
+    <!-- ========================================= -->
 
-        Progress Tracking
+    <section class="progress-hero mb-4">
 
-    </h2>
+        <div class="row align-items-center g-4">
 
-    <div class="card shadow border-0 rounded-4 mb-4">
+            <div class="col-lg-8">
 
-        <div class="card-body">
+                <span class="hero-badge">
 
-            <form method="POST">
+                    <i class="bi bi-activity"></i>
 
-                {{ form.hidden_tag() }}
+                    Progress Analytics
 
-                <div class="row">
+                </span>
 
-                    <div class="col-md-6 mb-3">
+                <h1 class="hero-title mt-3">
 
-                        {{ form.weight_kg.label }}
+                    Track your body transformation
 
-                        {{ form.weight_kg(class="form-control") }}
+                </h1>
 
-                    </div>
+                <p class="hero-subtitle">
 
-                    <div class="col-md-6 mb-3">
+                    Monitor your weight, body composition, AI insights and long-term fitness progress through one intelligent dashboard.
 
-                        {{ form.body_fat_percentage.label }}
-
-                        {{ form.body_fat_percentage(class="form-control") }}
-
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-6 mb-3">
-
-                        {{ form.waist_cm.label }}
-
-                        {{ form.waist_cm(class="form-control") }}
-
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-
-                        {{ form.chest_cm.label }}
-
-                        {{ form.chest_cm(class="form-control") }}
-
-                    </div>
-
-                </div>
-
-                <div class="mb-3">
-
-                    {{ form.notes.label }}
-
-                    {{ form.notes(
-                        class="form-control",
-                        rows="3"
-                    ) }}
-
-                </div>
-
-                {{ form.submit(
-                    class="btn btn-primary"
-                ) }}
-
-            </form>
-
-        </div>
-
-    </div>
-
-    <div class="card shadow border-0 rounded-4">
-
-        <div class="card-header">
-
-            Progress History
-
-        </div>
-
-        <div class="table-responsive">
-
-            <table class="table table-hover mb-0">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Date</th>
-                        <th>Weight</th>
-                        <th>Body Fat</th>
-                        <th>Notes</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for item in history %}
-
-                    <tr>
-
-                        <td>{{ item.recorded_at.strftime("%d-%m-%Y %H:%M") }}</td>
-
-                        <td>{{ item.weight_kg }} kg</td>
-
-                        <td>
-
-                            {{ item.body_fat_percentage or "-" }}
-
-                        </td>
-
-                        <td>{{ item.notes or "-" }}</td>
-
-                    </tr>
-
-                    {% else %}
-
-                    <tr>
-
-                        <td colspan="4" class="text-center">
-
-                            No progress recorded yet.
-
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- ===================================================== -->
-<!-- Progress Insights -->
-<!-- ===================================================== -->
-
-{% if insights %}
-
-<div class="container mt-5">
-
-    <!-- ===================================== -->
-    <!-- Hero Overview -->
-    <!-- ===================================== -->
-
-    <div class="card border-0 shadow-lg mb-4">
-
-        <div class="card-body text-center p-5">
-
-            <h2 class="fw-bold text-success">
-
-                📈 Progress Overview
-
-            </h2>
-
-            <p class="lead text-muted">
-
-                Your fitness journey based on historical progress.
-
-            </p>
-
-            <div class="row mt-4">
-
-                <div class="col-md-3">
-
-                    <h6 class="text-muted">
-
-                        Weight Change
-
-                    </h6>
-
-                    {% if insights.weight.trend == "Lost" %}
-
-                        <h2 class="text-success">
-
-                            ▼ {{ insights.weight.weight_change|abs }} kg
-
-                        </h2>
-
-                    {% elif insights.weight.trend == "Gained" %}
-
-                        <h2 class="text-danger">
-
-                            ▲ {{ insights.weight.weight_change }} kg
-
-                        </h2>
-
-                    {% else %}
-
-                        <h2 class="text-secondary">
-
-                            ➜ Stable
-
-                        </h2>
-
-                    {% endif %}
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <h6 class="text-muted">
-
-                        Current BMI
-
-                    </h6>
-
-                    <h2 class="text-primary">
-
-                        {{ insights.bmi.current_bmi }}
-
-                    </h2>
-
-                    <span class="badge bg-primary">
-
-                        {{ insights.bmi.category }}
-
-                    </span>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <h6 class="text-muted">
-
-                        Goal Progress
-
-                    </h6>
-
-                    <h2 class="text-warning">
-
-                        {{ insights.goal.progress_percent }}%
-
-                    </h2>
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <h6 class="text-muted">
-
-                        Entries
-
-                    </h6>
-
-                    <h2 class="text-dark">
-
-                        {{ insights.statistics.entries }}
-
-                    </h2>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ===================================== -->
-    <!-- Metric Cards -->
-    <!-- ===================================== -->
-
-    <div class="row g-4 mb-4">
-
-        <div class="col-lg-3">
-
-            <div class="card border-0 shadow-sm text-center h-100">
-
-                <div class="card-body">
-
-                    <h1>
-
-                        ⚖
-
-                    </h1>
-
-                    <h6 class="text-muted">
-
-                        Starting Weight
-
-                    </h6>
-
-                    <h3>
-
-                        {{ insights.weight.starting_weight }} kg
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-3">
-
-            <div class="card border-0 shadow-sm text-center h-100">
-
-                <div class="card-body">
-
-                    <h1>
-
-                        🎯
-
-                    </h1>
-
-                    <h6 class="text-muted">
-
-                        Current Weight
-
-                    </h6>
-
-                    <h3>
-
-                        {{ insights.weight.current_weight }} kg
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-3">
-
-            <div class="card border-0 shadow-sm text-center h-100">
-
-                <div class="card-body">
-
-                    <h1>
-
-                        📉
-
-                    </h1>
-
-                    <h6 class="text-muted">
-
-                        Weight Difference
-
-                    </h6>
-
-                    <h3>
-
-                        {{ insights.weight.weight_change }} kg
-
-                    </h3>
-
-                    <small class="text-muted">
-
-                        {{ insights.weight.weight_change_percent }} %
-
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-3">
-
-            <div class="card border-0 shadow-sm text-center h-100">
-
-                <div class="card-body">
-
-                    <h1>
-
-                        💪
-
-                    </h1>
-
-                    <h6 class="text-muted">
-
-                        BMI
-
-                    </h6>
-
-                    <h3>
-
-                        {{ insights.bmi.current_bmi }}
-
-                    </h3>
-
-                    <span class="badge bg-success">
-
-                        {{ insights.bmi.category }}
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ===================================== -->
-    <!-- Body Composition -->
-    <!-- ===================================== -->
-
-    <div class="card border-0 shadow-sm mb-4">
-
-        <div class="card-header bg-info text-white">
-
-            <h4 class="mb-0">
-
-                💪 Body Composition
-
-            </h4>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="row text-center">
-
-                <div class="col-md-4">
-
-                    <h6>
-
-                        Body Fat
-
-                    </h6>
-
-                    <h4>
-
-                        {{ insights.body.body_fat.starting or "-" }}
-
-                        →
-
-                        {{ insights.body.body_fat.current or "-" }}
-
-                    </h4>
-
-                    <small class="text-muted">
-
-                        Change:
-                        {{ insights.body.body_fat.change or 0 }}
-
-                    </small>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <h6>
-
-                        Waist
-
-                    </h6>
-
-                    <h4>
-
-                        {{ insights.body.waist.starting or "-" }}
-
-                        →
-
-                        {{ insights.body.waist.current or "-" }}
-
-                    </h4>
-
-                    <small class="text-muted">
-
-                        Change:
-                        {{ insights.body.waist.change or 0 }} cm
-
-                    </small>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <h6>
-
-                        Chest
-
-                    </h6>
-
-                    <h4>
-
-                        {{ insights.body.chest.starting or "-" }}
-
-                        →
-
-                        {{ insights.body.chest.current or "-" }}
-
-                    </h4>
-
-                    <small class="text-muted">
-
-                        Change:
-                        {{ insights.body.chest.change or 0 }} cm
-
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-        <!-- ===================================== -->
-    <!-- Goal Progress -->
-    <!-- ===================================== -->
-
-    <div class="card border-0 shadow-sm mb-4">
-
-        <div class="card-header bg-warning">
-
-            <h4 class="mb-0">
-
-                🎯 Goal Progress
-
-            </h4>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="row mb-4">
-
-                <div class="col-md-4 text-center">
-
-                    <h6 class="text-muted">
-
-                        Target Weight
-
-                    </h6>
-
-                    <h3>
-
-                        {{ insights.goal.target_weight }} kg
-
-                    </h3>
-
-                </div>
-
-                <div class="col-md-4 text-center">
-
-                    <h6 class="text-muted">
-
-                        Remaining
-
-                    </h6>
-
-                    <h3>
-
-                        {{ insights.goal.remaining_weight }} kg
-
-                    </h3>
-
-                </div>
-
-                <div class="col-md-4 text-center">
-
-                    <h6 class="text-muted">
-
-                        Status
-
-                    </h6>
-
-                    {% if insights.goal.status == "Completed" %}
-
-                        <span class="badge bg-success fs-6">
-
-                            ✔ Completed
-
-                        </span>
-
-                    {% elif insights.goal.status == "On Track" %}
-
-                        <span class="badge bg-primary fs-6">
-
-                            🚀 On Track
-
-                        </span>
-
-                    {% elif insights.goal.status == "Good Progress" %}
-
-                        <span class="badge bg-warning text-dark fs-6">
-
-                            👍 Good Progress
-
-                        </span>
-
-                    {% else %}
-
-                        <span class="badge bg-danger fs-6">
-
-                            ⚠ Needs Improvement
-
-                        </span>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-            <div class="mb-2">
-
-                <strong>
-
-                    Goal Completion
-
-                </strong>
-
-            </div>
-
-            <div class="progress" style="height:22px;">
-
-                <div
-                    class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                    role="progressbar"
-                    style="width: {{ insights.goal.progress_percent }}%;">
-
-                    {{ insights.goal.progress_percent }}%
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ===================================== -->
-    <!-- Statistics -->
-    <!-- ===================================== -->
-
-    <div class="card border-0 shadow-sm mb-4">
-
-        <div class="card-header bg-dark text-white">
-
-            <h4 class="mb-0">
-
-                📊 Progress Statistics
-
-            </h4>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="row text-center">
-
-                <div class="col-lg-3">
-
-                    <h2>
-
-                        {{ insights.statistics.entries }}
-
-                    </h2>
-
-                    <p class="text-muted">
-
-                        Total Entries
-
-                    </p>
-
-                </div>
-
-                <div class="col-lg-3">
-
-                    <h2>
-
-                        {{ insights.statistics.tracking_days }}
-
-                    </h2>
-
-                    <p class="text-muted">
-
-                        Tracking Days
-
-                    </p>
-
-                </div>
-
-                <div class="col-lg-3">
-
-                    <h5>
-
-                        {{ insights.statistics.first_record }}
-
-                    </h5>
-
-                    <p class="text-muted">
-
-                        First Entry
-
-                    </p>
-
-                </div>
-
-                <div class="col-lg-3">
-
-                    <h5>
-
-                        {{ insights.statistics.last_record }}
-
-                    </h5>
-
-                    <p class="text-muted">
-
-                        Latest Entry
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ===================================== -->
-    <!-- AI Coach -->
-    <!-- ===================================== -->
-
-    <div class="card border-0 shadow-lg mb-4">
-
-        <div class="card-header bg-success text-white">
-
-            <h4 class="mb-0">
-
-                🤖 AI Fitness Coach
-
-            </h4>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="alert alert-success border-0">
-
-                <h5 class="fw-bold">
-
-                    Your Personalized Analysis
-
-                </h5>
-
-                <hr>
-
-                <ul class="mb-0">
-
-                    {% for line in insights.summary %}
-
-                        <li class="mb-2">
-
-                            {{ line }}
-
-                        </li>
-
-                    {% endfor %}
-
-                </ul>
-
-            </div>
-
-    <!-- ===================================== -->
-    <!-- AI Weight Forecast (LSTM) -->
-    <!-- ===================================== -->
-
-    <div class="card border-0 shadow-lg mb-4">
-
-        <div class="card-header bg-primary text-white">
-
-            <h4 class="mb-0">
-
-                🔮 AI Weight Forecast (LSTM Time Series)
-
-            </h4>
-
-        </div>
-
-        <div class="card-body">
-
-            {% if forecast %}
-                <p class="text-muted">
-                    Based on your weight history, here is your predicted weight trajectory for the next 7 days:
                 </p>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Predicted Weight</th>
-                                <th>Status / Trend</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for day in forecast %}
-                            <tr>
-                                <td>{{ day.date }}</td>
-                                <td class="fw-bold text-primary">{{ day.weight }} kg</td>
-                                <td>
-                                    {% if loop.first %}
-                                        <span class="badge bg-secondary">Next Day</span>
-                                    {% else %}
-                                        <span class="badge bg-info">Forecast</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+
+                <button
+                    class="btn btn-primary btn-lg hero-button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#progressModal">
+
+                    <i class="bi bi-plus-lg me-2"></i>
+
+                    Log Progress
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% if insights %}
+
+    <!-- ========================================= -->
+    <!-- KPI Cards -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <div class="row g-4">
+
+            <!-- Weight -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="metric-card">
+
+                    <div class="metric-icon bg-primary-subtle">
+
+                        <i class="bi bi-speedometer2"></i>
+
+                    </div>
+
+                    <div class="metric-content">
+
+                        <span class="metric-label">
+
+                            Current Weight
+
+                        </span>
+
+                        <h3>
+
+                            {{ insights.weight.current_weight }}
+
+                            <small>kg</small>
+
+                        </h3>
+
+                        <div class="metric-trend
+                        {% if insights.weight.trend == 'Lost' %}
+                            success
+                        {% elif insights.weight.trend == 'Gained' %}
+                            danger
+                        {% endif %}
+                        ">
+
+                            {% if insights.weight.trend == "Lost" %}
+
+                                <i class="bi bi-arrow-down-circle-fill"></i>
+
+                            {% elif insights.weight.trend == "Gained" %}
+
+                                <i class="bi bi-arrow-up-circle-fill"></i>
+
+                            {% endif %}
+
+                            {{ insights.weight.weight_change|abs }} kg
+
+                        </div>
+
+                    </div>
+
                 </div>
-            {% else %}
-                <div class="text-center py-4">
-                    <i class="bi bi-graph-up display-4 text-secondary"></i>
-                    <h5 class="mt-3">Forecast Not Available Yet</h5>
-                    <p class="text-muted mb-0">
-                        Please record at least 3 progress entries to enable AI-powered weight forecasting.
+
+            </div>
+
+            <!-- BMI -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="metric-card">
+
+                    <div class="metric-icon bg-success-subtle">
+
+                        <i class="bi bi-heart-pulse"></i>
+
+                    </div>
+
+                    <div class="metric-content">
+
+                        <span class="metric-label">
+
+                            BMI
+
+                        </span>
+
+                        <h3>
+
+                            {{ insights.bmi.current_bmi }}
+
+                        </h3>
+
+                        <span class="status-pill">
+
+                            {{ insights.bmi.category }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Goal -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="metric-card">
+
+                    <div class="metric-icon bg-warning-subtle">
+
+                        <i class="bi bi-bullseye"></i>
+
+                    </div>
+
+                    <div class="metric-content">
+
+                        <span class="metric-label">
+
+                            Goal Progress
+
+                        </span>
+
+                        <h3>
+
+                            {{ insights.goal.progress_percent }}%
+
+                        </h3>
+
+                        <div class="progress modern-progress">
+
+                            <div class="progress-bar"
+
+                                 style="width: {{ insights.goal.progress_percent }}%;">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Entries -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="metric-card">
+
+                    <div class="metric-icon bg-info-subtle">
+
+                        <i class="bi bi-calendar-check"></i>
+
+                    </div>
+
+                    <div class="metric-content">
+
+                        <span class="metric-label">
+
+                            Total Entries
+
+                        </span>
+
+                        <h3>
+
+                            {{ insights.statistics.entries }}
+
+                        </h3>
+
+                        <small class="text-muted">
+
+                            {{ insights.statistics.tracking_days }}
+
+                            tracking days
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Weight Trend + AI Coach -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <div class="row g-4">
+
+            <!-- Weight Chart -->
+
+            <div class="col-lg-8">
+
+                <div class="dashboard-card h-100">
+
+                    <div class="card-header-custom">
+
+                        <div>
+
+                            <h4>
+
+                                <i class="bi bi-graph-up-arrow me-2"></i>
+
+                                Weight Trend
+
+                            </h4>
+
+                            <p>
+
+                                Your recorded weight progression over time.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="weightChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- AI Coach -->
+
+            <div class="col-lg-4">
+
+                <div class="dashboard-card h-100 ai-card">
+
+                    <div class="card-header-custom">
+
+                        <h4>
+
+                            <i class="bi bi-stars me-2"></i>
+
+                            AI Coach
+
+                        </h4>
+
+                    </div>
+
+                    <div class="ai-avatar">
+
+                        <i class="bi bi-robot"></i>
+
+                    </div>
+
+                    <h5 class="text-center mt-3">
+
+                        Personalized Insights
+
+                    </h5>
+
+                    <p class="text-center text-muted mb-4">
+
+                        AI-generated recommendations based on your latest progress.
+
                     </p>
+
+                    {% if insights.summary %}
+
+                    <div class="coach-list">
+
+                        {% for line in insights.summary %}
+
+                        <div class="coach-item">
+
+                            <i class="bi bi-check-circle-fill text-success"></i>
+
+                            <span>
+
+                                {{ line }}
+
+                            </span>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="empty-state">
+
+                        <i class="bi bi-lightbulb"></i>
+
+                        <p>
+
+                            Add more progress logs to unlock personalized AI coaching.
+
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
                 </div>
-            {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+        <!-- ========================================= -->
+    <!-- Body Composition + Goal Progress -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <div class="row g-4">
+
+            <!-- Body Composition -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card h-100">
+
+                    <div class="card-header-custom">
+
+                        <div>
+
+                            <h4>
+
+                                <i class="bi bi-person-standing me-2"></i>
+
+                                Body Composition
+
+                            </h4>
+
+                            <p>
+
+                                Latest body measurements
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row g-3 mt-2">
+
+                        <div class="col-md-4">
+
+                            <div class="body-card">
+
+                                <span>
+
+                                    Body Fat
+
+                                </span>
+
+                                <h3>
+
+                                    {{ insights.body.body_fat.current or "-" }}%
+
+                                </h3>
+
+                                <small>
+
+                                    {% if insights.body.body_fat.change %}
+
+                                        {{ insights.body.body_fat.change }}%
+
+                                    {% else %}
+
+                                        No Change
+
+                                    {% endif %}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="body-card">
+
+                                <span>
+
+                                    Waist
+
+                                </span>
+
+                                <h3>
+
+                                    {{ insights.body.waist.current or "-" }}
+
+                                    cm
+
+                                </h3>
+
+                                <small>
+
+                                    {% if insights.body.waist.change %}
+
+                                        {{ insights.body.waist.change }} cm
+
+                                    {% else %}
+
+                                        No Change
+
+                                    {% endif %}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="body-card">
+
+                                <span>
+
+                                    Chest
+
+                                </span>
+
+                                <h3>
+
+                                    {{ insights.body.chest.current or "-" }}
+
+                                    cm
+
+                                </h3>
+
+                                <small>
+
+                                    {% if insights.body.chest.change %}
+
+                                        {{ insights.body.chest.change }} cm
+
+                                    {% else %}
+
+                                        No Change
+
+                                    {% endif %}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Goal Progress -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card h-100">
+
+                    <div class="card-header-custom">
+
+                        <div>
+
+                            <h4>
+
+                                <i class="bi bi-bullseye me-2"></i>
+
+                                Goal Progress
+
+                            </h4>
+
+                            <p>
+
+                                Your journey towards your target weight
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="goal-progress-wrapper">
+
+                        <div class="goal-circle">
+
+                            <span>
+
+                                {{ insights.goal.progress_percent }}%
+
+                            </span>
+
+                        </div>
+
+                        <div class="goal-details">
+
+                            <div class="goal-item">
+
+                                <span>
+
+                                    Current Progress
+
+                                </span>
+
+                                <strong>
+
+                                    {{ insights.goal.progress_percent }}%
+
+                                </strong>
+
+                            </div>
+
+                            <div class="progress modern-progress mt-2">
+
+                                <div class="progress-bar"
+
+                                     style="width: {{ insights.goal.progress_percent }}%;">
+
+                                </div>
+
+                            </div>
+
+                            <p class="text-muted mt-3 mb-0">
+
+                                Stay consistent. Every progress log improves your recommendations and AI insights.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- AI Forecast + Tracking Statistics -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <div class="row g-4">
+
+            <!-- Forecast -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card h-100">
+
+                    <div class="card-header-custom">
+
+                        <div>
+
+                            <h4>
+
+                                <i class="bi bi-stars me-2"></i>
+
+                                AI Forecast
+
+                            </h4>
+
+                            <p>
+
+                                Predicted weight based on your trend
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    {% if forecast %}
+
+                    <div class="forecast-list">
+
+                        {% for day in forecast[:3] %}
+
+                        <div class="forecast-card">
+
+                            <div>
+
+                                <h6 class="mb-1">
+
+                                    {{ day.date }}
+
+                                </h6>
+
+                                <small class="text-muted">
+
+                                    Estimated Weight
+
+                                </small>
+
+                            </div>
+
+                            <div class="forecast-value">
+
+                                {{ day.weight }}
+
+                                <span>
+
+                                    kg
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="forecast-info">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Predictions improve as more progress records are added.
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="empty-state py-5">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                        <h5 class="mt-3">
+
+                            Forecast Not Available
+
+                        </h5>
+
+                        <p>
+
+                            Log at least three progress entries to unlock AI forecasting.
+
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- Tracking Statistics -->
+
+            <div class="col-lg-6">
+
+                <div class="dashboard-card h-100">
+
+                    <div class="card-header-custom">
+
+                        <div>
+
+                            <h4>
+
+                                <i class="bi bi-bar-chart-line me-2"></i>
+
+                                Tracking Statistics
+
+                            </h4>
+
+                            <p>
+
+                                Your overall tracking activity
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <div class="stat-box">
+
+                            <h2>
+
+                                {{ insights.statistics.entries }}
+
+                            </h2>
+
+                            <span>
+
+                                Total Logs
+
+                            </span>
+
+                        </div>
+
+                        <div class="stat-box">
+
+                            <h2>
+
+                                {{ insights.statistics.tracking_days }}
+
+                            </h2>
+
+                            <span>
+
+                                Tracking Days
+
+                            </span>
+
+                        </div>
+
+                        <div class="stat-box">
+
+                            <h2>
+
+                                {{ insights.bmi.current_bmi }}
+
+                            </h2>
+
+                            <span>
+
+                                Current BMI
+
+                            </span>
+
+                        </div>
+
+                        <div class="stat-box">
+
+                            <h2>
+
+                                {{ insights.goal.progress_percent }}%
+
+                            </h2>
+
+                            <span>
+
+                                Goal Completed
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- Weight Chart -->
+    <!-- ========================================= -->
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const ctx = document.getElementById("weightChart");
+
+        if (ctx) {
+
+            new Chart(ctx, {
+
+                type: "line",
+
+                data: {
+
+                    labels: [
+
+                        {% for item in history|reverse %}
+
+                        "{{ item.recorded_at.strftime('%d %b') }}",
+
+                        {% endfor %}
+
+                    ],
+
+                    datasets: [{
+
+                        label: "Weight",
+
+                        data: [
+
+                            {% for item in history|reverse %}
+
+                            {{ item.weight_kg }},
+
+                            {% endfor %}
+
+                        ],
+
+                        borderColor: "#4F46E5",
+
+                        backgroundColor: "rgba(79,70,229,.08)",
+
+                        borderWidth: 3,
+
+                        fill: true,
+
+                        tension: .4,
+
+                        pointRadius: 4,
+
+                        pointHoverRadius: 6
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display: false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        x: {
+
+                            grid: {
+
+                                display: false
+
+                            }
+
+                        },
+
+                        y: {
+
+                            beginAtZero: false,
+
+                            ticks: {
+
+                                precision: 0
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+        }
+
+    });
+
+    </script>
+
+        <!-- ========================================= -->
+    <!-- Log Progress Modal -->
+    <!-- ========================================= -->
+
+    <div class="modal fade"
+         id="progressModal"
+         tabindex="-1"
+         aria-labelledby="progressModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content modern-modal">
+
+                <div class="modal-header border-0">
+
+                    <div>
+
+                        <span class="hero-badge">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Daily Progress
+
+                        </span>
+
+                        <h3 class="mt-3 mb-1">
+
+                            Log Today's Progress
+
+                        </h3>
+
+                        <p class="text-muted mb-0">
+
+                            Update your latest body measurements to keep your analytics accurate.
+
+                        </p>
+
+                    </div>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body pt-4">
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+
+                                    {{ form.weight_kg.label.text }}
+
+                                </label>
+
+                                {{ form.weight_kg(class="form-control modern-input") }}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+
+                                    {{ form.body_fat_percentage.label.text }}
+
+                                </label>
+
+                                {{ form.body_fat_percentage(class="form-control modern-input") }}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+
+                                    {{ form.waist_cm.label.text }}
+
+                                </label>
+
+                                {{ form.waist_cm(class="form-control modern-input") }}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+
+                                    {{ form.chest_cm.label.text }}
+
+                                </label>
+
+                                {{ form.chest_cm(class="form-control modern-input") }}
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+
+                                    {{ form.notes.label.text }}
+
+                                </label>
+
+                                {{ form.notes(class="form-control modern-input", rows="4") }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 mt-4">
+
+                            <button type="button"
+                                    class="btn btn-light"
+                                    data-bs-dismiss="modal">
+
+                                Cancel
+
+                            </button>
+
+                            {{ form.submit(class="btn btn-primary hero-button") }}
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
+    <!-- ========================================= -->
+    <!-- Progress History -->
+    <!-- ========================================= -->
+
+    <section class="mb-4">
+
+        <div class="dashboard-card">
+
+            <div class="accordion border-0"
+                 id="historyAccordion">
+
+                <div class="accordion-item border-0 bg-transparent">
+
+                    <h2 class="accordion-header">
+
+                        <button class="accordion-button collapsed history-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#historyCollapse">
+
+                            <div class="d-flex align-items-center">
+
+                                <i class="bi bi-clock-history me-3"></i>
+
+                                <div>
+
+                                    <strong>
+
+                                        Progress History
+
+                                    </strong>
+
+                                    <small class="d-block text-muted">
+
+                                        View all recorded progress entries
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <span class="badge rounded-pill bg-primary ms-auto">
+
+                                {{ history|length }}
+
+                                Records
+
+                            </span>
+
+                        </button>
+
+                    </h2>
+
+                    <div id="historyCollapse"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#historyAccordion">
+
+                        <div class="accordion-body pt-4">
+
+                            {% if history %}
+
+                            <div class="table-responsive">
+
+                                <table class="table align-middle history-table">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>Date</th>
+                                            <th>Weight</th>
+                                            <th>Body Fat</th>
+                                            <th>Waist</th>
+                                            <th>Chest</th>
+                                            <th>Notes</th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        {% for item in history|reverse %}
+
+                                        <tr>
+
+                                            <td>
+
+                                                {{ item.recorded_at.strftime("%d %b %Y") }}
+
+                                            </td>
+
+                                            <td>
+
+                                                <span class="fw-semibold">
+
+                                                    {{ item.weight_kg }} kg
+
+                                                </span>
+
+                                            </td>
+
+                                            <td>
+
+                                                {{ item.body_fat_percentage or "-" }}
+
+                                            </td>
+
+                                            <td>
+
+                                                {{ item.waist_cm or "-" }} cm
+
+                                            </td>
+
+                                            <td>
+
+                                                {{ item.chest_cm or "-" }} cm
+
+                                            </td>
+
+                                            <td>
+
+                                                {% if item.notes %}
+
+                                                    {{ item.notes }}
+
+                                                {% else %}
+
+                                                    <span class="text-muted">
+
+                                                        —
+
+                                                    </span>
+
+                                                {% endif %}
+
+                                            </td>
+
+                                        </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                            {% else %}
+
+                            <div class="empty-state text-center py-5">
+
+                                <i class="bi bi-clipboard-data display-4"></i>
+
+                                <h4 class="mt-4">
+
+                                    No Progress History
+
+                                </h4>
+
+                                <p class="text-muted mb-0">
+
+                                    Start logging your fitness journey to unlock analytics, AI insights and future predictions.
+
+                                </p>
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
 </div>
 
-{% endif %}
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Chart.js code
+});
+</script>
 
 {% endblock %}

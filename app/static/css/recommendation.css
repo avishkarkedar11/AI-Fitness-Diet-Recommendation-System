@@ -1,0 +1,1753 @@
+/* ==========================================
+   Recommendation Hero
+========================================== */
+
+.recommendation-hero{
+    background:#fff;
+    border-radius:24px;
+    padding:45px;
+    border:1px solid #edf2f7;
+    box-shadow:0 12px 35px rgba(15,23,42,.05);
+}
+
+.hero-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:40px;
+}
+
+.hero-left{
+    max-width:700px;
+}
+
+.hero-tag{
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    padding:8px 18px;
+
+    border-radius:40px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+}
+
+.hero-left h1{
+
+    font-size:42px;
+
+    font-weight:800;
+
+    color:#111827;
+
+    margin-bottom:18px;
+
+    line-height:1.2;
+
+}
+
+.hero-left h1 span{
+
+    color:#2563eb;
+
+}
+
+.hero-left p{
+
+    color:#64748b;
+
+    line-height:1.8;
+
+    max-width:620px;
+
+}
+
+.profile-status{
+
+    background:#f8fafc;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    border:1px solid #e5e7eb;
+
+}
+
+.status-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:18px;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+}
+
+.profile-status small{
+
+    color:#64748b;
+
+}
+
+.profile-status h5{
+
+    margin-top:5px;
+
+    font-weight:700;
+
+    margin-bottom:0;
+
+}
+
+/* ==========================================
+   Summary Cards
+========================================== */
+
+.summary-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:24px;
+
+}
+
+.summary-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:28px;
+
+    border:1px solid #edf2f7;
+
+    box-shadow:0 8px 25px rgba(15,23,42,.04);
+
+    transition:.3s;
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.summary-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:26px;
+
+    margin-bottom:18px;
+
+}
+
+.calories{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+.protein{
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+.carbs{
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+}
+
+.fats{
+
+    background:#fef3c7;
+
+    color:#d97706;
+
+}
+
+.summary-card small{
+
+    color:#64748b;
+
+    display:block;
+
+}
+
+.summary-card h2{
+
+    font-size:34px;
+
+    font-weight:800;
+
+    margin:10px 0;
+
+    color:#111827;
+
+}
+
+.summary-card span{
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:992px){
+
+.hero-content{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.summary-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:576px){
+
+.summary-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.hero-left h1{
+
+font-size:32px;
+
+}
+
+.recommendation-hero{
+
+padding:30px;
+
+}
+
+}
+
+/* ==========================================
+   Premium Recommendation Tabs
+========================================== */
+
+.recommendation-tabs-wrapper{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.recommendation-tabs{
+
+    display:flex;
+
+    gap:18px;
+
+    background:#ffffff;
+
+    padding:12px;
+
+    border-radius:18px;
+
+    border:1px solid #edf2f7;
+
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+
+}
+
+.recommendation-tabs .nav-item{
+
+    margin:0;
+
+}
+
+.recommendation-tabs .nav-link{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:14px;
+
+    color:#64748b;
+
+    font-weight:600;
+
+    transition:all .3s ease;
+
+    background:transparent;
+
+}
+
+.recommendation-tabs .nav-link i{
+
+    font-size:18px;
+
+}
+
+.recommendation-tabs .nav-link:hover{
+
+    background:#f8fafc;
+
+    color:#2563eb;
+
+    transform:translateY(-2px);
+
+}
+
+.recommendation-tabs .nav-link.active{
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:#ffffff;
+
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
+
+}
+
+.recommendation-tabs .nav-link.active i{
+
+    color:#ffffff;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .recommendation-tabs{
+
+        width:100%;
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
+
+    .recommendation-tabs .nav-link{
+
+        justify-content:center;
+
+        width:100%;
+
+    }
+
+}
+
+/* ==========================================
+   BMI Overview
+========================================== */
+
+.bmi-overview-card{
+
+    display:flex;
+
+    gap:40px;
+
+    align-items:center;
+
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    border:1px solid #edf2f7;
+
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+
+}
+
+.bmi-left{
+
+    min-width:260px;
+
+    text-align:center;
+
+}
+
+.section-label{
+
+    display:inline-flex;
+
+    gap:8px;
+
+    align-items:center;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    padding:8px 16px;
+
+    border-radius:40px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+.bmi-left h2{
+
+    font-size:70px;
+
+    font-weight:800;
+
+    margin:15px 0;
+
+    color:#111827;
+
+}
+
+.bmi-status{
+
+    display:inline-block;
+
+    padding:10px 22px;
+
+    border-radius:40px;
+
+    font-weight:700;
+
+}
+
+.bmi-status.success{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.bmi-status.warning{
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+}
+
+.bmi-status.danger{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+.bmi-right{
+
+    flex:1;
+
+}
+
+.bmi-right h5{
+
+    margin-bottom:20px;
+
+    font-weight:700;
+
+}
+
+.bmi-progress{
+
+    display:grid;
+
+    grid-template-columns:18.5fr 25fr 20fr 36.5fr;
+
+    height:14px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:15px;
+
+}
+
+.bmi-under{
+
+    background:#facc15;
+
+}
+
+.bmi-normal{
+
+    background:#22c55e;
+
+}
+
+.bmi-over{
+
+    background:#fb923c;
+
+}
+
+.bmi-obese{
+
+    background:#ef4444;
+
+}
+
+.bmi-labels{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:13px;
+
+    color:#64748b;
+
+    margin-bottom:25px;
+
+}
+
+.bmi-right p{
+
+    color:#64748b;
+
+    line-height:1.7;
+
+}
+
+@media(max-width:992px){
+
+.bmi-overview-card{
+
+flex-direction:column;
+
+}
+
+}
+
+/* ==========================================
+   Program Section
+========================================== */
+
+.program-section{
+
+    margin-top:20px;
+
+}
+
+.section-heading{
+
+    margin-bottom:25px;
+
+}
+
+.section-heading h3{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.section-heading p{
+
+    color:#64748b;
+
+    margin-top:8px;
+
+}
+
+.program-card{
+
+    background:#fff;
+
+    border:1px solid #edf2f7;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+
+    transition:.3s;
+
+}
+
+.program-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.program-icon{
+
+    width:65px;
+
+    height:65px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+    margin-bottom:20px;
+
+}
+
+.program-icon.blue{
+
+    background:#dbeafe;
+
+}
+
+.program-card h4{
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+}
+
+.duration-box{
+
+    background:#f8fafc;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.duration-box h2{
+
+    font-size:40px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+.duration-box span{
+
+    color:#64748b;
+
+}
+
+.info-box{
+
+    margin-bottom:20px;
+
+}
+
+.info-box h6{
+
+    font-weight:700;
+
+}
+
+.info-box p{
+
+    color:#64748b;
+
+    line-height:1.7;
+
+}
+
+.result-box{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-start;
+
+    background:#eff6ff;
+
+    padding:20px;
+
+    border-radius:18px;
+
+}
+
+.result-box i{
+
+    color:#2563eb;
+
+    font-size:28px;
+
+}
+
+.result-box p{
+
+    margin:5px 0 0;
+
+    color:#64748b;
+
+}
+
+.schedule-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
+    margin-bottom:20px;
+
+}
+
+.schedule-item{
+
+    background:#f8fafc;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+.schedule-item small{
+
+    display:block;
+
+    color:#94a3b8;
+
+    margin-bottom:8px;
+
+}
+
+.schedule-item strong{
+
+    color:#111827;
+
+    font-size:18px;
+
+}
+
+.note-box{
+
+    background:#eff6ff;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:flex-start;
+
+}
+
+.note-box i{
+
+    color:#2563eb;
+
+    margin-top:3px;
+
+}
+
+.note-box span{
+
+    color:#475569;
+
+}
+
+@media(max-width:768px){
+
+.schedule-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+/*==========================================
+    AI Insight Card
+==========================================*/
+
+.coach-section{
+
+    margin:30px 0;
+
+}
+
+.coach-card{
+
+    background:#ffffff;
+
+    border:1px solid #e8eef8;
+
+    border-left:6px solid #2563eb;
+
+    border-radius:18px;
+
+    padding:22px 28px;
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:flex-start;
+
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+
+}
+
+.coach-icon{
+
+    width:54px;
+
+    height:54px;
+
+    border-radius:14px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    flex-shrink:0;
+
+}
+
+.coach-body{
+
+    flex:1;
+
+}
+
+.coach-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    flex-wrap:wrap;
+
+}
+
+.coach-header span{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.coach-header small{
+
+    color:#94a3b8;
+
+}
+
+.coach-body blockquote{
+
+    margin:0;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    color:#475569;
+
+    font-style:italic;
+
+}
+
+@media(max-width:768px){
+
+.coach-card{
+
+padding:20px;
+
+}
+
+.coach-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:4px;
+
+}
+
+}/*==========================================
+    AI Insight Card
+==========================================*/
+
+.coach-section{
+
+    margin:30px 0;
+
+}
+
+.coach-card{
+
+    background:#ffffff;
+
+    border:1px solid #e8eef8;
+
+    border-left:6px solid #2563eb;
+
+    border-radius:18px;
+
+    padding:22px 28px;
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:flex-start;
+
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+
+}
+
+.coach-icon{
+
+    width:54px;
+
+    height:54px;
+
+    border-radius:14px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    flex-shrink:0;
+
+}
+
+.coach-body{
+
+    flex:1;
+
+}
+
+.coach-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    flex-wrap:wrap;
+
+}
+
+.coach-header span{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.coach-header small{
+
+    color:#94a3b8;
+
+}
+
+.coach-body blockquote{
+
+    margin:0;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    color:#475569;
+
+    font-style:italic;
+
+}
+
+@media(max-width:768px){
+
+.coach-card{
+
+padding:20px;
+
+}
+
+.coach-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:4px;
+
+}
+
+}
+
+/*==========================================
+    Workout Section
+==========================================*/
+
+.workout-container{
+
+    margin-top:20px;
+
+}
+
+.exercise-card{
+
+    background:#fff;
+
+    border:1px solid #e8eef8;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    transition:.3s;
+
+    height:100%;
+
+    box-shadow:0 8px 20px rgba(15,23,42,.04);
+
+}
+
+.exercise-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 35px rgba(15,23,42,.08);
+
+}
+
+.exercise-top{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-start;
+
+    margin-bottom:20px;
+
+}
+
+.exercise-icon{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:14px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    flex-shrink:0;
+
+}
+
+.exercise-title h5{
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    margin-bottom:10px;
+
+}
+
+.strength-badge{
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+.cardio-badge{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+.mobility-badge{
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+}
+
+.exercise-check{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:15px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+.exercise-check input{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+.exercise-check span{
+
+    color:#475569;
+
+}
+
+/*==================================================
+    DIET & NUTRITION SECTION
+==================================================*/
+
+.meal-card{
+    background:#fff;
+    border:1px solid #e8eef8;
+    border-radius:22px;
+    padding:24px;
+    height:100%;
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+    transition:.3s ease;
+}
+
+.meal-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 18px 40px rgba(15,23,42,.08);
+}
+
+.meal-header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:24px;
+    padding-bottom:18px;
+    border-bottom:1px solid #eef2f7;
+}
+
+.meal-icon{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    flex-shrink:0;
+}
+
+.meal-icon.breakfast{
+    background:#FFF7E6;
+    color:#F59E0B;
+}
+
+.meal-icon.lunch{
+    background:#EFF6FF;
+    color:#2563EB;
+}
+
+.meal-icon.dinner{
+    background:#EEF2FF;
+    color:#6366F1;
+}
+
+.meal-header h5{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.meal-header small{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+/*=====================================
+Food Item
+=====================================*/
+
+.food-item{
+    background:#f8fafc;
+    border:1px solid #edf2f7;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:16px;
+    transition:.25s;
+}
+
+.food-item:hover{
+    background:#fff;
+    border-color:#dbeafe;
+}
+
+.food-item h6{
+    margin-bottom:10px;
+    font-size:16px;
+    font-weight:700;
+    color:#111827;
+}
+
+.food-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+    color:#64748b;
+    margin-bottom:14px;
+}
+
+/*=====================================
+Macro Grid
+=====================================*/
+
+.macro-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.macro-grid div{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:10px;
+    text-align:center;
+    font-size:13px;
+    font-weight:600;
+    color:#334155;
+}
+
+/*=====================================
+Simple Food List
+=====================================*/
+
+.simple-food{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px dashed #e2e8f0;
+}
+
+.simple-food:last-child{
+    border-bottom:none;
+}
+
+.simple-food i{
+    color:#10b981;
+    margin-top:2px;
+    font-size:16px;
+}
+
+.simple-food span{
+    color:#475569;
+    line-height:1.6;
+    font-size:15px;
+}
+
+/*=====================================
+Empty State
+=====================================*/
+
+.empty-food{
+    text-align:center;
+    color:#94a3b8;
+    padding:35px 10px;
+    font-size:15px;
+}
+
+/*==================================================
+Nutrition Guidelines
+==================================================*/
+
+.nutrition-tips{
+    margin-top:55px;
+}
+
+.tip-card{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    background:#fff;
+    border:1px solid #e8eef8;
+    border-radius:18px;
+    padding:22px;
+    height:100%;
+    transition:.3s;
+    box-shadow:0 8px 25px rgba(15,23,42,.04);
+}
+
+.tip-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(15,23,42,.08);
+}
+
+.tip-icon{
+    width:46px;
+    height:46px;
+    background:#EFF6FF;
+    color:#2563EB;
+    border-radius:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    flex-shrink:0;
+}
+
+.tip-card p{
+    margin:0;
+    color:#475569;
+    line-height:1.7;
+    font-size:15px;
+}
+
+/*==================================================
+Responsive
+==================================================*/
+
+@media (max-width:991px){
+
+    .meal-card{
+        margin-bottom:10px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .meal-header{
+        gap:14px;
+    }
+
+    .meal-icon{
+        width:52px;
+        height:52px;
+        font-size:20px;
+    }
+
+    .meal-header h5{
+        font-size:18px;
+    }
+
+    .macro-grid{
+        grid-template-columns:1fr;
+    }
+
+    .tip-card{
+        padding:18px;
+    }
+
+}
+
+/*==================================================
+Recommendation Actions
+==================================================*/
+
+.recommendation-actions{
+
+    margin-top:70px;
+
+}
+
+.action-card{
+
+    background:linear-gradient(135deg,#ffffff,#f8fbff);
+
+    border:1px solid #e8eef8;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    box-shadow:0 15px 40px rgba(15,23,42,.06);
+
+}
+
+.action-content{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+
+    flex-wrap:wrap;
+
+}
+
+.action-label{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+}
+
+.action-text h3{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:12px;
+
+}
+
+.action-text p{
+
+    color:#64748b;
+
+    max-width:560px;
+
+    margin:0;
+
+    line-height:1.7;
+
+}
+
+.action-buttons{
+
+    display:flex;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+
+}
+
+/* Primary Button */
+
+.primary-action{
+
+    background:#2563EB;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    padding:16px 28px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:0 12px 25px rgba(37,99,235,.25);
+
+}
+
+.primary-action:hover{
+
+    background:#1d4ed8;
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+
+/* Secondary Button */
+
+.secondary-action{
+
+    background:#fff;
+
+    color:#334155;
+
+    border:1px solid #dbe4f0;
+
+    text-decoration:none;
+
+    padding:16px 28px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.secondary-action:hover{
+
+    background:#f8fafc;
+
+    color:#111827;
+
+    transform:translateY(-3px);
+
+}
+
+/*==================================================
+Footer
+==================================================*/
+
+.recommendation-footer{
+
+    margin-top:28px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.recommendation-footer strong{
+
+    color:#0f172a;
+
+}
+
+/*==================================================
+Responsive
+==================================================*/
+
+@media(max-width:992px){
+
+.action-card{
+
+padding:30px;
+
+}
+
+.action-content{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.action-buttons{
+
+width:100%;
+
+}
+
+.primary-action,
+
+.secondary-action{
+
+flex:1;
+
+justify-content:center;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.action-text h3{
+
+font-size:24px;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+.primary-action,
+
+.secondary-action{
+
+width:100%;
+
+}
+
+}

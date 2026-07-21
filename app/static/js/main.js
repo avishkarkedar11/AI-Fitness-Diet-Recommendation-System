@@ -4,25 +4,25 @@
 
 const counters = document.querySelectorAll(".counter");
 
-const animateCounter = () => {
+function animateCounter() {
 
     counters.forEach(counter => {
 
-        const target = +counter.dataset.target;
+        const target = Number(counter.dataset.target);
 
         const update = () => {
 
-            const value = +counter.innerText;
+            const value = Number(counter.innerText);
 
             const increment = Math.ceil(target / 70);
 
-            if(value < target){
+            if (value < target) {
 
-                counter.innerText = value + increment;
+                counter.innerText = Math.min(value + increment, target);
 
-                setTimeout(update,25);
+                setTimeout(update, 25);
 
-            }else{
+            } else {
 
                 counter.innerText = target;
 
@@ -34,38 +34,56 @@ const animateCounter = () => {
 
     });
 
-};
+}
 
-const observer = new IntersectionObserver(entries=>{
+/* ===========================
+   Counter Observer
+=========================== */
 
-    entries.forEach(entry=>{
+const statsSection = document.querySelector(".stats-section");
 
-        if(entry.isIntersecting){
+if (statsSection && counters.length) {
 
-            animateCounter();
+    const observer = new IntersectionObserver(entries => {
 
-            observer.disconnect();
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                animateCounter();
+
+                observer.disconnect();
+
+            }
+
+        });
+
+    });
+
+    observer.observe(statsSection);
+
+}
+
+/* ===========================
+   Navbar Scroll
+=========================== */
+
+const navbar = document.querySelector(".premium-navbar");
+
+if (navbar) {
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 50) {
+
+            navbar.classList.add("scrolled");
+
+        } else {
+
+            navbar.classList.remove("scrolled");
 
         }
 
     });
 
-});
-
-observer.observe(document.querySelector(".stats-section"));
-
-const navbar = document.querySelector(".premium-navbar");
-
-window.addEventListener("scroll",()=>{
-
-if(window.scrollY>50){
-
-navbar.classList.add("scrolled");
-
-}else{
-
-navbar.classList.remove("scrolled");
-
 }
-
-});

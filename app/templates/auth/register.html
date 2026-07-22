@@ -127,6 +127,38 @@ Register | AI Fitness & Diet Recommendation System
                         </div>
                     </div>
 
+                    <!-- Divider -->
+                    <div class="d-flex align-items-center my-4">
+                        <hr class="flex-grow-1 text-black-50">
+                        <span class="px-3 text-secondary small">OR</span>
+                        <hr class="flex-grow-1 text-black-50">
+                    </div>
+
+                    <!-- Google Sign-In -->
+                    <div class="d-grid mb-4">
+                        <div id="g_id_onload"
+                             data-client_id=""
+                             data-callback="handleCredentialResponse"
+                             data-auto_prompt="false">
+                        </div>
+                        <div class="g_id_signin"
+                             data-type="standard"
+                             data-size="large"
+                             data-theme="outline"
+                             data-text="sign_up_with"
+                             data-shape="pill"
+                             data-logo_alignment="left"
+                             data-width="100%">
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="d-flex align-items-center my-4">
+                        <hr class="flex-grow-1 text-black-50">
+                        <span class="px-3 text-secondary small">OR</span>
+                        <hr class="flex-grow-1 text-black-50">
+                    </div>
+
                     <!-- Submit Button -->
                     <div class="d-grid mt-2">
                         <button type="submit" class="btn btn-premium btn-lg py-3 rounded-pill fw-bold">
@@ -157,6 +189,8 @@ Register | AI Fitness & Diet Recommendation System
 
 {% block scripts %}
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <script>
 function togglePassword(fieldId, button){
     const field = document.getElementById(fieldId);
@@ -171,6 +205,12 @@ function togglePassword(fieldId, button){
         icon.classList.remove("bi-eye-slash");
         icon.classList.add("bi-eye");
     }
+}
+
+function handleCredentialResponse(response) {
+    // Handle the Google credential response
+    console.log("Encoded JWT ID token: " + response.credential);
+    // Send the credential to your backend for verification
 }
 </script>
 

@@ -23,6 +23,7 @@ from app.extensions import (
     migrate,
     bcrypt,
     login_manager,
+    oauth,
 )
 
 
@@ -43,6 +44,10 @@ def create_app():
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    oauth.init_app(app)
+    from app.oauth import init_google_oauth
+    
+    init_google_oauth(app)
     
     from app.models.user import User
     

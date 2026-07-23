@@ -1,14 +1,13 @@
 """
 Authentication Routes
 
-Handles user registration, login and logout.
+Handles Google authentication and logout.
 """
 
 from flask import (
     Blueprint,
     flash,
     redirect,
-    render_template,
     url_for
 )
 
@@ -19,9 +18,11 @@ from flask_login import (
     logout_user
 )
 
-from app.forms.login_form import LoginForm
-from app.forms.register_form import RegisterForm
+from authlib.integrations.flask_client import OAuthError
+
+from app.extensions import oauth
 from app.services.auth_service import AuthService
+
 
 auth_bp = Blueprint(
     "auth",
@@ -30,83 +31,60 @@ auth_bp = Blueprint(
 
 
 # ==================================================
-# Register
+# Google Login
 # ==================================================
 
-@auth_bp.route("/register", methods=["GET", "POST"])
-def register():
-    """
-    User Registration
-    """
-
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard.home"))
-
-    form = RegisterForm()
-
-    if form.validate_on_submit():
-
-        success, message = AuthService.register_user(form)
-
-        if success:
-            flash(message, "success")
-            return redirect(url_for("auth.login"))
-
-        flash(message, "danger")
-
-    return render_template(
-        "auth/register.html",
-        form=form
-    )
-
-
-# ==================================================
-# Login
-# ==================================================
-
-@auth_bp.route("/login", methods=["GET", "POST"])
+@auth_bp.route("/login")
 def login():
     """
-    User Login
+    Redirect user to Google Sign-In.
     """
 
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.home"))
 
-    form = LoginForm()
+    redirect_uri = url_for(
+        "auth.google_authorized",
+        _external=True
+    )
 
-    if form.validate_on_submit():
+    return oauth.google.authorize_redirect(redirect_uri)
 
-        user = AuthService.authenticate(
-            form.username_or_email.data,
-            form.password.data
-        )
 
-        if user:
+# ==================================================
+# Google Callback
+# ==================================================
 
-            login_user(
-                user,
-                remember=form.remember_me.data
-            )
+@auth_bp.route("/login/google/authorized")
+def google_authorized():
+    """
+    Google OAuth callback.
+    """
 
-            flash(
-                f"Welcome back, {user.first_name}!",
-                "success"
-            )
+    try:
+        token = oauth.google.authorize_access_token()
+        user_info = token.get("userinfo")
 
-            return redirect(
-                url_for("dashboard.home")
-            )
+        if user_info is None:
+            user_info = oauth.google.userinfo()
 
+    except OAuthError:
         flash(
-            "Invalid username/email or password.",
+            "Google authentication failed.",
             "danger"
         )
+        return redirect(url_for("auth.login"))
 
-    return render_template(
-        "auth/login.html",
-        form=form
+    user = AuthService.authenticate_google_user(user_info)
+
+    login_user(user)
+
+    flash(
+        f"Welcome, {user.first_name}!",
+        "success"
     )
+
+    return redirect(url_for("dashboard.home"))
 
 
 # ==================================================
@@ -117,7 +95,7 @@ def login():
 @login_required
 def logout():
     """
-    User Logout
+    Logout current user.
     """
 
     logout_user()
@@ -127,6 +105,4 @@ def logout():
         "info"
     )
 
-    return redirect(
-        url_for("auth.login")
-    )
+    return redirect(url_for("auth.login"))

@@ -53,6 +53,12 @@ class Config:
             "ssl": {}
         } if os.getenv("DB_HOST", "").endswith(".aivencloud.com") else {}
     }
+    
+    # ==========================
+    # Google OAuth Configuration
+    # ==========================
+    GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+    GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
     # ==========================
     # Upload Settings

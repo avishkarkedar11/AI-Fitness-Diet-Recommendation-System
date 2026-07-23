@@ -57,7 +57,13 @@ class User(UserMixin, db.Model):
 
     password_hash = db.Column(
         db.String(255),
-        nullable=False
+        nullable=True
+    )
+    
+    auth_provider = db.Column(
+        db.String(20),
+        nullable=False,
+        default="local"
     )
 
     # ====================================
@@ -140,6 +146,8 @@ class User(UserMixin, db.Model):
         """
         Verify the user's password.
         """
+        if not self.password_hash:
+            return False
         return bcrypt.check_password_hash(self.password_hash, password)
     
     

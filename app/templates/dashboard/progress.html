@@ -47,22 +47,24 @@ Progress Analytics
 
             <div class="col-lg-4 text-lg-end">
 
-                <button
-                    class="btn btn-primary btn-lg hero-button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#progressModal">
-
-                    <i class="bi bi-plus-lg me-2"></i>
-
-                    Log Progress
-
-                </button>
+                
 
             </div>
 
         </div>
 
     </section>
+
+    <button
+        class="btn btn-primary btn-lg hero-button"
+        data-bs-toggle="modal"
+        data-bs-target="#progressModal">
+
+        <i class="bi bi-plus-lg me-2"></i>
+
+        Log Progress
+
+     </button>
 
     {% if insights %}
 
@@ -420,41 +422,7 @@ Progress Analytics
 
                     <div class="row g-3 mt-2">
 
-                        <div class="col-md-4">
-
-                            <div class="body-card">
-
-                                <span>
-
-                                    Body Fat
-
-                                </span>
-
-                                <h3>
-
-                                    {{ insights.body.body_fat.current or "-" }}%
-
-                                </h3>
-
-                                <small>
-
-                                    {% if insights.body.body_fat.change %}
-
-                                        {{ insights.body.body_fat.change }}%
-
-                                    {% else %}
-
-                                        No Change
-
-                                    {% endif %}
-
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
+                        <div class="col-md-6">
 
                             <div class="body-card">
 
@@ -490,7 +458,7 @@ Progress Analytics
 
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
 
                             <div class="body-card">
 
@@ -1011,18 +979,6 @@ Progress Analytics
                                 </label>
 
                                 {{ form.weight_kg(class="form-control modern-input") }}
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-
-                                    {{ form.body_fat_percentage.label.text }}
-
-                                </label>
-
-                                {{ form.body_fat_percentage(class="form-control modern-input") }}
 
                             </div>
 

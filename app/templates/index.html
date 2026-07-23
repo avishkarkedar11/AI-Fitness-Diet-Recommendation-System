@@ -73,17 +73,11 @@ AI Fitness & Diet Recommendation System
 
             <div class="hero-buttons">
 
-                <a href="{{ url_for('auth.register') }}"
-                   class="btn btn-hero-primary">
-
-                    Get Started Free
-
-                </a>
-
                 <a href="{{ url_for('auth.login') }}"
-                   class="btn btn-hero-secondary">
+                    class="btn btn-hero-primary">
 
-                    Login
+                    <i class="bi bi-google"></i>
+                    Continue with Google
 
                 </a>
 
@@ -631,11 +625,12 @@ AI Fitness & Diet Recommendation System
 
                 {% else %}
 
-                    <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg cta-btn">
+                    <a href="{{ url_for('auth.login') }}"
+                        class="btn btn-light btn-lg cta-btn">
 
-                        <i class="bi bi-rocket-takeoff-fill"></i>
+                        <i class="bi bi-google"></i>
 
-                        Get Started 
+                        Continue with Google
 
                     </a>
 

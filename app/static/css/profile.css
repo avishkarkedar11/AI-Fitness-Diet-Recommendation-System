@@ -210,37 +210,8 @@ textarea.modern-input{
 SUBMIT BUTTON
 ==================================================*/
 
-.profile-submit-btn{
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:16px 40px;
-
-    font-size:17px;
-
-    font-weight:700;
-
-    background:linear-gradient(135deg,#2563EB,#3B82F6);
-
-    color:#ffffff;
-
-    transition:.35s;
-
-    min-width:280px;
-
-}
-
-.profile-submit-btn:hover{
-
-    color:#ffffff;
-
-    transform:translateY(-3px);
-
-    box-shadow:
-        0 15px 30px rgba(37,99,235,.30);
-
+.profile-submit-btn {
+    min-width: 240px;
 }
 
 /*==================================================

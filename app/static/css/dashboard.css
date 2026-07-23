@@ -179,27 +179,7 @@ body{
 
 }
 
-/* ==========================================
-   Buttons
-========================================== */
-
-.btn{
-
-    border-radius:40px;
-
-    padding:10px 18px;
-
-    font-weight:600;
-
-    transition:.25s;
-
-}
-
-.btn:hover{
-
-    transform:translateY(-2px);
-
-}
+/* Buttons inherit from global unified style.css */
 
 /* ==========================================
    Recommendation List

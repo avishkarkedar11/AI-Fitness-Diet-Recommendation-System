@@ -123,7 +123,7 @@ Dashboard | AI Fitness & Diet Recommendation System
             <div class="hero-actions">
 
                 <a href="{{ url_for('profile.profile') }}"
-                   class="btn btn-success hero-btn">
+                   class="btn btn-primary hero-btn">
 
                     <i class="bi bi-person-fill"></i>
 
@@ -134,7 +134,7 @@ Dashboard | AI Fitness & Diet Recommendation System
                 {% if data.recommendation %}
 
                 <a href="{{ url_for('recommendation.view_recommendation') }}"
-                   class="btn btn-outline-dark hero-btn">
+                   class="btn btn-secondary hero-btn">
 
                     <i class="bi bi-lightning-charge-fill"></i>
 
@@ -145,7 +145,7 @@ Dashboard | AI Fitness & Diet Recommendation System
                 {% else %}
 
                 <a href="{{ url_for('recommendation.generate_recommendation') }}"
-                   class="btn btn-outline-dark hero-btn">
+                   class="btn btn-secondary hero-btn">
 
                     <i class="bi bi-cpu-fill"></i>
 

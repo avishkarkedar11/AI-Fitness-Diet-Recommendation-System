@@ -130,33 +130,7 @@ a{
 
 }
 
-.hero-button{
-
-    border-radius:14px;
-
-    padding:14px 30px;
-
-    font-weight:600;
-
-    font-size:.95rem;
-
-    background:var(--primary);
-
-    border:none;
-
-    transition:var(--transition);
-
-}
-
-.hero-button:hover{
-
-    background:var(--primary-dark);
-
-    transform:translateY(-2px);
-
-    box-shadow:0 10px 25px rgba(79,70,229,.25);
-
-}
+/* .hero-button inherits from global unified style.css */
 
 
 /* ===========================

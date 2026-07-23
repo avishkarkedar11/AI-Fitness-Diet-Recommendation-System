@@ -94,20 +94,11 @@ Login | AI Fitness & Diet Recommendation System
 
                 <!-- Google Sign-In -->
                 <div class="d-grid">
-                    <div id="g_id_onload"
-                         data-client_id=""
-                         data-callback="handleCredentialResponse"
-                         data-auto_prompt="false">
-                    </div>
-                    <div class="g_id_signin"
-                         data-type="standard"
-                         data-size="large"
-                         data-theme="outline"
-                         data-text="sign_in_with"
-                         data-shape="pill"
-                         data-logo_alignment="left"
-                         data-width="100%">
-                    </div>
+                    <a href="{{ url_for('auth.google_login') }}"
+                       class="btn btn-outline-dark btn-lg py-3 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2 shadow-sm">
+                        <i class="bi bi-google text-danger fs-5"></i>
+                        <span>Continue with Google</span>
+                    </a>
                 </div>
 
                 <hr class="my-4 text-black-50">

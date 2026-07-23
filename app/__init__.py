@@ -1,21 +1,13 @@
 """
 app/__init__.py
 ----------------
-Application Factoryfrom app.models.user import User
-from app.models.fitness_profile import FitnessProfile
-from app.models.progress import ProgressLog
+Application Factory
 
 Creates and configures the Flask application.
 Initializes extensions and registers all blueprints.
 """
-from app import models
-from flask import Flask
-from app.models.user import User
-from app.models.fitness_profile import FitnessProfile
-from app.models.progress import ProgressLog
-from app.models.recommendation import SavedRecommendation
-from app.routes.progress import progress_bp
 
+from flask import Flask
 
 from app.config import Config
 from app.extensions import (
@@ -23,8 +15,13 @@ from app.extensions import (
     migrate,
     bcrypt,
     login_manager,
-    oauth,
+    oauth as oauth_ext,
 )
+from app.oauth import init_google_oauth
+from app.models.user import User
+from app.models.fitness_profile import FitnessProfile
+from app.models.progress import ProgressLog
+from app.models.recommendation import SavedRecommendation
 
 
 def create_app():
@@ -44,29 +41,20 @@ def create_app():
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    oauth.init_app(app)
-    from app.oauth import init_google_oauth
-    
+    oauth_ext.init_app(app)
     init_google_oauth(app)
-    
-    from app.models.user import User
-    
+
     @login_manager.user_loader
     def load_user(user_id):
-      return db.session.get(User, int(user_id))
-    
-
-    
-    
+        return db.session.get(User, int(user_id))
 
     # ==============================
     # Register Blueprints
     # ==============================
-    # These imports are inside the function
-    # to avoid circular imports.
     from app.routes.auth import auth_bp
     from app.routes.dashboard import dashboard_bp
     from app.routes.profile import profile_bp
+    from app.routes.progress import progress_bp
     from app.routes.recommendation import recommendation_bp
     from app.routes.api import api_bp
 
@@ -80,4 +68,4 @@ def create_app():
     # ==============================
     # Return Application
     # ==============================
-    return app
+    return app

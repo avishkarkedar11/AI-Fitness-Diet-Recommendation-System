@@ -23,8 +23,6 @@ class ProgressService:
             user_id=user_id,
             weight_kg=form.weight_kg.data,
             waist_cm=form.waist_cm.data,
-            chest_cm=form.chest_cm.data,
-            body_fat_percentage=form.body_fat_percentage.data,
             notes=form.notes.data
         )
 
@@ -33,15 +31,13 @@ class ProgressService:
         print(f"User ID: {user_id}")
         print(f"Weight: {form.weight_kg.data}")
         print(f"Waist: {form.waist_cm.data}")
-        print(f"Chest: {form.chest_cm.data}")
-        print(f"Body Fat: {form.body_fat_percentage.data}")
         print(f"Notes: {form.notes.data}")
 
         try:
             db.session.add(progress)
             db.session.commit()
 
-            print("✅ Progress inserted successfully!")
+            print("[SUCCESS] Progress inserted successfully!")
             print(f"Inserted ID: {progress.id}")
             print("=" * 50)
 
@@ -51,7 +47,7 @@ class ProgressService:
             db.session.rollback()
 
             print("=" * 50)
-            print("❌ DATABASE ERROR")
+            print("[ERROR] DATABASE ERROR")
             print(e)
             print("=" * 50)
 

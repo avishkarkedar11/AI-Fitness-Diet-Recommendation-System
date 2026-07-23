@@ -9,7 +9,8 @@ from flask import (
     render_template,
     redirect,
     url_for,
-    flash
+    flash,
+    send_file
 )
 
 from flask_login import (
@@ -21,6 +22,8 @@ from app.forms.progress_form import ProgressForm
 
 from app.services.progress_service import ProgressService
 from app.services.progress_insight_service import ProgressInsightService
+from app.services.profile_service import ProfileService
+from app.services.pdf_service import PDFService
 
 
 progress_bp = Blueprint(
@@ -45,9 +48,7 @@ def progress():
 
     form = ProgressForm()
 
-    # ==========================================
-    # Save Progress
-    # ==========================================
+    from flask import request
 
     if form.validate_on_submit():
 
@@ -63,6 +64,11 @@ def progress():
 
         return redirect(
             url_for("progress.progress")
+        )
+    elif request.method == "POST":
+        flash(
+            "Could not save progress. Please check the values entered.",
+            "danger"
         )
 
     # ==========================================
@@ -117,3 +123,33 @@ def progress():
         insights=insights,
         forecast=forecast
     )
+
+
+# =====================================================
+# Download Progress Report PDF
+# =====================================================
+
+@progress_bp.route("/progress/download-pdf")
+@login_required
+def download_pdf():
+    """
+    Generate and download user progress report as PDF.
+    """
+
+    profile = ProfileService.get_profile(current_user.id)
+    history = ProgressService.get_history(current_user.id)
+
+    pdf_buffer = PDFService.generate_progress_report(
+        user=current_user,
+        profile=profile,
+        history=history
+    )
+
+    filename = f"progress_report_{current_user.username}.pdf"
+
+    return send_file(
+        pdf_buffer,
+        as_attachment=True,
+        download_name=filename,
+        mimetype="application/pdf"
+    )

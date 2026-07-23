@@ -44,17 +44,7 @@ class ProgressLog(db.Model):
         nullable=False
     )
 
-    body_fat_percentage = db.Column(
-        db.Float,
-        nullable=True
-    )
-
     waist_cm = db.Column(
-        db.Float,
-        nullable=True
-    )
-
-    chest_cm = db.Column(
         db.Float,
         nullable=True
     )

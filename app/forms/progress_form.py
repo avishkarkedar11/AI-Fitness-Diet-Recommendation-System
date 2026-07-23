@@ -35,23 +35,8 @@ class ProgressForm(FlaskForm):
         validators=[
             Optional(),
             NumberRange(min=20, max=250)
-        ]
-    )
-
-    chest_cm = FloatField(
-        "Chest (cm)",
-        validators=[
-            Optional(),
-            NumberRange(min=20, max=250)
-        ]
-    )
-
-    body_fat_percentage = FloatField(
-        "Body Fat (%)",
-        validators=[
-            Optional(),
-            NumberRange(min=1, max=70)
-        ]
+        ],
+        filters=[lambda x: x if x is not None and str(x).strip() != "" else None]
     )
 
     notes = TextAreaField(

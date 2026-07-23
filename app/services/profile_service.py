@@ -91,7 +91,6 @@ class ProfileService:
             # Health
             # ==========================
 
-            body_fat_percentage=form.body_fat_percentage.data,
             water_intake_liters=form.water_intake_liters.data,
             medical_conditions=(
                 form.medical_conditions.data
@@ -155,10 +154,6 @@ class ProfileService:
         # ==========================
         # Health
         # ==========================
-
-        profile.body_fat_percentage = (
-            form.body_fat_percentage.data
-        )
 
         profile.water_intake_liters = (
             form.water_intake_liters.data

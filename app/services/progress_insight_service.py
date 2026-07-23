@@ -215,19 +215,6 @@ class ProgressInsightService:
 
         return {
 
-            "body_fat": {
-
-                "starting": first.body_fat_percentage,
-
-                "current": latest.body_fat_percentage,
-
-                "change": calculate_change(
-                    first.body_fat_percentage,
-                    latest.body_fat_percentage
-                )
-
-            },
-
             "waist": {
 
                 "starting": first.waist_cm,
@@ -237,19 +224,6 @@ class ProgressInsightService:
                 "change": calculate_change(
                     first.waist_cm,
                     latest.waist_cm
-                )
-
-            },
-
-            "chest": {
-
-                "starting": first.chest_cm,
-
-                "current": latest.chest_cm,
-
-                "change": calculate_change(
-                    first.chest_cm,
-                    latest.chest_cm
                 )
 
             }
@@ -402,15 +376,6 @@ class ProgressInsightService:
 
             summary.append(
                 f"Waist reduced by {abs(body['waist']['change'])} cm."
-            )
-
-        if (
-            body["body_fat"]["change"] is not None and
-            body["body_fat"]["change"] < 0
-        ):
-
-            summary.append(
-                f"Body fat reduced by {abs(body['body_fat']['change'])}%."
             )
 
         if goal["status"] == "Completed":

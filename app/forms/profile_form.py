@@ -73,20 +73,12 @@ class ProfileForm(FlaskForm):
     # =====================================
 
     target_weight_kg = FloatField(
-    "Target Weight (kg)",
-    validators=[
-        DataRequired(),
-        NumberRange(min=20, max=300)
-    ]
-)
-
-    body_fat_percentage = FloatField(
-    "Body Fat (%)",
-    validators=[
-        Optional(),
-        NumberRange(min=1, max=60)
-    ]
-)
+        "Target Weight (kg)",
+        validators=[
+            DataRequired(),
+            NumberRange(min=20, max=300)
+        ]
+    )
 
     water_intake_liters = FloatField(
     "Water Intake (Liters)",

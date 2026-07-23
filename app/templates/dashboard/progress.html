@@ -45,26 +45,29 @@ Progress Analytics
 
             </div>
 
-            <div class="col-lg-4 text-lg-end">
+            <div class="col-lg-4 text-lg-end d-flex flex-wrap align-items-center justify-content-lg-end gap-3 mt-3 mt-lg-0">
 
-                
+                <a href="{{ url_for('progress.download_pdf') }}"
+                   class="btn btn-outline-primary btn-lg hero-button">
+
+                    <i class="bi bi-file-earmark-pdf me-2"></i>
+
+                    Download Progress Report
+
+                </a>
+
+                <button
+                    class="btn btn-primary btn-lg hero-button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#progressModal">
+
+                    <i class="bi bi-plus-lg me-2"></i>
+
+                    Log Progress
+
+                </button>
 
             </div>
-
-        </div>
-
-    </section>
-
-    <button
-        class="btn btn-primary btn-lg hero-button"
-        data-bs-toggle="modal"
-        data-bs-target="#progressModal">
-
-        <i class="bi bi-plus-lg me-2"></i>
-
-        Log Progress
-
-     </button>
 
     {% if insights %}
 
@@ -422,7 +425,7 @@ Progress Analytics
 
                     <div class="row g-3 mt-2">
 
-                        <div class="col-md-6">
+                        <div class="col-12">
 
                             <div class="body-card">
 
@@ -445,42 +448,6 @@ Progress Analytics
                                     {% if insights.body.waist.change %}
 
                                         {{ insights.body.waist.change }} cm
-
-                                    {% else %}
-
-                                        No Change
-
-                                    {% endif %}
-
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="body-card">
-
-                                <span>
-
-                                    Chest
-
-                                </span>
-
-                                <h3>
-
-                                    {{ insights.body.chest.current or "-" }}
-
-                                    cm
-
-                                </h3>
-
-                                <small>
-
-                                    {% if insights.body.chest.change %}
-
-                                        {{ insights.body.chest.change }} cm
 
                                     {% else %}
 
@@ -914,135 +881,7 @@ Progress Analytics
 
     </script>
 
-        <!-- ========================================= -->
-    <!-- Log Progress Modal -->
-    <!-- ========================================= -->
 
-    <div class="modal fade"
-         id="progressModal"
-         tabindex="-1"
-         aria-labelledby="progressModalLabel"
-         aria-hidden="true">
-
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-
-            <div class="modal-content modern-modal">
-
-                <div class="modal-header border-0">
-
-                    <div>
-
-                        <span class="hero-badge">
-
-                            <i class="bi bi-plus-circle"></i>
-
-                            Daily Progress
-
-                        </span>
-
-                        <h3 class="mt-3 mb-1">
-
-                            Log Today's Progress
-
-                        </h3>
-
-                        <p class="text-muted mb-0">
-
-                            Update your latest body measurements to keep your analytics accurate.
-
-                        </p>
-
-                    </div>
-
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal">
-
-                    </button>
-
-                </div>
-
-                <div class="modal-body pt-4">
-
-                    <form method="POST">
-
-                        {{ form.hidden_tag() }}
-
-                        <div class="row g-4">
-
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-
-                                    {{ form.weight_kg.label.text }}
-
-                                </label>
-
-                                {{ form.weight_kg(class="form-control modern-input") }}
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-
-                                    {{ form.waist_cm.label.text }}
-
-                                </label>
-
-                                {{ form.waist_cm(class="form-control modern-input") }}
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-
-                                    {{ form.chest_cm.label.text }}
-
-                                </label>
-
-                                {{ form.chest_cm(class="form-control modern-input") }}
-
-                            </div>
-
-                            <div class="col-12">
-
-                                <label class="form-label">
-
-                                    {{ form.notes.label.text }}
-
-                                </label>
-
-                                {{ form.notes(class="form-control modern-input", rows="4") }}
-
-                            </div>
-
-                        </div>
-
-                        <div class="d-flex justify-content-end gap-3 mt-4">
-
-                            <button type="button"
-                                    class="btn btn-light"
-                                    data-bs-dismiss="modal">
-
-                                Cancel
-
-                            </button>
-
-                            {{ form.submit(class="btn btn-primary hero-button") }}
-
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 
     <!-- ========================================= -->
     <!-- Progress History -->
@@ -1116,9 +955,7 @@ Progress Analytics
 
                                             <th>Date</th>
                                             <th>Weight</th>
-                                            <th>Body Fat</th>
                                             <th>Waist</th>
-                                            <th>Chest</th>
                                             <th>Notes</th>
 
                                         </tr>
@@ -1149,19 +986,7 @@ Progress Analytics
 
                                             <td>
 
-                                                {{ item.body_fat_percentage or "-" }}
-
-                                            </td>
-
-                                            <td>
-
                                                 {{ item.waist_cm or "-" }} cm
-
-                                            </td>
-
-                                            <td>
-
-                                                {{ item.chest_cm or "-" }} cm
 
                                             </td>
 
@@ -1225,9 +1050,152 @@ Progress Analytics
 
         </div>
 
+    {% else %}
+
+    <section class="mb-4 text-center py-5">
+        <div class="dashboard-card py-5">
+            <div class="my-3">
+                <i class="bi bi-journal-plus display-3 text-primary"></i>
+            </div>
+            <h3 class="fw-bold mt-3">No Progress Entries Logged Yet</h3>
+            <p class="text-muted mb-4">Start tracking your transformation by logging your current weight today.</p>
+            <button class="btn btn-primary btn-lg hero-button px-4" data-bs-toggle="modal" data-bs-target="#progressModal">
+                <i class="bi bi-plus-lg me-2"></i> Log First Progress Entry
+            </button>
+        </div>
     </section>
 
     {% endif %}
+
+    <!-- ========================================= -->
+    <!-- Log Progress Modal -->
+    <!-- ========================================= -->
+
+    <div class="modal fade"
+         id="progressModal"
+         tabindex="-1"
+         aria-labelledby="progressModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content modern-modal">
+
+                <div class="modal-header border-0">
+
+                    <div>
+
+                        <span class="hero-badge">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Daily Progress
+
+                        </span>
+
+                        <h3 class="mt-3 mb-1">
+
+                            Log Today's Progress
+
+                        </h3>
+
+                        <p class="text-muted mb-0">
+
+                            Update your latest body measurements to keep your analytics accurate.
+
+                        </p>
+
+                    </div>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body pt-4">
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+
+                                    {{ form.weight_kg.label.text }}
+
+                                </label>
+
+                                {{ form.weight_kg(class="form-control modern-input") }}
+
+                                {% for error in form.weight_kg.errors %}
+                                    <div class="text-danger small mt-1">
+                                        <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+
+                                    {{ form.waist_cm.label.text }}
+
+                                </label>
+
+                                {{ form.waist_cm(class="form-control modern-input") }}
+
+                                {% for error in form.waist_cm.errors %}
+                                    <div class="text-danger small mt-1">
+                                        <i class="bi bi-exclamation-circle-fill me-1"></i>{{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+
+                                    {{ form.notes.label.text }}
+
+                                </label>
+
+                                {{ form.notes(class="form-control modern-input", rows="4") }}
+
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 mt-4">
+
+                            <button type="button"
+                                    class="btn btn-light"
+                                    data-bs-dismiss="modal">
+
+                                Cancel
+
+                            </button>
+
+                            {{ form.submit(class="btn btn-primary hero-button") }}
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -1235,10 +1203,16 @@ Progress Analytics
 
 {% block scripts %}
 
+{% if form.errors %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // Chart.js code
+    const modalEl = document.getElementById("progressModal");
+    if (modalEl) {
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    }
 });
 </script>
+{% endif %}
 
 {% endblock %}

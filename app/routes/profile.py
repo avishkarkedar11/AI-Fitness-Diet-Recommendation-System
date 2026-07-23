@@ -73,13 +73,16 @@ def profile():
     if profile:
 
         form.age.data = profile.age
-        form.gender.data = profile.gender.name
+        form.gender.data = profile.gender.name if hasattr(profile.gender, "name") else profile.gender
         form.height_cm.data = profile.height_cm
         form.weight_kg.data = profile.weight_kg
         form.target_weight_kg.data = profile.target_weight_kg
-        form.goal.data = profile.goal.name
-        form.activity_level.data = profile.activity_level.name
-        form.body_fat_percentage.data = profile.body_fat_percentage
+        form.goal.data = profile.goal.name if hasattr(profile.goal, "name") else profile.goal
+        form.activity_level.data = profile.activity_level.name if hasattr(profile.activity_level, "name") else profile.activity_level
+        form.workout_hours.data = profile.workout_hours
+        form.sleep_hours.data = profile.sleep_hours
+        form.daily_steps.data = profile.daily_steps
+        form.dietary_preference.data = profile.dietary_preference
         form.water_intake_liters.data = profile.water_intake_liters
         form.medical_conditions.data = profile.medical_conditions
 

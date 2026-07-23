@@ -71,11 +71,6 @@ class FitnessProfile(db.Model):
         nullable=False
     )
 
-    body_fat_percentage = db.Column(
-        db.Float,
-        nullable=True
-    )
-
     water_intake_liters = db.Column(
         db.Float,
         nullable=True

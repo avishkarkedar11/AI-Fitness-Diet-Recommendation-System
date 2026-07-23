@@ -85,31 +85,6 @@ Login | AI Fitness & Diet Recommendation System
 
                 </form>
 
-                <!-- Divider -->
-                <div class="d-flex align-items-center my-4">
-                    <hr class="flex-grow-1 text-black-50">
-                    <span class="px-3 text-secondary small">OR</span>
-                    <hr class="flex-grow-1 text-black-50">
-                </div>
-
-                <!-- Google Sign-In -->
-                <div class="d-grid">
-                    <div id="g_id_onload"
-                         data-client_id=""
-                         data-callback="handleCredentialResponse"
-                         data-auto_prompt="false">
-                    </div>
-                    <div class="g_id_signin"
-                         data-type="standard"
-                         data-size="large"
-                         data-theme="outline"
-                         data-text="sign_in_with"
-                         data-shape="pill"
-                         data-logo_alignment="left"
-                         data-width="100%">
-                    </div>
-                </div>
-
                 <hr class="my-4 text-black-50">
 
                 <div class="text-center small text-secondary">
@@ -131,8 +106,6 @@ Login | AI Fitness & Diet Recommendation System
 
 {% block scripts %}
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
 function togglePassword(){
     const password = document.getElementById("password");
@@ -147,12 +120,6 @@ function togglePassword(){
         icon.classList.remove("bi-eye-slash");
         icon.classList.add("bi-eye");
     }
-}
-
-function handleCredentialResponse(response) {
-    // Handle the Google credential response
-    console.log("Encoded JWT ID token: " + response.credential);
-    // Send the credential to your backend for verification
 }
 </script>
 

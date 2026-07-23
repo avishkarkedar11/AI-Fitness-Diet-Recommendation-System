@@ -11,14 +11,8 @@ from app.services.bmi_service import BMIService
 from app.services.calorie_service import CalorieService
 from app.services.progress_service import ProgressService
 
-try:
-    from app.ml.predictors.workout_predictor import WorkoutPredictor
-    from app.ml.predictors.diet_predictor import DietPredictor
-    ML_AVAILABLE = True
-except ImportError:
-    ML_AVAILABLE = False
-    WorkoutPredictor = None
-    DietPredictor = None
+from app.ml.predictors.workout_predictor import WorkoutPredictor
+from app.ml.predictors.diet_predictor import DietPredictor
 
 # Lazy initialization of ML predictors
 _workout_predictor = None
@@ -28,12 +22,9 @@ _diet_predictor = None
 def get_workout_predictor():
     global _workout_predictor
     if _workout_predictor is None:
-        if ML_AVAILABLE:
-            try:
-                _workout_predictor = WorkoutPredictor()
-            except Exception:
-                _workout_predictor = None
-        else:
+        try:
+            _workout_predictor = WorkoutPredictor()
+        except Exception:
             _workout_predictor = None
     return _workout_predictor
 
@@ -41,12 +32,9 @@ def get_workout_predictor():
 def get_diet_predictor():
     global _diet_predictor
     if _diet_predictor is None:
-        if ML_AVAILABLE:
-            try:
-                _diet_predictor = DietPredictor()
-            except Exception:
-                _diet_predictor = None
-        else:
+        try:
+            _diet_predictor = DietPredictor()
+        except Exception:
             _diet_predictor = None
     return _diet_predictor
 
@@ -599,4 +587,4 @@ class RecommendationService:
                 SavedRecommendation.generated_at.desc()
             )
             .first()
-        )
+        )

@@ -510,55 +510,7 @@ class PDFService:
         story.append(prog_summary_table)
         story.append(Spacer(1, 10))
 
-        # ==========================================
-        # Weight Trend Chart (Matplotlib)
-        # ==========================================
 
-        story.append(Paragraph("Weight Trend Chart", section_heading))
-
-        try:
-            chart_data = []
-            if history:
-                # Chronological order for chart
-                chart_history = list(reversed(history))
-                chart_data = [(item.recorded_at, item.weight_kg) for item in chart_history]
-
-            if len(chart_data) >= 1:
-                fig, ax = plt.subplots(figsize=(6.5, 2.2), dpi=150)
-
-                dates = [d[0].strftime("%d %b") for d in chart_data]
-                weights = [d[1] for d in chart_data]
-
-                ax.plot(dates, weights, marker="o", color="#4F46E5", linewidth=2.5, markersize=5, label="Weight (kg)")
-                ax.fill_between(range(len(dates)), weights, alpha=0.12, color="#4F46E5")
-
-                ax.set_title("Weight Progression Over Time", fontsize=10, fontweight="bold", color="#1F2937", pad=8)
-                ax.set_xlabel("Date", fontsize=8, color="#6B7280")
-                ax.set_ylabel("Weight (kg)", fontsize=8, color="#6B7280")
-
-                ax.tick_params(axis="both", labelsize=8.5, colors="#374151")
-                ax.grid(True, linestyle="--", linewidth=0.5, alpha=0.6, color="#E5E7EB")
-
-                for spine in ["top", "right"]:
-                    ax.spines[spine].set_visible(False)
-                for spine in ["left", "bottom"]:
-                    ax.spines[spine].set_color("#D1D5DB")
-
-                plt.tight_layout()
-
-                img_buf = BytesIO()
-                plt.savefig(img_buf, format="png", bbox_inches="tight")
-                plt.close(fig)
-                img_buf.seek(0)
-
-                story.append(RLImage(img_buf, width=6.5 * 72, height=2.2 * 72))
-            else:
-                story.append(Paragraph("Log progress entries to display the Weight Trend chart.", muted_style))
-        except Exception as e:
-            print(f"Error rendering chart for PDF: {e}")
-            story.append(Paragraph("Weight trend chart generated from recorded progress history.", muted_style))
-
-        story.append(Spacer(1, 10))
 
         # ==========================================
         # Progress History Table
@@ -572,8 +524,6 @@ class PDFService:
                 Paragraph("Weight", table_header_style),
                 Paragraph("BMI", table_header_style),
                 Paragraph("Waist", table_header_style),
-                Paragraph("Arms", table_header_style),
-                Paragraph("Thigh", table_header_style),
                 Paragraph("Notes", table_header_style),
             ]
         ]
@@ -592,8 +542,6 @@ class PDFService:
                     bmi_str = "-"
 
                 waist_str = f"{item.waist_cm:.1f} cm" if getattr(item, "waist_cm", None) else "-"
-                arms_str = f"{getattr(item, 'arms_cm'):.1f} cm" if getattr(item, "arms_cm", None) else "-"
-                thigh_str = f"{getattr(item, 'thigh_cm'):.1f} cm" if getattr(item, "thigh_cm", None) else "-"
                 notes_str = item.notes if item.notes else "-"
 
                 table_data.append([
@@ -601,8 +549,6 @@ class PDFService:
                     Paragraph(weight_str, table_cell_style),
                     Paragraph(bmi_str, table_cell_style),
                     Paragraph(waist_str, table_cell_style),
-                    Paragraph(arms_str, table_cell_style),
-                    Paragraph(thigh_str, table_cell_style),
                     Paragraph(notes_str, table_cell_style),
                 ])
         else:
@@ -611,12 +557,10 @@ class PDFService:
                 Paragraph("-", table_cell_style),
                 Paragraph("-", table_cell_style),
                 Paragraph("-", table_cell_style),
-                Paragraph("-", table_cell_style),
-                Paragraph("-", table_cell_style),
                 Paragraph("-", table_cell_style)
             ])
 
-        col_widths = [75, 55, 45, 55, 45, 45, 220]
+        col_widths = [90, 75, 60, 75, 240]
         history_table = Table(table_data, colWidths=col_widths, repeatRows=1)
 
         history_table_style = [

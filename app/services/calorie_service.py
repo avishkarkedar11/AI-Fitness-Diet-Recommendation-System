@@ -44,7 +44,9 @@ class CalorieService:
         using the Mifflin-St Jeor Equation.
         """
 
-        if profile.gender == Gender.MALE:
+        gender_str = str(getattr(profile, 'gender', '')).upper()
+
+        if "MALE" in gender_str and "FEMALE" not in gender_str:
 
             return (
                 10 * profile.weight_kg
@@ -118,16 +120,17 @@ class CalorieService:
         """
 
         calories = cls.calculate_tdee(profile)
+        goal_str = str(getattr(profile, 'goal', '')).upper()
 
-        if profile.goal == FitnessGoal.LOSE_WEIGHT:
+        if "LOSE" in goal_str:
 
             calories -= 500
 
-        elif profile.goal == FitnessGoal.GAIN_WEIGHT:
+        elif "GAIN" in goal_str:
 
             calories += 400
 
-        elif profile.goal == FitnessGoal.MAINTAIN_WEIGHT:
+        elif "MAINTAIN" in goal_str:
 
             calories += 0
 

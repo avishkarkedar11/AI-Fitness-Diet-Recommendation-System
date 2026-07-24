@@ -41,6 +41,13 @@ class ProgressService:
             print(f"Inserted ID: {progress.id}")
             print("=" * 50)
 
+            # Auto-ensure model is ready / retrained for fresh real-time prediction
+            try:
+                from app.ml.predictors.progress_predictor import ProgressPredictor
+                ProgressPredictor()
+            except Exception as ml_err:
+                print(f"[ML AUTO-CHECK NOTICE] {ml_err}")
+
             return progress
 
         except Exception as e:

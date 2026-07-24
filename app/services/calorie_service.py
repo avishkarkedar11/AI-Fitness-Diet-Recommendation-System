@@ -143,6 +143,9 @@ class CalorieService:
         Daily water intake in liters.
         """
 
+        if profile and profile.water_intake_liters is not None:
+            return round(profile.water_intake_liters, 1)
+
         liters = (profile.weight_kg * 35) / 1000
 
         workout = profile.workout_hours or 0

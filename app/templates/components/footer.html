@@ -1,134 +1,144 @@
-<footer class="mt-5" style="background-color: #1C7982; color: #FFFFFF;">
-    <div class="container py-5">
-        <div class="row gy-4">
-            <!-- Column 1: Logo, About & Social Links -->
-            <div class="col-lg-3 col-md-6">
-                <a href="https://www.athenura.in/" class="d-block mb-4">
-                    <img src="{{ url_for('static', filename='assets/Athenuralogo.png') }}" alt="Athenura logo" style="width: 220px; height: auto; display: block; mix-blend-mode: multiply;">
-                </a>
-                <p class="mb-4 small" style="color: #E0F2FE;">
-                    AI-Powered Fitness & Nutrition Plans. Personalized wellness for a smarter you. Start your transformation today.
+<footer class="footer-saas mt-auto border-top bg-white py-5">
+
+    <div class="container">
+
+        <div class="row g-4 justify-content-between mb-4">
+
+            <!-- Column 1: About -->
+            <div class="col-lg-5 col-md-12">
+
+                <h5 class="footer-title text-dark fw-bold mb-3">
+                    About
+                </h5>
+
+                <p class="footer-description text-secondary mb-0">
+                    Helping you achieve your fitness goals with personalized AI recommendations, smart nutrition insights and intelligent progress tracking.
                 </p>
-                <div class="d-flex gap-3">
-                    <a href="https://www.linkedin.com/company/athenura/posts/?feedView=all" class="text-decoration-none" style="color: #FFFFFF; transition: color 0.3s;">
-                        <i class="bi bi-linkedin fs-5"></i>
-                    </a>
-                    <a href="https://www.instagram.com/athenura.in/" class="text-decoration-none" style="color: #FFFFFF; transition: color 0.3s;">
-                        <i class="bi bi-instagram fs-5"></i>
-                    </a>
-                    <a href="https://x.com/athenura_in" class="text-decoration-none" style="color: #FFFFFF; transition: color 0.3s;">
-                        <i class="bi bi-twitter-x fs-5"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none" style="color: #FFFFFF; transition: color 0.3s;">
-                        <i class="bi bi-youtube fs-5"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none" style="color: #FFFFFF; transition: color 0.3s;">
-                        <i class="bi bi-facebook fs-5"></i>
-                    </a>
-                </div>
+
             </div>
 
-            <!-- Column 2: Quick Links -->
+            <!-- Column 2: Navigation -->
             <div class="col-lg-3 col-md-6">
-                <h5 class="fw-bold mb-4" style="color: #FFFFFF;">QUICK LINKS</h5>
-                <ul class="list-unstyled">
+
+                <h5 class="footer-title text-dark fw-bold mb-3">
+                    Navigation
+                </h5>
+
+                <ul class="list-unstyled footer-nav-links mb-0">
+
                     <li class="mb-2">
-                        <a href="/" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Home</a>
+                        <a href="{{ url_for('dashboard.home') }}" class="footer-link">
+                            <i class="bi bi-chevron-right me-1 small opacity-50"></i>
+                            Home
+                        </a>
                     </li>
+
                     <li class="mb-2">
-                        <a href="/workouts" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Workouts</a>
+                        <a href="{{ url_for('dashboard.dashboard') }}" class="footer-link">
+                            <i class="bi bi-chevron-right me-1 small opacity-50"></i>
+                            Dashboard
+                        </a>
                     </li>
+
                     <li class="mb-2">
-                        <a href="/nutrition" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Nutrition</a>
+                        <a href="{{ url_for('recommendation.view_recommendation') }}" class="footer-link">
+                            <i class="bi bi-chevron-right me-1 small opacity-50"></i>
+                            Recommendation
+                        </a>
                     </li>
+
                     <li class="mb-2">
-                        <a href="/pricing" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Pricing</a>
+                        <a href="{{ url_for('progress.progress') }}" class="footer-link">
+                            <i class="bi bi-chevron-right me-1 small opacity-50"></i>
+                            Progress
+                        </a>
                     </li>
-                    <li class="mb-2">
-                        <a href="/about-ai" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">About AI</a>
+
+                    <li class="mb-0">
+                        <a href="{{ url_for('profile.profile') }}" class="footer-link">
+                            <i class="bi bi-chevron-right me-1 small opacity-50"></i>
+                            Profile
+                        </a>
                     </li>
-                    <li class="mb-2">
-                        <a href="/blog" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Blog</a>
-                    </li>
+
                 </ul>
+
             </div>
 
-            <!-- Column 3: Services -->
+            <!-- Column 3: AI Features -->
             <div class="col-lg-3 col-md-6">
-                <h5 class="fw-bold mb-4" style="color: #FFFFFF;">SERVICES</h5>
-                <ul class="list-unstyled">
+
+                <h5 class="footer-title text-dark fw-bold mb-3">
+                    AI Features
+                </h5>
+
+                <ul class="list-unstyled footer-feature-links mb-0">
+
                     <li class="mb-2">
-                        <a href="/services/personalized-plans" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Personalized Plans</a>
+                        <span class="footer-feature-item">
+                            <i class="bi bi-stars me-2 text-primary"></i>
+                            AI Diet Plan
+                        </span>
                     </li>
+
                     <li class="mb-2">
-                        <a href="/services/analysis" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Performance Analysis</a>
+                        <span class="footer-feature-item">
+                            <i class="bi bi-activity me-2 text-success"></i>
+                            Workout Plan
+                        </span>
                     </li>
+
                     <li class="mb-2">
-                        <a href="/services/diet" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Diet Recommendations</a>
+                        <span class="footer-feature-item">
+                            <i class="bi bi-graph-up-arrow me-2 text-info"></i>
+                            Progress Tracking
+                        </span>
                     </li>
+
                     <li class="mb-2">
-                        <a href="/services/tracking" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Goal Tracking</a>
+                        <span class="footer-feature-item">
+                            <i class="bi bi-heart-pulse me-2 text-danger"></i>
+                            BMI Analysis
+                        </span>
                     </li>
+
+                    <li class="mb-0">
+                        <span class="footer-feature-item">
+                            <i class="bi bi-file-earmark-pdf me-2 text-warning"></i>
+                            Download PDF
+                        </span>
+                    </li>
+
                 </ul>
+
             </div>
 
-            <!-- Column 4: Get In Touch -->
-            <div class="col-lg-3 col-md-6">
-                <h5 class="fw-bold mb-4" style="color: #FFFFFF;">GET IN TOUCH</h5>
-                <div class="mb-3">
-                    <p class="mb-1 small" style="color: #E0F2FE;">
-                        <i class="bi bi-geo-alt me-2" style="color: #00F2FE;"></i>
-                        A-54, Athenura AI Hub, Sector 62, Noida — 201309
-                    </p>
-                    <p class="mb-1 small" style="color: #E0F2FE;">
-                        <i class="bi bi-telephone me-2" style="color: #00F2FE;"></i>
-                        +91 98350 51934
-                    </p>
-                    <p class="mb-0 small" style="color: #E0F2FE;">
-                        <i class="bi bi-envelope me-2" style="color: #00F2FE;"></i>
-                        official@athenura.in
-                    </p>
-                </div>
-                <div class="mt-4">
-                    <h6 class="fw-bold mb-2 small" style="color: #FFFFFF;">BUSINESS HOURS</h6>
-                    <p class="mb-1 small" style="color: #E0F2FE;">Mon – Sat: 9 AM to 8 PM</p>
-                    <p class="mb-0 small" style="color: #E0F2FE;">Sun: 10 AM to 5 PM</p>
-                </div>
-            </div>
         </div>
+
+        <!-- Bottom Divider -->
+        <hr class="footer-divider my-4">
+
+        <!-- Bottom Bar -->
+        <div class="row align-items-center gy-2">
+
+            <div class="col-md-6 text-center text-md-start">
+
+                <span class="footer-copyright text-muted">
+                    © 2026 Athenura
+                </span>
+
+            </div>
+
+            <div class="col-md-6 text-center text-md-end">
+
+                <span class="footer-credit text-muted">
+                    Developed by Athenura
+                </span>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="py-4" style="background-color: #145A63; border-top: 1px solid #1C7982;">
-        <div class="container">
-            <div class=" row align-items-center">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <small style="color: #E0F2FE;">© 2026 Athenura. All rights reserved.</small>
-                </div>
-                <div class="col-md-4 text-center mb-3 mb-md-0">
-                    <small style="color: #E0F2FE;">Designed and developed by Athenura</small>
-                </div>
-                <div class="col-md-4 text-end">
-                    <div class="d-flex justify-content-md-end gap-3">
-                        <a href="/terms" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Terms & Conditions</a>
-                        <a href="/privacy" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Privacy Policy</a>
-                        <a href="/cookies" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">Cookie Policy</a>
-                        <a href="/ai-safety" class="text-decoration-none small" style="color: #E0F2FE; transition: color 0.3s;">AI Safety</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </footer>
-
-<!-- Floating Buttons -->
-<div class="position-fixed bottom-0 end-0 p-3 d-flex flex-column gap-2" style="z-index: 1000;">
-    <!-- WhatsApp -->
-    <a href="https://wa.me/919835051934" target="_blank" class="btn rounded-circle d-flex align-items-center justify-content-center shadow-lg" style="width: 50px; height: 50px; background-color: #25D366; color: white; transition: transform 0.3s;">
-        <i class="bi bi-whatsapp fs-4"></i>
-    </a>
-    <!-- Phone -->
-    <a href="tel:+919835051934" class="btn rounded-circle d-flex align-items-center justify-content-center shadow-lg" style="width: 50px; height: 50px; background-color: #10B981; color: white; transition: transform 0.3s;">
-        <i class="bi bi-telephone fs-4"></i>
-    </a>
-</div>

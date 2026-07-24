@@ -296,7 +296,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isNaN(start) || isNaN(current) || isNaN(goal)) return;
 
-    let progress = ((current - start) / (goal - start)) * 100;
+    let isWeightLoss = start > goal;
+    let denominator = isWeightLoss ? (start - goal) : (goal - start);
+    let progress = 0;
+
+    if (denominator !== 0) {
+        progress = isWeightLoss
+            ? ((start - current) / denominator) * 100
+            : ((current - start) / denominator) * 100;
+    } else {
+        progress = (isWeightLoss ? (current <= goal) : (current >= goal)) ? 100 : 0;
+    }
 
     progress = Math.max(0, Math.min(progress, 100));
 

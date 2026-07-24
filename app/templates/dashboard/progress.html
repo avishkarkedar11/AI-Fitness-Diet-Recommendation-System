@@ -271,27 +271,39 @@ Progress Analytics
 
             <div class="col-lg-8">
 
-                <div class="dashboard-card h-100">
+                <div class="fitness-card h-100">
 
-                    <div class="card-header-custom">
+                    <div class="fitness-card-header">
 
                         <div>
 
-                            <h4>
+                            <h3 class="fitness-title">
 
                                 <i class="bi bi-graph-up-arrow me-2"></i>
 
-                                Weight Trend
+                                Weight Progress
 
-                            </h4>
+                            </h3>
 
-                            <p>
+                            <p class="fitness-subtitle">
 
-                                Your recorded weight progression over time.
+                                Track your body transformation over time.
 
                             </p>
 
                         </div>
+
+                        {% if history %}
+
+                        <div class="logs-badge">
+
+                            {{ history|length }}
+
+                            <span>Logs</span>
+
+                        </div>
+
+                        {% endif %}
 
                     </div>
 
@@ -769,117 +781,7 @@ Progress Analytics
 
     </section>
 
-    <!-- ========================================= -->
-    <!-- Weight Chart -->
-    <!-- ========================================= -->
 
-    <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        const ctx = document.getElementById("weightChart");
-
-        if (ctx) {
-
-            new Chart(ctx, {
-
-                type: "line",
-
-                data: {
-
-                    labels: [
-
-                        {% for item in history|reverse %}
-
-                        "{{ item.recorded_at.strftime('%d %b') }}",
-
-                        {% endfor %}
-
-                    ],
-
-                    datasets: [{
-
-                        label: "Weight",
-
-                        data: [
-
-                            {% for item in history|reverse %}
-
-                            {{ item.weight_kg }},
-
-                            {% endfor %}
-
-                        ],
-
-                        borderColor: "#4F46E5",
-
-                        backgroundColor: "rgba(79,70,229,.08)",
-
-                        borderWidth: 3,
-
-                        fill: true,
-
-                        tension: .4,
-
-                        pointRadius: 4,
-
-                        pointHoverRadius: 6
-
-                    }]
-
-                },
-
-                options: {
-
-                    responsive: true,
-
-                    maintainAspectRatio: false,
-
-                    plugins: {
-
-                        legend: {
-
-                            display: false
-
-                        }
-
-                    },
-
-                    scales: {
-
-                        x: {
-
-                            grid: {
-
-                                display: false
-
-                            }
-
-                        },
-
-                        y: {
-
-                            beginAtZero: false,
-
-                            ticks: {
-
-                                precision: 0
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            });
-
-        }
-
-    });
-
-    </script>
 
 
 
@@ -1202,6 +1104,12 @@ Progress Analytics
 {% endblock %}
 
 {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const chartLabels = {{ chart_data.labels | tojson }};
+const chartWeights = {{ chart_data.weights | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
 
 {% if form.errors %}
 <script>

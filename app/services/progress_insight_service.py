@@ -62,6 +62,7 @@ class ProgressInsightService:
         )
 
         goal = ProgressInsightService._goal_analysis(
+            first,
             latest,
             profile
         )
@@ -78,6 +79,12 @@ class ProgressInsightService:
         )
 
         return {
+
+            "starting_weight": first.weight_kg,
+
+            "current_weight": latest.weight_kg,
+
+            "target_weight": profile.target_weight_kg,
 
             "weight": weight,
 
@@ -235,30 +242,42 @@ class ProgressInsightService:
     # =====================================================
 
     @staticmethod
-    def _goal_analysis(latest, profile):
+    def _goal_analysis(first, latest, profile):
         """
         Analyze goal progress.
         """
 
-        target = profile.target_weight_kg
-        current = latest.weight_kg
-        starting = profile.weight_kg
+        goal_weight = profile.target_weight_kg
+        current_weight = latest.weight_kg
+        start_weight = first.weight_kg
 
-        remaining = round(current - target, 2)
+        remaining = round(abs(current_weight - goal_weight), 2)
 
-        total_change_needed = abs(starting - target)
-        completed_change = abs(starting - current)
+        # Determine if goal is weight loss vs weight gain
+        is_weight_loss = (start_weight > goal_weight)
+        if hasattr(profile, 'goal') and profile.goal:
+            from app.utils.enums import FitnessGoal
+            if profile.goal == FitnessGoal.LOSE_WEIGHT:
+                is_weight_loss = True
+            elif profile.goal == FitnessGoal.GAIN_WEIGHT:
+                is_weight_loss = False
 
-        if total_change_needed == 0:
-            progress = 100
+        if is_weight_loss:
+            denominator = start_weight - goal_weight
+            if denominator <= 0:
+                progress = 100.0 if current_weight <= goal_weight else 0.0
+            else:
+                progress = ((start_weight - current_weight) / denominator) * 100.0
         else:
-            progress = min(
-                round(
-                    (completed_change / total_change_needed) * 100,
-                    2
-                ),
-                100
-            )
+            denominator = goal_weight - start_weight
+            if denominator <= 0:
+                progress = 100.0 if current_weight >= goal_weight else 0.0
+            else:
+                progress = ((current_weight - start_weight) / denominator) * 100.0
+
+        # Clamp result between 0 and 100
+        progress = max(0.0, min(100.0, progress))
+        progress = round(progress, 2)
 
         if progress >= 100:
 
@@ -278,7 +297,11 @@ class ProgressInsightService:
 
         return {
 
-            "target_weight": target,
+            "target_weight": goal_weight,
+
+            "starting_weight": start_weight,
+
+            "current_weight": current_weight,
 
             "remaining_weight": remaining,
 
